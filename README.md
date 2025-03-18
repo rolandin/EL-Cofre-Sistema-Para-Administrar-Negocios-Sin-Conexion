@@ -2,26 +2,29 @@
 
 ## 🌟 Descripción
 
-El Cofre es una solución integral y descentralizada diseñada para pequeñas y medianas empresas que buscan operar sin necesidad de conexión a internet. Este sistema es completamente agnóstico en términos políticos y monetarios , permitiendo al usuario control total sobre sus variables de negocio, incluyendo monedas, impuestos, precios y más.
+El Cofre es una solución integral y descentralizada diseñada para pequeñas y medianas empresas que buscan operar sin necesidad de conexión a internet. Este sistema es completamente agnóstico en términos políticos y monetarios, el usuario tiene control total sobre sus datos.
 
-La base de datos está alojada localmente, lo que garantiza que los usuarios tengan control absoluto sobre sus datos . Además, el sistema permite realizar copias de seguridad físicas (por ejemplo, en dispositivos USB) y restaurarlas en cualquier momento, asegurando la integridad y privacidad de la información.
+La base de datos está alojada localmente, lo que garantiza que los usuarios tengan control absoluto sobre sus datos. El sistema permite realizar copias de seguridad físicas (por ejemplo, en dispositivos USB) y restaurarlas en cualquier momento, asegurando la integridad de la información.
 
-Este proyecto está especialmente pensado para regiones con conectividad limitada o fluctuante, así como para entornos donde las interrupciones eléctricas son frecuentes. El Cofre puede ser desplegado rápidamente en un servidor local y funcionará siempre que haya energía disponible, proporcionando una herramienta robusta para gestionar negocios incluso en condiciones adversas.
+Este proyecto está especialmente pensado para regiones geográficas del plaenta con conectividad limitada o fluctuante, así como para entornos donde las interrupciones eléctricas son frecuentes. El Cofre puede ser desplegado rápidamente en una computadora local funcionando como servidor y funcionará siempre que haya energía disponible, proporcionando una herramienta robusta para gestionar negocios incluso en condiciones adversas.
 
 ## 🎯 Características Principales
 
 ### 📦 Gestión de Inventario
 
-- Control de productos con SKU único
+- Control de productos con número de producto único (SKU)
 - Seguimiento de precios de entrada y salida
-- Gestión de stock
+- Gestión de Inventario
+- Precios de productos configurables
+- Número de productos configurables
+- Recepción de mercancía
 - Historial de recepción de mercancía
-- Sistema de devoluciones
+- Sistema variable de devoluciones
 
 ### 💼 Gestión de Servicios
 
 - Catálogo de servicios
-- Precios base configurables
+- Precios de servicios configurables
 - Comisiones por servicio
 - Historial de servicios prestados
 
@@ -30,19 +33,19 @@ Este proyecto está especialmente pensado para regiones con conectividad limitad
 - Registro de empleados
 - Control de contratistas
 - Sistema de comisiones
+- Sistema de tarifa para localización.
 - Gestión de pagos y salarios
 
 ### 📅 Agenda y Citas
 
 - Calendario de citas
 - Gestión de horarios
-- Seguimiento de citas por empleado/contratista
+- Seguimiento de citas por empleado/contratista (Se viene pronto)
 
 ### 💰 Gestión Financiera
 
 - Control de ventas
 - Seguimiento de ganancias
-- Sistema de comisiones
 - Reportes financieros
 
 ### 🔐 Seguridad y Respaldo
@@ -55,7 +58,15 @@ Este proyecto está especialmente pensado para regiones con conectividad limitad
 ### 🌐 Multilenguaje
 
 - Español (por defecto)
-- Inglés
+- English
+- Русский (Próximamente)
+- Français (Prochainement)
+- 中文 (即将推出)
+- Deutsch (Demnächst verfügbar)
+- Italiano (Prossimamente)
+- Português (Em breve)
+- 日本語 (近日公開)
+- 한국어 (곧 출시 예정)
 
 ## 🛠️ Tecnologías Utilizadas
 
