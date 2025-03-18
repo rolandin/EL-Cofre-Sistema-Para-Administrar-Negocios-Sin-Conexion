@@ -8,6 +8,10 @@ const appointmentSchema = z.object({
   startTime: z.string(),
   endTime: z.string(),
   notes: z.string().optional(),
+  contractorId: z.number().optional(),
+  employeeId: z.number().optional(),
+  clientName: z.string().optional(),
+  serviceId: z.number().optional(),
 });
 
 export async function GET(request: Request) {
@@ -15,19 +19,39 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const start = searchParams.get("start");
     const end = searchParams.get("end");
+    const contractorId = searchParams.get("contractorId");
+    const employeeId = searchParams.get("employeeId");
 
     let query = `
       SELECT 
         a.*,
-        u.username as created_by_username
+        u.username as created_by_username,
+        c.name as contractor_name,
+        e.name as employee_name,
+        s.name as service_name
       FROM appointments a
       JOIN users u ON a.created_by = u.id
+      LEFT JOIN contractors c ON a.contractor_id = c.id
+      LEFT JOIN employees e ON a.employee_id = e.id
+      LEFT JOIN services s ON a.service_id = s.id
+      WHERE 1=1
     `;
 
     const params: any[] = [];
+
     if (start && end) {
-      query += " WHERE start_time >= ? AND end_time <= ?";
+      query += " AND start_time >= ? AND end_time <= ?";
       params.push(start, end);
+    }
+
+    if (contractorId) {
+      query += " AND a.contractor_id = ?";
+      params.push(contractorId);
+    }
+
+    if (employeeId) {
+      query += " AND a.employee_id = ?";
+      params.push(employeeId);
     }
 
     query += " ORDER BY start_time";
@@ -50,6 +74,48 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validatedData = appointmentSchema.parse(body);
 
+    // Check for overlapping appointments for the same contractor/employee
+    if (validatedData.contractorId || validatedData.employeeId) {
+      const query = `
+        SELECT COUNT(*) as count
+        FROM appointments
+        WHERE (
+          (contractor_id = ? AND ? IS NOT NULL)
+          OR 
+          (employee_id = ? AND ? IS NOT NULL)
+        )
+        AND (
+          (start_time <= ? AND end_time > ?)
+          OR
+          (start_time < ? AND end_time >= ?)
+          OR
+          (start_time >= ? AND end_time <= ?)
+        )
+      `;
+
+      const overlap = db
+        .prepare(query)
+        .get(
+          validatedData.contractorId,
+          validatedData.contractorId,
+          validatedData.employeeId,
+          validatedData.employeeId,
+          validatedData.endTime,
+          validatedData.startTime,
+          validatedData.endTime,
+          validatedData.startTime,
+          validatedData.startTime,
+          validatedData.endTime
+        ) as { count: number };
+
+      if (overlap.count > 0) {
+        return NextResponse.json(
+          { error: "Time slot is already booked" },
+          { status: 400 }
+        );
+      }
+    }
+
     const result = db
       .prepare(
         `INSERT INTO appointments (
@@ -57,15 +123,23 @@ export async function POST(request: Request) {
           start_time,
           end_time,
           notes,
-          created_by
-        ) VALUES (?, ?, ?, ?, ?)`
+          created_by,
+          contractor_id,
+          employee_id,
+          client_name,
+          service_id
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
       )
       .run(
         validatedData.title,
         validatedData.startTime,
         validatedData.endTime,
         validatedData.notes || "",
-        auth.userId
+        auth.userId,
+        validatedData.contractorId || null,
+        validatedData.employeeId || null,
+        validatedData.clientName || null,
+        validatedData.serviceId || null
       );
 
     return NextResponse.json({

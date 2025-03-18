@@ -168,8 +168,15 @@ try {
       end_time TEXT NOT NULL,
       notes TEXT,
       created_by INTEGER NOT NULL,
+      contractor_id INTEGER,
+      employee_id INTEGER,
+      client_name TEXT,
+      service_id INTEGER,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY(created_by) REFERENCES users(id)
+      FOREIGN KEY(created_by) REFERENCES users(id),
+      FOREIGN KEY(contractor_id) REFERENCES contractors(id),
+      FOREIGN KEY(employee_id) REFERENCES employees(id),
+      FOREIGN KEY(service_id) REFERENCES services(id)
     );
 
     -- Insert default system settings if they don't exist

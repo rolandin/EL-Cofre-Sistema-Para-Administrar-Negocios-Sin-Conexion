@@ -75,10 +75,10 @@ export default function DashboardPage() {
   });
 
   const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("es-ES", {
-      style: "currency",
-      currency: "USD",
-    }).format(value);
+    `💰 ${new Intl.NumberFormat("es-ES", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value)}`;
 
   return (
     <div className="space-y-8">
