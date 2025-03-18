@@ -157,7 +157,7 @@ try {
     CREATE TABLE IF NOT EXISTS system_settings (
       id INTEGER PRIMARY KEY CHECK (id = 1),
       theme TEXT NOT NULL DEFAULT 'system' CHECK(theme IN ('light', 'dark', 'system')),
-      language TEXT NOT NULL DEFAULT 'es' CHECK(language IN ('en', 'es')),
+      language TEXT NOT NULL DEFAULT 'es' CHECK(language IN ('en', 'es', 'ru')),
       lastBackup TEXT
     );
 

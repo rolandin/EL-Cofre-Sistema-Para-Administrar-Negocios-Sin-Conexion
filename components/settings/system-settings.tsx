@@ -27,7 +27,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 interface SystemSettings {
   theme: "light" | "dark" | "system";
   language: Language;
-  lastBackup: string | null;
 }
 
 export function SystemSettings() {
@@ -38,7 +37,6 @@ export function SystemSettings() {
   const [settings, setSettings] = useState<SystemSettings>({
     theme: "system",
     language: "es",
-    lastBackup: null,
   });
 
   // Fetch settings
@@ -197,6 +195,7 @@ export function SystemSettings() {
                 <SelectContent>
                   <SelectItem value="es">{t("spanish")}</SelectItem>
                   <SelectItem value="en">{t("english")}</SelectItem>
+                  <SelectItem value="ru">{t("russian")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

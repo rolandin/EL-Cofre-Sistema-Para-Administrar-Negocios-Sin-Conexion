@@ -4,30 +4,18 @@ import { z } from "zod";
 
 const systemSettingsSchema = z.object({
   theme: z.enum(["light", "dark", "system"]),
-  language: z.enum(["en", "es"]),
-  autoBackup: z.boolean(),
-  backupFrequency: z.enum(["daily", "weekly", "monthly"]),
-  retentionDays: z.number().min(1),
-  notificationsEnabled: z.boolean(),
-  emailNotifications: z.boolean(),
+  language: z.enum(["en", "es", "ru"]),
 });
 
 export async function GET() {
   try {
     const settings = db
-      .prepare("SELECT * FROM system_settings LIMIT 1")
+      .prepare("SELECT theme, language FROM system_settings LIMIT 1")
       .get() as any;
 
-    // Convert SQLite integer booleans to JavaScript booleans
     return NextResponse.json({
       theme: settings?.theme || "system",
       language: settings?.language || "es",
-      autoBackup: Boolean(settings?.autoBackup),
-      backupFrequency: settings?.backupFrequency || "daily",
-      retentionDays: settings?.retentionDays || 30,
-      notificationsEnabled: Boolean(settings?.notificationsEnabled),
-      emailNotifications: Boolean(settings?.emailNotifications),
-      lastBackup: settings?.lastBackup || null,
     });
   } catch (error) {
     console.error("Failed to fetch system settings:", error);
@@ -43,26 +31,12 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const validatedData = systemSettingsSchema.parse(body);
 
-    // Convert JavaScript booleans to SQLite integers
     db.prepare(
       `UPDATE system_settings SET
         theme = ?,
-        language = ?,
-        autoBackup = ?,
-        backupFrequency = ?,
-        retentionDays = ?,
-        notificationsEnabled = ?,
-        emailNotifications = ?
+        language = ?
       WHERE id = 1`
-    ).run(
-      validatedData.theme,
-      validatedData.language,
-      validatedData.autoBackup ? 1 : 0,
-      validatedData.backupFrequency,
-      validatedData.retentionDays,
-      validatedData.notificationsEnabled ? 1 : 0,
-      validatedData.emailNotifications ? 1 : 0
-    );
+    ).run(validatedData.theme, validatedData.language);
 
     return NextResponse.json({ success: true });
   } catch (error) {

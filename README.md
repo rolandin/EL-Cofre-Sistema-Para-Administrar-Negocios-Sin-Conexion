@@ -59,8 +59,8 @@ Este proyecto está especialmente pensado para regiones geográficas del plaenta
 
 - Español (por defecto)
 - English
-- Русский (Próximamente)
 - Français (Prochainement)
+- Русский
 - 中文 (即将推出)
 - Deutsch (Demnächst verfügbar)
 - Italiano (Prossimamente)

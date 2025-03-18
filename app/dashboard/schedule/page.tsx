@@ -471,8 +471,6 @@ export default function SchedulePage() {
   };
 
   const scrollToCurrentTime = useCallback(() => {
-    console.log("Attempting to scroll ScrollArea..."); // Debug log
-
     // Find the actual scrollable container within the ScrollArea
     const scrollContainer = scrollAreaRef.current?.querySelector(
       "[data-radix-scroll-area-viewport]"
@@ -481,9 +479,6 @@ export default function SchedulePage() {
       const currentPosition = getCurrentTimePosition();
       const containerHeight = scrollContainer.clientHeight;
       const scrollPosition = currentPosition - containerHeight / 2; // Center in viewport
-
-      console.log("Scrolling to position:", scrollPosition);
-
       // Use scrollTo for smooth scrolling
       scrollContainer.scrollTo({
         top: Math.max(0, scrollPosition),
@@ -538,7 +533,7 @@ export default function SchedulePage() {
               variant="outline"
               onClick={scrollToCurrentTime}
             >
-              {t("today")}
+              {t("now")}
             </Button>
             <Button className="flex-1" onClick={() => setIsDialogOpen(true)}>
               {t("newAppointment")}
