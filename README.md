@@ -2,7 +2,7 @@
 
 ## 🌟 Descripción
 
-El Cofre es una solución integral y descentralizada diseñada para pequeñas y medianas empresas que buscan operar sin necesidad de conexión a internet. Este sistema es completamente agnóstico en términos políticos y monetarios, el usuario tiene control total sobre sus datos.
+El Cofre es una solución de software agnóstica diseñada para pequeñas y medianas empresas que buscan operar bajo condiciones adversas en zonas geográficas en donde escasea la conexión a internet y/o el fluido eléctrico. Este sistema es completamente agnóstico en términos políticos y monetarios, el usuario tiene control total sobre sus datos.
 
 La base de datos está alojada localmente, lo que garantiza que los usuarios tengan control absoluto sobre sus datos. El sistema permite realizar copias de seguridad físicas (por ejemplo, en dispositivos USB) y restaurarlas en cualquier momento, asegurando la integridad de la información.
 
