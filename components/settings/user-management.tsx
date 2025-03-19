@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { Loader2, Lock, Unlock, Trash2 } from "lucide-react";
+import { Loader2, Lock, Unlock, Trash2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -32,6 +32,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "@/lib/i18n/use-translations";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { NewUserForm } from "@/components/settings/new-user-form";
 
 interface User {
   id: number;
@@ -44,7 +47,13 @@ interface User {
 }
 
 export function UserManagement() {
+  const { t } = useTranslations();
   const queryClient = useQueryClient();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleUserSuccess = () => {
+    setIsDialogOpen(false);
+  };
 
   // Fetch users with React Query
   const { data: users = [], isLoading } = useQuery({
@@ -75,11 +84,11 @@ export function UserManagement() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("User status updated successfully");
+      toast.success(t("userUpdated"));
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: () => {
-      toast.error("Failed to update user status");
+      toast.error(t("invalidUserData"));
     },
   });
 
@@ -94,11 +103,11 @@ export function UserManagement() {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("User deleted successfully");
+      toast.success(t("userDeleted"));
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: () => {
-      toast.error("Failed to delete user");
+      toast.error(t("invalidUserData"));
     },
   });
 
@@ -115,29 +124,44 @@ export function UserManagement() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>User Management</CardTitle>
-        <CardDescription>
-          Manage user accounts and access levels
-        </CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle>{t("userSettings")}</CardTitle>
+            <CardDescription>{t("userSettingsDescription")}</CardDescription>
+          </div>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                {t("newUser")}
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <NewUserForm onSuccess={handleUserSuccess} />
+            </DialogContent>
+          </Dialog>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Username</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Employee</TableHead>
-                <TableHead>Last Login</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead>{t("username")}</TableHead>
+                <TableHead>{t("role")}</TableHead>
+                <TableHead>{t("employee")}</TableHead>
+                <TableHead>{t("lastLogin")}</TableHead>
+                <TableHead>{t("status")}</TableHead>
+                <TableHead className="text-right">{t("actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {users.map((user: User) => (
                 <TableRow key={user.id}>
                   <TableCell className="font-medium">{user.username}</TableCell>
-                  <TableCell className="capitalize">{user.role}</TableCell>
+                  <TableCell className="capitalize">
+                    {user.role === "admin" ? t("admin") : t("controller")}
+                  </TableCell>
                   <TableCell>
                     {user.employee_name ? (
                       <div>
@@ -163,7 +187,7 @@ export function UserManagement() {
                           : "bg-red-100 text-red-800"
                       }`}
                     >
-                      {user.isActive ? "Active" : "Inactive"}
+                      {user.isActive ? t("active") : t("inactive")}
                     </span>
                   </TableCell>
                   <TableCell className="text-right">
@@ -199,10 +223,11 @@ export function UserManagement() {
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
-                            <AlertDialogTitle>Delete User</AlertDialogTitle>
+                            <AlertDialogTitle>
+                              {t("deleteUserConfirm")}
+                            </AlertDialogTitle>
                             <AlertDialogDescription>
-                              Are you sure you want to delete this user? This
-                              action cannot be undone.
+                              {t("deleteUserDescription")}
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>

@@ -18,11 +18,6 @@ import { useTranslations } from "@/lib/i18n/use-translations";
 
 export default function SettingsPage() {
   const { t } = useTranslations();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const handleUserSuccess = () => {
-    setIsDialogOpen(false);
-  };
 
   return (
     <div className="space-y-8">
@@ -33,18 +28,6 @@ export default function SettingsPage() {
             {t("settingsDescription")}
           </p>
         </div>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <Button onClick={() => setIsDialogOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            {t("newUser")}
-          </Button>
-          <DialogContent className="sm:max-w-[600px]">
-            <DialogHeader>
-              <DialogTitle>{t("newUser")}</DialogTitle>
-            </DialogHeader>
-            <NewUserForm onSuccess={handleUserSuccess} />
-          </DialogContent>
-        </Dialog>
       </div>
 
       <Tabs defaultValue="users" className="space-y-6">

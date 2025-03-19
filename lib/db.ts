@@ -155,10 +155,13 @@ try {
     );
 
     CREATE TABLE IF NOT EXISTS system_settings (
-      id INTEGER PRIMARY KEY CHECK (id = 1),
-      theme TEXT NOT NULL DEFAULT 'system' CHECK(theme IN ('light', 'dark', 'system')),
-      language TEXT NOT NULL DEFAULT 'es' CHECK(language IN ('en', 'es', 'ru')),
-      lastBackup TEXT
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    theme TEXT NOT NULL DEFAULT 'system' CHECK(theme IN ('light', 'dark', 'system')),
+    language TEXT NOT NULL DEFAULT 'es' CHECK(language IN (
+            'en', 'es', 'ru', 'fr', 'zh', 'hi', 'bn', 'ar', 'pt', 'ur',
+            'sw', 'id', 'fa', 'ha', 'pa', 'ta', 'tr', 'yo', 'ig', 'am',
+            'vi', 'th', 'ms', 'so', 'ku', 'zu', 'xh', 'si', 'ne', 'tl'
+        ))
     );
 
     CREATE TABLE IF NOT EXISTS appointments (

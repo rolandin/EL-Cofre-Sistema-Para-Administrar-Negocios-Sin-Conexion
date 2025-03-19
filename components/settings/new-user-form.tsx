@@ -111,6 +111,7 @@ export function NewUserForm({ onSuccess }: NewUserFormProps) {
       </div>
 
       <InputWithEye
+        name="password"
         id="password"
         label="Password"
         required
@@ -119,6 +120,7 @@ export function NewUserForm({ onSuccess }: NewUserFormProps) {
       />
 
       <InputWithEye
+        name="confirmPassword"
         id="confirmPassword"
         label="Confirm Password"
         required

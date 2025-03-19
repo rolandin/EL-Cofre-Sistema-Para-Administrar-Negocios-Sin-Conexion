@@ -125,7 +125,8 @@ const groupAppointmentsByContractor = (
 
   // Group appointments by contractor
   appointments.forEach((appointment) => {
-    const contractorAppointments = grouped.get(appointment.contractor_id) || [];
+    const contractorAppointments =
+      grouped.get(appointment.contractor_id!) || [];
     contractorAppointments.push(appointment);
   });
 
@@ -568,7 +569,7 @@ export default function SchedulePage() {
                 </div>
                 {/* Contractor columns */}
                 <div className="ml-16 flex">
-                  {contractors.map((contractor) => {
+                  {contractors.map((contractor: Contractor) => {
                     const colorClass = getContractorColor(contractor.id);
                     const contractorAppointments =
                       groupAppointmentsByContractor(

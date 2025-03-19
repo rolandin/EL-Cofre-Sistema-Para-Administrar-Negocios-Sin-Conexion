@@ -195,7 +195,9 @@ export function SystemSettings() {
                 <SelectContent>
                   <SelectItem value="es">{t("spanish")}</SelectItem>
                   <SelectItem value="en">{t("english")}</SelectItem>
+                  <SelectItem value="fr">{t("french")}</SelectItem>
                   <SelectItem value="ru">{t("russian")}</SelectItem>
+                  <SelectItem value="zh">{t("chinese")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -240,12 +242,6 @@ export function SystemSettings() {
                   />
                 </div>
               </div>
-
-              {settings.lastBackup && (
-                <p className="text-sm text-gray-500">
-                  Last backup: {new Date(settings.lastBackup).toLocaleString()}
-                </p>
-              )}
             </div>
           </div>
 
