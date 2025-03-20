@@ -119,7 +119,7 @@ export function ContractorPaymentForm({
     (contractor: Contractor) => contractor.isActive
   );
 
-  const contractorItems = activeContractors.map((contractor) => ({
+  const contractorItems = activeContractors.map((contractor: Contractor) => ({
     value: contractor.id.toString(),
     label: contractor.name,
   }));

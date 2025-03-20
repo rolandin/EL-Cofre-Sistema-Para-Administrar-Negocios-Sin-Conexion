@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { InputWithEye } from "@/components/ui/input-with-eye";
 import { Button } from "@/components/ui/button";
-import { Warehouse } from "lucide-react";
+import { Package } from "lucide-react";
 import { useTranslations } from "@/lib/i18n/use-translations";
 
 export default function LoginPage() {
@@ -45,7 +45,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <Warehouse className="h-12 w-12 text-blue-600" />
+          <Package className="h-12 w-12 text-blue-600" />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
           {t("signIn")} El Cofre

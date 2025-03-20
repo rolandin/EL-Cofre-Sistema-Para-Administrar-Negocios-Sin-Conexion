@@ -198,6 +198,10 @@ export function SystemSettings() {
                   <SelectItem value="fr">{t("french")}</SelectItem>
                   <SelectItem value="ru">{t("russian")}</SelectItem>
                   <SelectItem value="zh">{t("chinese")}</SelectItem>
+                  <SelectItem value="hi">{t("hindi")}</SelectItem>
+                  <SelectItem value="bn">{t("bengali")}</SelectItem>
+                  <SelectItem value="ar">{t("arabic")}</SelectItem>
+                  <SelectItem value="pt">{t("portuguese")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

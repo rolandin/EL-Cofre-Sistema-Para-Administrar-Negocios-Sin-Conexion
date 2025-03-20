@@ -74,13 +74,6 @@ interface ContractorFormData {
   locationFeePercentage: string;
 }
 
-interface ContractorEarnings {
-  service_earnings: number;
-  product_commissions: number;
-  total_services: number;
-  total_products: number;
-}
-
 interface ServiceRecord {
   id: number;
   service_name: string;
@@ -447,7 +440,7 @@ export function ContractorManagement() {
                     key={contractor.id}
                     className={
                       !contractor.isActive
-                        ? "bg-gray-100 dark:bg-gray-800/50"
+                        ? "bg-gray-100 dark:bg-gray-800/50 text-gray-400"
                         : ""
                     }
                   >
