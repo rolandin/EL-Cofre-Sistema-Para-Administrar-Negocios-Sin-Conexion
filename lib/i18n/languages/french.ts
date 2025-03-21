@@ -149,16 +149,20 @@ export const fr = {
   returnProcessed: "Retour traité avec succès",
   noReturns: "Aucun retour enregistré",
   // Services
-  availableServices: "Services disponibles",
-  serviceHistory: "Historique des services",
+  availableServices: "Services Disponibles",
+  serviceHistory: "Historique des Services",
   description: "Description",
-  basePrice: "Prix de base",
-  newService: "Nouveau service",
+  basePrice: "Prix de Base",
+  newService: "Nouveau Service",
   serviceCreated: "Service créé avec succès",
+  serviceDeleted: "Service supprimé avec succès",
+  deleteService: "Supprimer le Service",
+  confirmDeleteService:
+    "Êtes-vous sûr de vouloir supprimer ce service ? Cette action ne peut pas être annulée.",
   noServices: "Aucun service disponible",
   noServiceHistory: "Aucun historique disponible",
   client: "Client",
-  earnings: "Revenus",
+  earnings: "Gains",
   business: "Entreprise",
   // Payments
   paymentHistory: "Historique des paiements",
@@ -280,7 +284,7 @@ export const fr = {
   userSettings: "Paramètres utilisateur",
   userSettingsDescription: "Gérer les paramètres des utilisateurs",
   admin: "Administrateur",
-  controller: "Contrôleur",
+  controller: "Opérateur",
   createUser: "Créer un utilisateur",
   editUser: "Modifier l'utilisateur",
   deleteUserDescription: "Cette action ne peut pas être annulée.",
@@ -289,4 +293,10 @@ export const fr = {
   passwordRequirements: "Le mot de passe doit contenir au moins 6 caractères",
   userExists: "Un utilisateur avec ce nom existe déjà",
   invalidUserData: "Données utilisateur invalides",
+  selectRole: "Sélectionner un rôle",
+  deleteEmployee: "Supprimer l'employé",
+  deleteEmployeeConfirm:
+    "Êtes-vous sûr de vouloir supprimer cet employé ? Cette action ne peut pas être annulée.",
+  inactiveUserError:
+    "Votre compte est actuellement inactif. Veuillez contacter un administrateur.",
 };

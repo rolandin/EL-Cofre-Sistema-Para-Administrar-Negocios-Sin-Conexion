@@ -154,6 +154,10 @@ export const pt = {
   basePrice: "Preço Base",
   newService: "Novo Serviço",
   serviceCreated: "Serviço criado com sucesso",
+  serviceDeleted: "Serviço excluído com sucesso",
+  deleteService: "Excluir Serviço",
+  confirmDeleteService:
+    "Tem certeza que deseja excluir este serviço? Esta ação não pode ser desfeita.",
   noServices: "Nenhum serviço disponível",
   noServiceHistory: "Nenhum histórico disponível",
   client: "Cliente",
@@ -278,7 +282,7 @@ export const pt = {
   userSettings: "Configurações de Usuário",
   userSettingsDescription: "Gerencie as configurações dos usuários",
   admin: "Administrador",
-  controller: "Controlador",
+  controller: "Operador",
   createUser: "Criar Usuário",
   editUser: "Editar Usuário",
   deleteUserDescription: "Esta ação não pode ser desfeita.",
@@ -287,4 +291,10 @@ export const pt = {
   passwordRequirements: "A senha deve ter pelo menos 6 caracteres",
   userExists: "Já existe um usuário com este nome",
   invalidUserData: "Dados de usuário inválidos",
+  selectRole: "Selecionar função",
+  deleteEmployee: "Excluir Funcionário",
+  deleteEmployeeConfirm:
+    "Tem certeza que deseja excluir este funcionário? Esta ação não pode ser desfeita.",
+  inactiveUserError:
+    "Sua conta está atualmente inativa. Por favor, entre em contato com um administrador.",
 };

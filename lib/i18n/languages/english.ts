@@ -162,6 +162,10 @@ export const en = {
   basePrice: "Base Price",
   newService: "New Service",
   serviceCreated: "Service created successfully",
+  serviceDeleted: "Service deleted successfully",
+  deleteService: "Delete Service",
+  confirmDeleteService:
+    "Are you sure you want to delete this service? This action cannot be undone.",
   noServices: "No services available",
   noServiceHistory: "No history available",
   client: "Client",
@@ -292,7 +296,7 @@ export const en = {
   userSettings: "User Settings",
   userSettingsDescription: "Manage user settings",
   admin: "Administrator",
-  controller: "Controller",
+  controller: "Operator",
   createUser: "Create User",
   editUser: "Edit User",
   deleteUserDescription: "This action cannot be undone.",
@@ -301,4 +305,13 @@ export const en = {
   passwordRequirements: "Password must be at least 6 characters long",
   userExists: "A user with this username already exists",
   invalidUserData: "Invalid user data",
+  inactiveUserError:
+    "Your account is currently inactive. Please contact an administrator.",
+
+  // New key
+  selectRole: "Select role",
+
+  deleteEmployee: "Delete Employee",
+  deleteEmployeeConfirm:
+    "Are you sure you want to delete this employee? This action cannot be undone.",
 };

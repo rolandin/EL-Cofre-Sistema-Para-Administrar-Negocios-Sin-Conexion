@@ -190,7 +190,8 @@ export default function SchedulePage() {
     queryFn: async () => {
       const response = await fetch("/api/services");
       if (!response.ok) throw new Error("Failed to fetch services");
-      return response.json();
+      const data = await response.json();
+      return data.items || []; // Extract items from paginated response
     },
   });
 
@@ -472,21 +473,21 @@ export default function SchedulePage() {
   };
 
   const scrollToCurrentTime = useCallback(() => {
-    // Find the actual scrollable container within the ScrollArea
-    const scrollContainer = scrollAreaRef.current?.querySelector(
-      "[data-radix-scroll-area-viewport]"
-    );
-    if (scrollContainer) {
+    // Only scroll if we're viewing today's date
+    if (selectedDate.toDateString() !== new Date().toDateString()) {
+      return;
+    }
+
+    if (scrollAreaRef.current) {
       const currentPosition = getCurrentTimePosition();
-      const containerHeight = scrollContainer.clientHeight;
+      const containerHeight = scrollAreaRef.current.clientHeight;
       const scrollPosition = currentPosition - containerHeight / 2; // Center in viewport
-      // Use scrollTo for smooth scrolling
-      scrollContainer.scrollTo({
+      scrollAreaRef.current.scrollTo({
         top: Math.max(0, scrollPosition),
         behavior: "smooth",
       });
     }
-  }, []);
+  }, [selectedDate]);
 
   useEffect(() => {
     // Initial scroll with a delay to ensure render is complete
@@ -497,6 +498,7 @@ export default function SchedulePage() {
     // Update time every minute
     const timeInterval = setInterval(() => {
       setCurrentTime(new Date());
+      // Only auto-scroll if we're viewing today's date
       if (selectedDate.toDateString() === new Date().toDateString()) {
         scrollToCurrentTime();
       }
@@ -510,6 +512,26 @@ export default function SchedulePage() {
 
   const pathname = usePathname();
 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  // Add click outside handler for calendar
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setIsCalendarOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="space-y-8">
       <div>
@@ -519,29 +541,49 @@ export default function SchedulePage() {
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[300px,1fr]">
-        <div className="space-y-4">
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={(date) => date && setSelectedDate(date)}
-            locale={language === "es" ? es : undefined}
-            className="rounded-md border"
-          />
-          <div className="flex gap-2">
+      <div className="space-y-4">
+        {/* Header with calendar dropdown and buttons */}
+        <div className="flex items-center gap-4">
+          <div className="relative" ref={calendarRef}>
             <Button
-              className="flex-1"
               variant="outline"
-              onClick={scrollToCurrentTime}
+              className="w-[200px] justify-start text-left font-normal"
+              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
             >
-              {t("now")}
+              {format(selectedDate, "PPP", {
+                locale: language === "es" ? es : undefined,
+              })}
             </Button>
-            <Button className="flex-1" onClick={() => setIsDialogOpen(true)}>
-              {t("newAppointment")}
-            </Button>
+            {isCalendarOpen && (
+              <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-gray-800 rounded-md border shadow-lg">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => {
+                    if (date) {
+                      setSelectedDate(date);
+                      setIsCalendarOpen(false);
+                    }
+                  }}
+                  locale={language === "es" ? es : undefined}
+                  className="rounded-md border-0"
+                />
+              </div>
+            )}
           </div>
+          <Button
+            variant="outline"
+            onClick={scrollToCurrentTime}
+            disabled={selectedDate.toDateString() !== new Date().toDateString()}
+          >
+            {t("now")}
+          </Button>
+          <Button onClick={() => setIsDialogOpen(true)}>
+            {t("newAppointment")}
+          </Button>
         </div>
 
+        {/* Timeline container */}
         <div className="border rounded-lg bg-white dark:bg-gray-800">
           <div className="p-4 border-b">
             <h2 className="text-xl font-semibold">
@@ -551,12 +593,13 @@ export default function SchedulePage() {
             </h2>
           </div>
 
-          <div className="relative">
-            <ScrollArea className="h-[600px]" ref={scrollAreaRef}>
+          <div className="relative overflow-hidden">
+            <div
+              className="h-[600px] overflow-y-auto overflow-x-hidden"
+              ref={scrollAreaRef}
+            >
               <div className="relative min-h-[1440px]">
-                {" "}
-                {/* Force full day height */}
-                {/* Time slots */}
+                {/* Time slots - fixed position */}
                 <div className="absolute left-0 top-0 w-16 border-r bg-gray-50 dark:bg-gray-900 z-10">
                   {timeSlots.map((slot) => (
                     <div
@@ -567,68 +610,74 @@ export default function SchedulePage() {
                     </div>
                   ))}
                 </div>
-                {/* Contractor columns */}
-                <div className="ml-16 flex">
-                  {contractors.map((contractor: Contractor) => {
-                    const colorClass = getContractorColor(contractor.id);
-                    const contractorAppointments =
-                      groupAppointmentsByContractor(
-                        appointments,
-                        contractors
-                      ).get(contractor.id) || [];
 
-                    return (
-                      <div
-                        key={contractor.id}
-                        className="flex-1 relative border-r min-w-[200px]"
-                      >
-                        {/* Contractor name header - now using the same color scheme */}
-                        <div
-                          className={`sticky top-0 z-10 px-2 py-1 text-sm font-medium ${colorClass} border-b`}
-                        >
-                          {contractor.name}
-                        </div>
+                {/* Contractor columns - horizontally scrollable */}
+                <div className="ml-16">
+                  <div className="overflow-x-auto">
+                    <div className="flex min-w-max">
+                      {contractors.map((contractor: Contractor) => {
+                        const colorClass = getContractorColor(contractor.id);
+                        const contractorAppointments =
+                          groupAppointmentsByContractor(
+                            appointments,
+                            contractors
+                          ).get(contractor.id) || [];
 
-                        {/* Time grid */}
-                        {timeSlots.map((slot) => (
+                        return (
                           <div
-                            key={slot.time}
-                            className="h-[30px] border-b border-gray-100 dark:border-gray-700"
-                          />
-                        ))}
-
-                        {/* Appointments */}
-                        {contractorAppointments.map((appointment) => {
-                          return (
+                            key={contractor.id}
+                            className="relative border-r min-w-[200px]"
+                          >
+                            {/* Contractor name header */}
                             <div
-                              key={appointment.id}
-                              className={`absolute left-0 right-0 mx-1 ${colorClass} rounded p-2 cursor-pointer`}
-                              style={getAppointmentStyle(appointment)}
-                              onClick={() =>
-                                handleSelectAppointment(appointment)
-                              }
+                              className={`sticky top-0 z-10 px-2 py-1 text-sm font-medium ${colorClass} border-b`}
                             >
-                              <div className="text-sm font-medium truncate">
-                                {appointment.title}
-                              </div>
-                              <div className="text-xs text-gray-500 dark:text-gray-400">
-                                {format(
-                                  parseISO(appointment.start_time),
-                                  "HH:mm"
-                                )}{" "}
-                                -{" "}
-                                {format(
-                                  parseISO(appointment.end_time),
-                                  "HH:mm"
-                                )}
-                              </div>
+                              {contractor.name}
                             </div>
-                          );
-                        })}
-                      </div>
-                    );
-                  })}
+
+                            {/* Time grid */}
+                            {timeSlots.map((slot) => (
+                              <div
+                                key={slot.time}
+                                className="h-[30px] border-b border-gray-100 dark:border-gray-700"
+                              />
+                            ))}
+
+                            {/* Appointments */}
+                            {contractorAppointments.map((appointment) => {
+                              return (
+                                <div
+                                  key={appointment.id}
+                                  className={`absolute left-0 right-0 mx-1 ${colorClass} rounded p-2 cursor-pointer`}
+                                  style={getAppointmentStyle(appointment)}
+                                  onClick={() =>
+                                    handleSelectAppointment(appointment)
+                                  }
+                                >
+                                  <div className="text-sm font-medium truncate">
+                                    {appointment.title}
+                                  </div>
+                                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                                    {format(
+                                      parseISO(appointment.start_time),
+                                      "HH:mm"
+                                    )}{" "}
+                                    -{" "}
+                                    {format(
+                                      parseISO(appointment.end_time),
+                                      "HH:mm"
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
+
                 {/* Current time indicator */}
                 {selectedDate.toDateString() === new Date().toDateString() && (
                   <div
@@ -640,7 +689,7 @@ export default function SchedulePage() {
                   </div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
           </div>
         </div>
       </div>

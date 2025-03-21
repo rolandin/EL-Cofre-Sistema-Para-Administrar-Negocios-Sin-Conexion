@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { verifyPassword, createToken } from '@/lib/auth';
-import db from '@/lib/db';
-import { z } from 'zod';
+import { NextResponse } from "next/server";
+import { verifyPassword, createToken } from "@/lib/auth";
+import db from "@/lib/db";
+import { z } from "zod";
 
 const loginSchema = z.object({
   username: z.string(),
@@ -14,32 +14,40 @@ export async function POST(request: Request) {
     const validatedData = loginSchema.parse(body);
 
     const stmt = db.prepare(
-      'SELECT id, password, role FROM users WHERE username = ?'
+      "SELECT id, password, role, isActive FROM users WHERE username = ?"
     );
-    const user = stmt.get(validatedData.username) as {
-      id: number;
-      password: string;
-      role: string;
-    } | undefined;
+    const user = stmt.get(validatedData.username) as
+      | {
+          id: number;
+          password: string;
+          role: string;
+          isActive: boolean;
+        }
+      | undefined;
 
     if (!user) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
+        { error: "Invalid credentials" },
         { status: 401 }
       );
+    }
+
+    // Check if user is active
+    if (!user.isActive) {
+      return NextResponse.json({ error: "inactiveUserError" }, { status: 403 });
     }
 
     const isValid = await verifyPassword(validatedData.password, user.password);
     if (!isValid) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
+        { error: "Invalid credentials" },
         { status: 401 }
       );
     }
 
     // Update last login
     const updateStmt = db.prepare(
-      'UPDATE users SET lastLogin = CURRENT_TIMESTAMP WHERE id = ?'
+      "UPDATE users SET lastLogin = CURRENT_TIMESTAMP WHERE id = ?"
     );
     updateStmt.run(user.id);
 
@@ -48,9 +56,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error("Login error:", error);
     return NextResponse.json(
-      { error: 'Authentication failed' },
+      { error: "Authentication failed" },
       { status: 500 }
     );
   }

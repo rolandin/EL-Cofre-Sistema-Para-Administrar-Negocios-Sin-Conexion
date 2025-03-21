@@ -33,7 +33,12 @@ import {
 import { toast } from "sonner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "@/lib/i18n/use-translations";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { NewUserForm } from "@/components/settings/new-user-form";
 
 interface User {
@@ -137,6 +142,7 @@ export function UserManagement() {
               </Button>
             </DialogTrigger>
             <DialogContent>
+              <DialogTitle>{t("createUser")}</DialogTitle>
               <NewUserForm onSuccess={handleUserSuccess} />
             </DialogContent>
           </Dialog>

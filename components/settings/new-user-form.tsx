@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "@/lib/i18n/use-translations";
 
 interface NewUserFormProps {
   onSuccess?: () => void;
@@ -27,6 +28,7 @@ export function NewUserForm({ onSuccess }: NewUserFormProps) {
     confirmPassword: "",
     role: "",
   });
+  const { t } = useTranslations();
 
   const createUser = useMutation({
     mutationFn: async (data: {
@@ -101,11 +103,11 @@ export function NewUserForm({ onSuccess }: NewUserFormProps) {
           onValueChange={(value) => setFormData({ ...formData, role: value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Select role" />
+            <SelectValue placeholder={t("selectRole")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="controller">Controller</SelectItem>
+            <SelectItem value="admin">{t("admin")}</SelectItem>
+            <SelectItem value="controller">{t("controller")}</SelectItem>
           </SelectContent>
         </Select>
       </div>

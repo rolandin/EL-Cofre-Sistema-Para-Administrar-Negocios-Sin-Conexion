@@ -147,16 +147,20 @@ export const hi = {
   returnProcessed: "वापसी सफलतापूर्वक प्रसंस्कृत",
   noReturns: "कोई वापसी दर्ज नहीं",
   // Services
-  availableServices: "उपलब्ध सेवाएँ",
+  availableServices: "उपलब्ध सेवाएं",
   serviceHistory: "सेवा इतिहास",
   description: "विवरण",
   basePrice: "आधार मूल्य",
   newService: "नई सेवा",
   serviceCreated: "सेवा सफलतापूर्वक बनाई गई",
+  serviceDeleted: "सेवा सफलतापूर्वक हटाई गई",
+  deleteService: "सेवा हटाएं",
+  confirmDeleteService:
+    "क्या आप वाकई इस सेवा को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
   noServices: "कोई सेवा उपलब्ध नहीं",
   noServiceHistory: "कोई इतिहास उपलब्ध नहीं",
   client: "ग्राहक",
-  earnings: "कमाई",
+  earnings: "आय",
   business: "व्यवसाय",
   // Payments
   paymentHistory: "भुगतान इतिहास",
@@ -276,7 +280,7 @@ export const hi = {
   userSettings: "उपयोगकर्ता सेटिंग्स",
   userSettingsDescription: "उपयोगकर्ता सेटिंग्स का प्रबंधन करें",
   admin: "व्यवस्थापक",
-  controller: "नियंत्रक",
+  controller: "ऑपरेटर",
   createUser: "उपयोगकर्ता बनाएं",
   editUser: "उपयोगकर्ता संपादित करें",
   deleteUserDescription: "यह क्रिया पूर्ववत नहीं की जा सकती।",
@@ -285,4 +289,10 @@ export const hi = {
   passwordRequirements: "पासवर्ड में कम से कम 6 अक्षर होने चाहिए",
   userExists: "इस उपयोगकर्ता नाम के साथ पहले से ही एक उपयोगकर्ता मौजूद है",
   invalidUserData: "अमान्य उपयोगकर्ता डेटा",
+  selectRole: "भूमिका चुनें",
+  deleteEmployee: "कर्मचारी हटाएं",
+  deleteEmployeeConfirm:
+    "क्या आप वाकई इस कर्मचारी को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
+  inactiveUserError:
+    "आपका खाता वर्तमान में निष्क्रिय है। कृपया प्रशासक से संपर्क करें।",
 };

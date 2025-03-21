@@ -146,14 +146,18 @@ export const bn = {
   returnProcessed: "ফেরত সফলভাবে প্রক্রিয়াজাত করা হয়েছে",
   noReturns: "কোনো ফেরত নেই",
   // Services
-  availableServices: "উপলব্ধ সেবাসমূহ",
+  availableServices: "উপলব্ধ সেবা",
   serviceHistory: "সেবার ইতিহাস",
   description: "বিবরণ",
-  basePrice: "ভিত্তি মূল্য",
+  basePrice: "মূল মূল্য",
   newService: "নতুন সেবা",
-  serviceCreated: "সেবা সফলভাবে তৈরি হয়েছে",
-  noServices: "কোনো সেবা উপলব্ধ নেই",
-  noServiceHistory: "কোনো ইতিহাস উপলব্ধ নেই",
+  serviceCreated: "সেবা সফলভাবে তৈরি করা হয়েছে",
+  serviceDeleted: "সেবা সফলভাবে মুছে ফেলা হয়েছে",
+  deleteService: "সেবা মুছুন",
+  confirmDeleteService:
+    "আপনি কি নিশ্চিত যে আপনি এই সেবাটি মুছে ফেলতে চান? এই ক্রিয়াটি পূর্বাবস্থায় ফিরিয়ে আনা যাবে না।",
+  noServices: "কোন সেবা উপলব্ধ নেই",
+  noServiceHistory: "কোন ইতিহাস উপলব্ধ নেই",
   client: "ক্লায়েন্ট",
   earnings: "আয়",
   business: "ব্যবসা",
@@ -275,7 +279,7 @@ export const bn = {
   userSettings: "ব্যবহারকারী সেটিংস",
   userSettingsDescription: "ব্যবহারকারীদের সেটিংস পরিচালনা করুন",
   admin: "অ্যাডমিন",
-  controller: "কন্ট্রোলার",
+  controller: "অপারেটর",
   createUser: "ব্যবহারকারী তৈরি করুন",
   editUser: "ব্যবহারকারী সম্পাদনা করুন",
   deleteUserDescription: "এই কাজটি পুনরায় ফিরিয়ে আনা যাবে না।",
@@ -284,4 +288,10 @@ export const bn = {
   passwordRequirements: "পাসওয়ার্ডের দৈর্ঘ্য কমপক্ষে 6 অক্ষর হতে হবে",
   userExists: "এই নামে ইতিমধ্যে একটি ব্যবহারকারী রয়েছে",
   invalidUserData: "অবৈধ ব্যবহারকারী ডেটা",
+  selectRole: "ভূমিকা নির্বাচন করুন",
+  deleteEmployee: "কর্মচারী মুছুন",
+  deleteEmployeeConfirm:
+    "আপনি কি নিশ্চিত যে আপনি এই কর্মচারীকে মুছে ফেলতে চান? এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না।",
+  inactiveUserError:
+    "আপনার অ্যাকাউন্ট বর্তমানে নিষ্ক্রিয়। অনুগ্রহ করে প্রশাসকের সাথে যোগাযোগ করুন।",
 };

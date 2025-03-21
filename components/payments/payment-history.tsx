@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/pagination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "@/lib/i18n/use-translations";
+import { formatCurrency } from "@/lib/utils/format-currency";
 
 interface EmployeePayment {
   id: number;
@@ -85,13 +86,6 @@ export function PaymentHistory() {
 
     fetchPayments();
   }, [activeTab, currentPage]);
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat(language === "es" ? "es-ES" : "en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(value);
-  };
 
   if (loading) {
     return (

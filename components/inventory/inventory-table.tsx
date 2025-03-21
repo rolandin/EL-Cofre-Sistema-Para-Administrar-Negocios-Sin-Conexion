@@ -2,7 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
+import enUS from "date-fns/locale/en-US";
+import es from "date-fns/locale/es";
+import ar from "date-fns/locale/ar";
+import hi from "date-fns/locale/hi";
+import bn from "date-fns/locale/bn";
+import zhCN from "date-fns/locale/zh-CN";
+import fa from "date-fns/locale/fa-IR";
+import type { Locale } from "date-fns";
 import { Loader2 } from "lucide-react";
 import {
   Table,
@@ -41,6 +48,34 @@ interface InventoryTableProps {
   selectedProduct: number | null;
   userRole?: string;
 }
+
+const formatCurrency = (value: number) => {
+  return `$${value.toFixed(2)}`;
+};
+
+const dateLocales: { [key: string]: Locale } = {
+  en: enUS, // English
+  es, // Spanish
+  ar, // Arabic
+  hi, // Hindi
+  bn, // Bengali
+  zh: zhCN, // Chinese (Simplified)
+  fa, // Persian/Farsi
+  // Fallback to English for unsupported languages
+  ur: enUS, // Urdu
+  sw: enUS, // Swahili
+  ha: enUS, // Hausa
+  pa: enUS, // Punjabi
+  yo: enUS, // Yoruba
+  ig: enUS, // Igbo
+  am: enUS, // Amharic
+  so: enUS, // Somali
+  ku: enUS, // Kurdish
+  xh: enUS, // Xhosa
+  si: enUS, // Sinhala
+  ne: enUS, // Nepali
+  fil: enUS, // Filipino/Tagalog
+};
 
 export function InventoryTable({
   search,
@@ -122,17 +157,11 @@ export function InventoryTable({
                     {product.quantity}
                   </TableCell>
                   <TableCell className="text-right">
-                    {new Intl.NumberFormat(
-                      language === "es" ? "es-ES" : "en-US",
-                      {
-                        style: "currency",
-                        currency: "USD",
-                      }
-                    ).format(product.outboundPrice)}
+                    {formatCurrency(product.outboundPrice)}
                   </TableCell>
                   <TableCell>
                     {format(new Date(product.lastUpdated), "PPP", {
-                      locale: language === "es" ? es : undefined,
+                      locale: dateLocales[language] || enUS,
                     })}
                   </TableCell>
                 </TableRow>

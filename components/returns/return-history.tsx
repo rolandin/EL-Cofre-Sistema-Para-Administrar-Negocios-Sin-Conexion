@@ -48,6 +48,10 @@ export function ReturnHistory() {
     },
   });
 
+  const formatCurrency = (value: number) => {
+    return `$${value.toFixed(2)}`;
+  };
+
   if (isLoading) {
     return (
       <Card>
@@ -92,13 +96,7 @@ export function ReturnHistory() {
                     {record.quantity}
                   </TableCell>
                   <TableCell className="text-right">
-                    {new Intl.NumberFormat(
-                      language === "es" ? "es-ES" : "en-US",
-                      {
-                        style: "currency",
-                        currency: "USD",
-                      }
-                    ).format(record.return_amount)}
+                    {formatCurrency(record.return_amount)}
                   </TableCell>
                 </TableRow>
               ))}

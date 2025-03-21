@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -11,9 +11,28 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/use-auth";
 import { useTranslations } from "@/lib/i18n/use-translations";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { formatCurrency } from "@/lib/utils/format-currency";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface Service {
   id: number;
@@ -33,23 +52,52 @@ export function ServicesTable({
   selectedService,
 }: ServicesTableProps) {
   const { isAdmin } = useAuth();
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
+  const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [serviceToDelete, setServiceToDelete] = useState<number | null>(null);
+  const pageSize = 10;
 
-  const { data: services = [], isLoading } = useQuery({
-    queryKey: ["services"],
+  const deleteService = useMutation({
+    mutationFn: async (serviceId: number) => {
+      const response = await fetch(`/api/services/${serviceId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || t("error"));
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast.success(t("serviceDeleted"));
+      queryClient.invalidateQueries({ queryKey: ["services"] });
+      setServiceToDelete(null);
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleDelete = (e: React.MouseEvent, serviceId: number) => {
+    e.stopPropagation(); // Prevent row click
+    setServiceToDelete(serviceId);
+  };
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["services", currentPage],
     queryFn: async () => {
-      const response = await fetch("/api/services");
+      const response = await fetch(
+        `/api/services?page=${currentPage}&pageSize=${pageSize}`
+      );
       if (!response.ok) throw new Error(t("error"));
       return response.json();
     },
   });
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat(language === "es" ? "es-ES" : "en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(value);
-  };
+  const services = data?.items ?? [];
+  const totalItems = data?.total ?? 0;
+  const totalPages = Math.ceil(totalItems / pageSize);
 
   if (isLoading) {
     return (
@@ -75,9 +123,12 @@ export function ServicesTable({
                 <TableHead>{t("description")}</TableHead>
                 <TableHead className="text-right">{t("basePrice")}</TableHead>
                 {isAdmin && (
-                  <TableHead className="text-right">
-                    {t("commission")}
-                  </TableHead>
+                  <>
+                    <TableHead className="text-right">
+                      {t("commission")}
+                    </TableHead>
+                    <TableHead className="w-[50px]"></TableHead>
+                  </>
                 )}
               </TableRow>
             </TableHeader>
@@ -98,16 +149,32 @@ export function ServicesTable({
                     {formatCurrency(service.base_price)}
                   </TableCell>
                   {isAdmin && (
-                    <TableCell className="text-right">
-                      {service.commission_percentage}%
-                    </TableCell>
+                    <>
+                      <TableCell className="text-right">
+                        {service.commission_percentage}%
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={(e) => handleDelete(e, service.id)}
+                          disabled={deleteService.isPending}
+                        >
+                          {deleteService.isPending ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          )}
+                        </Button>
+                      </TableCell>
+                    </>
                   )}
                 </TableRow>
               ))}
               {services.length === 0 && (
                 <TableRow>
                   <TableCell
-                    colSpan={isAdmin ? 4 : 3}
+                    colSpan={isAdmin ? 5 : 3}
                     className="text-center py-8 text-gray-500"
                   >
                     {t("noServices")}
@@ -117,7 +184,93 @@ export function ServicesTable({
             </TableBody>
           </Table>
         </div>
+
+        {totalPages > 1 && (
+          <div className="mt-4 flex justify-center">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage((p) => Math.max(1, p - 1));
+                    }}
+                    className={
+                      currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                    }
+                  />
+                </PaginationItem>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCurrentPage(page);
+                        }}
+                        isActive={currentPage === page}
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )
+                )}
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage((p) => Math.min(totalPages, p + 1));
+                    }}
+                    className={
+                      currentPage === totalPages
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        )}
       </CardContent>
+
+      <Dialog
+        open={!!serviceToDelete}
+        onOpenChange={() => setServiceToDelete(null)}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("deleteService")}</DialogTitle>
+            <DialogDescription>{t("confirmDeleteService")}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setServiceToDelete(null)}
+              disabled={deleteService.isPending}
+            >
+              {t("cancel")}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (serviceToDelete) {
+                  deleteService.mutate(serviceToDelete);
+                }
+              }}
+              disabled={deleteService.isPending}
+            >
+              {deleteService.isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : null}
+              {t("delete")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }

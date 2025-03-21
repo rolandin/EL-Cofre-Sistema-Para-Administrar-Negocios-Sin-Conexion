@@ -147,16 +147,20 @@ export const ru = {
   returnProcessed: "Возврат успешно обработан",
   noReturns: "Нет зарегистрированных возвратов",
   // Services
-  availableServices: "Доступные услуги",
-  serviceHistory: "История услуг",
+  availableServices: "Доступные Услуги",
+  serviceHistory: "История Услуг",
   description: "Описание",
-  basePrice: "Базовая цена",
-  newService: "Новая услуга",
+  basePrice: "Базовая Цена",
+  newService: "Новая Услуга",
   serviceCreated: "Услуга успешно создана",
+  serviceDeleted: "Услуга успешно удалена",
+  deleteService: "Удалить Услугу",
+  confirmDeleteService:
+    "Вы уверены, что хотите удалить эту услугу? Это действие нельзя отменить.",
   noServices: "Нет доступных услуг",
   noServiceHistory: "Нет доступной истории",
   client: "Клиент",
-  earnings: "Заработок",
+  earnings: "Доходы",
   business: "Бизнес",
   // Payments
   paymentHistory: "История платежей",
@@ -277,7 +281,7 @@ export const ru = {
   userSettings: "Настройки пользователя",
   userSettingsDescription: "Управление настройками пользователей",
   admin: "Администратор",
-  controller: "Контролер",
+  controller: "Оператор",
   createUser: "Создать пользователя",
   editUser: "Редактировать пользователя",
   deleteUserDescription: "Это действие нельзя отменить.",
@@ -286,4 +290,10 @@ export const ru = {
   passwordRequirements: "Пароль должен содержать не менее 6 символов",
   userExists: "Пользователь с таким именем уже существует",
   invalidUserData: "Неверные данные пользователя",
+  selectRole: "Выберите роль",
+  deleteEmployee: "Удалить сотрудника",
+  deleteEmployeeConfirm:
+    "Вы уверены, что хотите удалить этого сотрудника? Это действие нельзя отменить.",
+  inactiveUserError:
+    "Ваша учетная запись в настоящее время неактивна. Пожалуйста, свяжитесь с администратором.",
 };

@@ -67,12 +67,12 @@ export function SaleForm() {
     },
   });
 
-  const { data: services = [] } = useQuery({
+  const { data: services } = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
       const response = await fetch("/api/services");
-      if (!response.ok) throw new Error("Failed to fetch services");
-      return response.json();
+      const data = await response.json();
+      return data.items || []; // Extract items from paginated response
     },
   });
 

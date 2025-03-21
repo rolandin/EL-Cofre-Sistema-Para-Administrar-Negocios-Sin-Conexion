@@ -318,10 +318,7 @@ export function ContractorManagement() {
   };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat(language === "es" ? "es-ES" : "en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(value);
+    return `$${value.toFixed(2)}`;
   };
 
   if (isLoading) {

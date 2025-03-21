@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "@/lib/i18n/use-translations";
+import { formatCurrency } from "@/lib/utils/format-currency";
 
 interface ReceiveRecord {
   id: number;
@@ -33,15 +34,15 @@ interface ReceiveRecord {
 }
 
 export function ReceiveHistory() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const { t, language } = useTranslations();
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
   const { data, isLoading } = useQuery({
     queryKey: ["receiveHistory", currentPage],
     queryFn: async () => {
       const response = await fetch(
-        `/api/receive?page=${currentPage}&limit=${itemsPerPage}`
+        `/api/receive?page=${currentPage}&limit=${pageSize}`
       );
       if (!response.ok) throw new Error(t("error"));
       return response.json();
@@ -59,7 +60,7 @@ export function ReceiveHistory() {
   }
 
   const { records = [], total = 0 } = data || {};
-  const totalPages = Math.ceil(total / itemsPerPage);
+  const totalPages = Math.ceil(total / pageSize);
 
   return (
     <Card>
@@ -93,22 +94,13 @@ export function ReceiveHistory() {
                     {record.quantity}
                   </TableCell>
                   <TableCell className="text-right">
-                    {new Intl.NumberFormat(
-                      language === "es" ? "es-ES" : "en-US",
-                      {
-                        style: "currency",
-                        currency: "USD",
-                      }
-                    ).format(record.price_per_unit)}
+                    {formatCurrency(record.price_per_unit, language)}
                   </TableCell>
                   <TableCell className="text-right">
-                    {new Intl.NumberFormat(
-                      language === "es" ? "es-ES" : "en-US",
-                      {
-                        style: "currency",
-                        currency: "USD",
-                      }
-                    ).format(record.quantity * record.price_per_unit)}
+                    {formatCurrency(
+                      record.quantity * record.price_per_unit,
+                      language
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

@@ -29,13 +29,18 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Invalid credentials");
+        if (data.error === "inactiveUserError") {
+          throw new Error(t("inactiveUserError"));
+        }
+        throw new Error(t("error"));
       }
 
       router.push("/dashboard");
     } catch (err) {
-      setError(t("error"));
+      setError(err instanceof Error ? err.message : t("error"));
     } finally {
       setLoading(false);
     }

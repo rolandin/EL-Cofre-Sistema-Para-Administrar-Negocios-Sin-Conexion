@@ -24,6 +24,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/use-auth";
 import { useTranslations } from "@/lib/i18n/use-translations";
+import { formatCurrency } from "@/lib/utils/format-currency";
 
 interface Sale {
   id: number;
@@ -36,10 +37,10 @@ interface Sale {
 }
 
 export function SalesHistory() {
+  const { t, language } = useTranslations();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
   const { isAdmin } = useAuth();
-  const { t, language } = useTranslations();
 
   const { data, isLoading } = useQuery({
     queryKey: ["sales", currentPage],
@@ -106,23 +107,11 @@ export function SalesHistory() {
                   {sale.type === "Product" ? sale.quantity : "-"}
                 </TableCell>
                 <TableCell className="text-right">
-                  {new Intl.NumberFormat(
-                    language === "es" ? "es-ES" : "en-US",
-                    {
-                      style: "currency",
-                      currency: "USD",
-                    }
-                  ).format(sale.total_value)}
+                  {formatCurrency(sale.total_value, language)}
                 </TableCell>
                 {isAdmin && (
                   <TableCell className="text-right">
-                    {new Intl.NumberFormat(
-                      language === "es" ? "es-ES" : "en-US",
-                      {
-                        style: "currency",
-                        currency: "USD",
-                      }
-                    ).format(sale.net_profit)}
+                    {formatCurrency(sale.net_profit, language)}
                   </TableCell>
                 )}
               </TableRow>

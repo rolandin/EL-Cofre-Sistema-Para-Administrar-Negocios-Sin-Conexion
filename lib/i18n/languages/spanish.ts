@@ -165,6 +165,10 @@ export const es = {
   basePrice: "Precio Base",
   newService: "Nuevo Servicio",
   serviceCreated: "Servicio creado exitosamente",
+  serviceDeleted: "Servicio eliminado exitosamente",
+  deleteService: "Eliminar Servicio",
+  confirmDeleteService:
+    "¿Está seguro que desea eliminar este servicio? Esta acción no se puede deshacer.",
   noServices: "No hay servicios disponibles",
   noServiceHistory: "No hay historial disponible",
   client: "Cliente",
@@ -298,7 +302,7 @@ export const es = {
   userSettings: "Ajustes de Usuario",
   userSettingsDescription: "Gestiona los ajustes de los usuarios",
   admin: "Administrador",
-  controller: "Controlador",
+  controller: "Operador",
   createUser: "Crear Usuario",
   editUser: "Editar Usuario",
   deleteUserDescription: "Esta acción no se puede deshacer.",
@@ -307,4 +311,14 @@ export const es = {
   passwordRequirements: "La contraseña debe tener al menos 6 caracteres",
   userExists: "Ya existe un usuario con este nombre",
   invalidUserData: "Datos de usuario inválidos",
+  inactiveUserError:
+    "Tu cuenta está actualmente inactiva. Por favor, contacta a un administrador.",
+
+  // New key
+  selectRole: "Seleccionar rol",
+
+  // New key
+  deleteEmployee: "Eliminar Empleado",
+  deleteEmployeeConfirm:
+    "¿Estás seguro que deseas eliminar este empleado? Esta acción no se puede deshacer.",
 };

@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "@/lib/i18n/use-translations";
+import { formatCurrency } from "@/lib/utils/format-currency";
 
 interface Product {
   id: number;
@@ -39,6 +40,7 @@ export function ReceiveForm({ onSuccess }: ReceiveFormProps) {
   const { t, language } = useTranslations();
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   // Fetch products
   const { data: products = [], isLoading } = useQuery({
@@ -104,13 +106,6 @@ export function ReceiveForm({ onSuccess }: ReceiveFormProps) {
       quantity,
       pricePerUnit: product.inboundPrice,
     });
-  };
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat(language === "es" ? "es-ES" : "en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(value);
   };
 
   if (isLoading) {
