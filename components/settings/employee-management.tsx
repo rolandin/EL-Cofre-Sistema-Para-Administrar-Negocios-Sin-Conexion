@@ -3,7 +3,16 @@
 import { useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Loader2, Plus, Eye, Edit2, Save, Trash2 } from "lucide-react";
+import {
+  Loader2,
+  Plus,
+  Eye,
+  Edit2,
+  Save,
+  Trash2,
+  Lock,
+  Unlock,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -26,6 +35,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   AlertDialog,
@@ -49,6 +59,7 @@ interface Employee {
   salary: number | null;
   hire_date: string;
   contractor_name: string | null;
+  is_active: boolean;
 }
 
 interface EmployeeFormData {
@@ -60,7 +71,8 @@ interface EmployeeFormData {
 export function EmployeeManagement() {
   const queryClient = useQueryClient();
   const { t, language } = useTranslations();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isNewEmployeeDialogOpen, setIsNewEmployeeDialogOpen] = useState(false);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null
   );
@@ -80,11 +92,11 @@ export function EmployeeManagement() {
       return response.json();
     },
     staleTime: 30000, // Data remains fresh for 30 seconds
-    cacheTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    gcTime: 1000 * 60 * 5, // Cache data for 5 minutes
     refetchOnWindowFocus: false, // Don't refetch when window regains focus
     refetchOnMount: true, // Refetch when component mounts
   });
-
+  console.log({ employees });
   // Create employee mutation
   const createEmployee = useMutation({
     mutationFn: async (data: EmployeeFormData) => {
@@ -108,7 +120,7 @@ export function EmployeeManagement() {
     onSuccess: () => {
       toast.success(t("success"));
       queryClient.invalidateQueries({ queryKey: ["employees"] });
-      setIsDialogOpen(false);
+      setIsNewEmployeeDialogOpen(false);
       setFormData({
         name: "",
         position: "",
@@ -151,15 +163,29 @@ export function EmployeeManagement() {
     },
   });
 
-  // Delete employee mutation
-  const deleteEmployee = useMutation({
-    mutationFn: async (id: number) => {
-      const response = await fetch(`/api/employees/${id}`, {
-        method: "DELETE",
+  // Toggle employee status mutation
+  const toggleStatus = useMutation({
+    mutationFn: async ({
+      employeeId,
+      currentStatus,
+    }: {
+      employeeId: number;
+      currentStatus: boolean;
+    }) => {
+      const response = await fetch(`/api/employees/${employeeId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ is_active: !currentStatus }),
       });
 
       if (!response.ok) {
         const error = await response.json();
+        if (error.details === "pendingPayments") {
+          throw new Error(t("cannotDeactivateWithPendingPayments"));
+        }
+        if (error.details === "upcomingAppointments") {
+          throw new Error(t("cannotDeactivateWithUpcomingAppointments"));
+        }
         throw new Error(error.error || t("error"));
       }
 
@@ -168,7 +194,6 @@ export function EmployeeManagement() {
     onSuccess: () => {
       toast.success(t("success"));
       queryClient.invalidateQueries({ queryKey: ["employees"] });
-      setSelectedEmployee(null);
     },
     onError: (error: Error) => {
       toast.error(error.message);
@@ -191,6 +216,17 @@ export function EmployeeManagement() {
     createEmployee.mutate(formData);
   };
 
+  const handleStartEditing = () => {
+    if (selectedEmployee) {
+      setFormData({
+        name: selectedEmployee.name,
+        position: selectedEmployee.position,
+        salary: selectedEmployee.salary?.toString() || "",
+      });
+      setIsEditing(true);
+    }
+  };
+
   const handleUpdate = () => {
     if (!selectedEmployee) return;
 
@@ -208,17 +244,6 @@ export function EmployeeManagement() {
       id: selectedEmployee.id,
       ...formData,
     });
-  };
-
-  const handleStartEditing = () => {
-    if (selectedEmployee) {
-      setFormData({
-        name: selectedEmployee.name,
-        position: selectedEmployee.position,
-        salary: selectedEmployee.salary?.toString() || "",
-      });
-      setIsEditing(true);
-    }
   };
 
   const formatCurrency = (value: number) => {
@@ -244,8 +269,11 @@ export function EmployeeManagement() {
               <CardTitle>{t("employees")}</CardTitle>
               <CardDescription>{t("manageEmployees")}</CardDescription>
             </div>
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <Button onClick={() => setIsDialogOpen(true)}>
+            <Dialog
+              open={isNewEmployeeDialogOpen}
+              onOpenChange={setIsNewEmployeeDialogOpen}
+            >
+              <Button onClick={() => setIsNewEmployeeDialogOpen(true)}>
                 <Plus className="mr-2 h-4 w-4" />
                 {t("newEmployee")}
               </Button>
@@ -322,12 +350,20 @@ export function EmployeeManagement() {
                   <TableHead>{t("contractor")}</TableHead>
                   <TableHead className="text-right">{t("salary")}</TableHead>
                   <TableHead>{t("hireDate")}</TableHead>
+                  <TableHead>{t("status")}</TableHead>
                   <TableHead className="text-right">{t("actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {employees.map((employee: Employee) => (
-                  <TableRow key={employee.id}>
+                  <TableRow
+                    key={employee.id}
+                    className={
+                      !employee.is_active
+                        ? "bg-gray-100 dark:bg-gray-800/50 text-gray-400"
+                        : ""
+                    }
+                  >
                     <TableCell className="font-medium">
                       {employee.name}
                     </TableCell>
@@ -343,49 +379,48 @@ export function EmployeeManagement() {
                         locale: language === "es" ? es : undefined,
                       })}
                     </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          employee.is_active
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {employee.is_active ? t("active") : t("inactive")}
+                      </span>
+                    </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
+                      <div className="flex items-center justify-end gap-2">
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => setSelectedEmployee(employee)}
+                          onClick={() => {
+                            setSelectedEmployee(employee);
+                            setIsViewDialogOpen(true);
+                          }}
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                {t("deleteEmployee")}
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                {t("deleteEmployeeConfirm")}
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>
-                                {t("cancel")}
-                              </AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() =>
-                                  deleteEmployee.mutate(employee.id)
-                                }
-                                className="bg-red-600 hover:bg-red-700"
-                              >
-                                {t("delete")}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() =>
+                            toggleStatus.mutate({
+                              employeeId: employee.id,
+                              currentStatus: employee.is_active,
+                            })
+                          }
+                          disabled={toggleStatus.isPending}
+                        >
+                          {toggleStatus.isPending ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : employee.is_active ? (
+                            <Lock className="h-4 w-4" />
+                          ) : (
+                            <Unlock className="h-4 w-4" />
+                          )}
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -393,7 +428,7 @@ export function EmployeeManagement() {
                 {employees.length === 0 && (
                   <TableRow>
                     <TableCell
-                      colSpan={6}
+                      colSpan={7}
                       className="text-center py-8 text-gray-500"
                     >
                       {t("noEmployees")}
@@ -406,23 +441,45 @@ export function EmployeeManagement() {
         </CardContent>
       </Card>
 
+      {/* View Employee Dialog */}
       <Dialog
-        open={!!selectedEmployee}
+        open={isViewDialogOpen}
         onOpenChange={(open) => {
           if (!open) {
             setSelectedEmployee(null);
             setIsEditing(false);
+            setIsViewDialogOpen(false);
           }
         }}
       >
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
-            <DialogTitle>{t("employeeDetails")}</DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle>{t("employeeDetails")}</DialogTitle>
+              {selectedEmployee && !isEditing && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    handleStartEditing();
+                    setIsEditing(true);
+                  }}
+                >
+                  <Edit2 className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
           </DialogHeader>
           {selectedEmployee && (
             <div className="space-y-6">
               {isEditing ? (
-                <div className="space-y-4">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleUpdate();
+                  }}
+                  className="space-y-4"
+                >
                   <div className="space-y-2">
                     <label className="text-sm font-medium">{t("name")}</label>
                     <Input
@@ -461,14 +518,18 @@ export function EmployeeManagement() {
                   <div className="flex justify-end gap-2">
                     <Button
                       variant="outline"
-                      onClick={() => setIsEditing(false)}
+                      onClick={() => {
+                        setIsEditing(false);
+                        setFormData({
+                          name: selectedEmployee.name,
+                          position: selectedEmployee.position,
+                          salary: selectedEmployee.salary?.toString() || "",
+                        });
+                      }}
                     >
                       {t("cancel")}
                     </Button>
-                    <Button
-                      onClick={handleUpdate}
-                      disabled={updateEmployee.isPending}
-                    >
+                    <Button type="submit" disabled={updateEmployee.isPending}>
                       {updateEmployee.isPending ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -479,25 +540,16 @@ export function EmployeeManagement() {
                       )}
                     </Button>
                   </div>
-                </div>
+                </form>
               ) : (
                 <>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg font-semibold">
-                        {selectedEmployee.name}
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        {selectedEmployee.position}
-                      </p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={handleStartEditing}
-                    >
-                      <Edit2 className="h-4 w-4" />
-                    </Button>
+                  <div>
+                    <h3 className="text-lg font-semibold">
+                      {selectedEmployee.name}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      {selectedEmployee.position}
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -533,6 +585,25 @@ export function EmployeeManagement() {
                       </p>
                     </div>
                   )}
+
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500">
+                      {t("status")}
+                    </h4>
+                    <p className="text-lg">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          selectedEmployee.is_active
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {selectedEmployee.is_active
+                          ? t("active")
+                          : t("inactive")}
+                      </span>
+                    </p>
+                  </div>
                 </>
               )}
             </div>

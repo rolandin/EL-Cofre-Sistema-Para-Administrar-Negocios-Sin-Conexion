@@ -104,7 +104,10 @@ export async function DELETE(
 
     if (serviceHistory.count > 0) {
       return NextResponse.json(
-        { error: "Cannot delete contractor with service history" },
+        {
+          error: "Cannot delete contractor with service history",
+          details: "contractorDeleteErrorWithServiceHistory",
+        },
         { status: 400 }
       );
     }
@@ -118,7 +121,10 @@ export async function DELETE(
 
     if (salesHistory.count > 0) {
       return NextResponse.json(
-        { error: "Cannot delete contractor with sales history" },
+        {
+          error: "Cannot delete contractor with sales history",
+          details: "contractorDeleteErrorWithSalesHistory",
+        },
         { status: 400 }
       );
     }
@@ -127,8 +133,8 @@ export async function DELETE(
     if (contractor.accumulated_commission > 0) {
       return NextResponse.json(
         {
-          error:
-            "Cannot delete contractor with unpaid earnings. Process pending payments first.",
+          error: "Cannot delete contractor with unpaid earnings",
+          details: "contractorDeleteErrorWithUnpaidEarnings",
         },
         { status: 400 }
       );

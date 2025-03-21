@@ -263,7 +263,9 @@ export function ContractorManagement() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || t("error"));
+        throw new Error(
+          error.details ? t(error.details) : error.error || t("error")
+        );
       }
     },
     onSuccess: () => {

@@ -153,6 +153,8 @@ export const zh = {
   serviceDeleted: "服务删除成功",
   deleteService: "删除服务",
   confirmDeleteService: "您确定要删除此服务吗？此操作无法撤销。",
+  serviceDeleteErrorWithHistory:
+    "此服务已在过去的交易中使用。删除它将影响历史记录和财务数据。",
   noServices: "没有可用服务",
   noServiceHistory: "没有历史记录",
   client: "客户",
@@ -234,6 +236,10 @@ export const zh = {
   employeesDescription: "管理员工及其详细信息",
   settingsDescription: "管理系统设置和用户访问权限",
   processPayments: "处理和跟踪员工及承包商的付款",
+  employeeNotFound: "未找到员工",
+  editEmployee: "编辑员工",
+  cannotDeactivateWithPendingPayments: "无法停用有待处理付款的员工",
+  cannotDeactivateWithUpcomingAppointments: "无法停用有待处理预约的员工",
   // Contractor Management
   manageContractors: "管理承包商及其位置费用",
   newContractor: "新承包商",
@@ -253,6 +259,12 @@ export const zh = {
   noContractors: "没有可用承包商",
   creating: "正在创建...",
   price: "价格",
+  contractorDeleteErrorWithServiceHistory:
+    "此承包商在过去提供过服务。删除他们将影响历史记录和财务数据。",
+  contractorDeleteErrorWithSalesHistory:
+    "此承包商有销售历史。删除他们将影响历史记录和财务数据。",
+  contractorDeleteErrorWithUnpaidEarnings:
+    "此承包商有未支付的收入。请在删除前处理其待付款项。",
   // Employee Management
   manageEmployees: "管理员工及其详细信息",
   newEmployee: "新员工",

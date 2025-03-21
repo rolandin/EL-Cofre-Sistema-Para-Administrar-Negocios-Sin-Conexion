@@ -158,6 +158,8 @@ export const pt = {
   deleteService: "Excluir Serviço",
   confirmDeleteService:
     "Tem certeza que deseja excluir este serviço? Esta ação não pode ser desfeita.",
+  serviceDeleteErrorWithHistory:
+    "Este serviço foi usado em transações anteriores. Excluí-lo afetaria os registros históricos e dados financeiros.",
   noServices: "Nenhum serviço disponível",
   noServiceHistory: "Nenhum histórico disponível",
   client: "Cliente",
@@ -242,6 +244,12 @@ export const pt = {
     "Gerenciar configurações do sistema e acesso de usuários",
   processPayments:
     "Processar e acompanhar pagamentos de funcionários e contratados",
+  employeeNotFound: "Funcionário não encontrado",
+  editEmployee: "Editar Funcionário",
+  cannotDeactivateWithPendingPayments:
+    "Não é possível desativar o funcionário com pagamentos pendentes",
+  cannotDeactivateWithUpcomingAppointments:
+    "Não é possível desativar o funcionário com compromissos próximos",
   // Contractor Management
   manageContractors: "Gerenciar contratados e suas tarifas de localização",
   newContractor: "Novo Contratado",
@@ -297,4 +305,10 @@ export const pt = {
     "Tem certeza que deseja excluir este funcionário? Esta ação não pode ser desfeita.",
   inactiveUserError:
     "Sua conta está atualmente inativa. Por favor, entre em contato com um administrador.",
+  contractorDeleteErrorWithServiceHistory:
+    "Este prestador de serviços realizou serviços no passado. Excluí-lo afetaria os registros históricos e dados financeiros.",
+  contractorDeleteErrorWithSalesHistory:
+    "Este prestador de serviços tem histórico de vendas. Excluí-lo afetaria os registros históricos e dados financeiros.",
+  contractorDeleteErrorWithUnpaidEarnings:
+    "Este prestador de serviços tem ganhos não pagos. Por favor, processe seus pagamentos pendentes antes de excluir.",
 };

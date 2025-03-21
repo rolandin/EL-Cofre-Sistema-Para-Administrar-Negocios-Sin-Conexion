@@ -135,7 +135,9 @@ export function SaleForm() {
   const handleSubmit = () => {
     // Validate quantities against stock
     const invalidItems = saleItems.filter((item) => {
-      const product = products.find((p) => p.id.toString() === item.productId);
+      const product = products.find(
+        (p: Product) => p.id.toString() === item.productId
+      );
       return product && item.quantity > product.quantity;
     });
 
@@ -168,16 +170,20 @@ export function SaleForm() {
   // Calculate total price
   const totalPrice = [
     ...saleItems.map((item) => {
-      const product = products.find((p) => p.id.toString() === item.productId);
+      const product = products.find(
+        (p: Product) => p.id.toString() === item.productId
+      );
       return (product?.outboundPrice || 0) * item.quantity;
     }),
     ...serviceItems.map((item) => {
-      const service = services.find((s) => s.id.toString() === item.serviceId);
+      const service = services.find(
+        (s: Service) => s.id.toString() === item.serviceId
+      );
       return service?.base_price || 0;
     }),
   ].reduce((sum, price) => sum + price, 0);
 
-  const hasAvailableProducts = products.some((p) => p.quantity > 0);
+  const hasAvailableProducts = products.some((p: Product) => p.quantity > 0);
   const hasServices = Array.isArray(services) && services.length > 0;
 
   // Check if the sale is valid
@@ -187,7 +193,7 @@ export function SaleForm() {
       saleItems.every((item) => item.productId) &&
       !saleItems.some((item) => {
         const product = products.find(
-          (p) => p.id.toString() === item.productId
+          (p: Product) => p.id.toString() === item.productId
         );
         return product && item.quantity > product.quantity;
       })) ||
@@ -204,7 +210,7 @@ export function SaleForm() {
         <div className="space-y-4">
           {saleItems.map((item, index) => {
             const selectedProduct = products.find(
-              (p) => p.id.toString() === item.productId
+              (p: Product) => p.id.toString() === item.productId
             );
             const exceedsStock =
               selectedProduct && item.quantity > selectedProduct.quantity;

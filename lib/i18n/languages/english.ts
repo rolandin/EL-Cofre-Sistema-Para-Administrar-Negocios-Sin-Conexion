@@ -166,6 +166,8 @@ export const en = {
   deleteService: "Delete Service",
   confirmDeleteService:
     "Are you sure you want to delete this service? This action cannot be undone.",
+  serviceDeleteErrorWithHistory:
+    "This service has been used in past transactions. Deleting it would affect historical records and financial data.",
   noServices: "No services available",
   noServiceHistory: "No history available",
   client: "Client",
@@ -252,6 +254,12 @@ export const en = {
   employeesDescription: "Manage employees and their details",
   settingsDescription: "Manage system settings and user access",
   processPayments: "Process and track payments for employees and contractors",
+  employeeNotFound: "Employee not found",
+  editEmployee: "Edit Employee",
+  cannotDeactivateWithPendingPayments:
+    "Cannot deactivate employee with pending payments",
+  cannotDeactivateWithUpcomingAppointments:
+    "Cannot deactivate employee with upcoming appointments",
 
   // Contractor Management
   manageContractors: "Manage contractors and their location fees",
@@ -273,6 +281,12 @@ export const en = {
   noContractors: "No contractors available",
   creating: "Creating...",
   price: "Price",
+  contractorDeleteErrorWithServiceHistory:
+    "This contractor has performed services in the past. Deleting them would affect historical records and financial data.",
+  contractorDeleteErrorWithSalesHistory:
+    "This contractor has sales history. Deleting them would affect historical records and financial data.",
+  contractorDeleteErrorWithUnpaidEarnings:
+    "This contractor has unpaid earnings. Please process their pending payments before deletion.",
 
   // Employee Management
   manageEmployees: "Manage employees and their details",

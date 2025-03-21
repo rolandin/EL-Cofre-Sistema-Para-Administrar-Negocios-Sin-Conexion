@@ -168,7 +168,9 @@ export const es = {
   serviceDeleted: "Servicio eliminado exitosamente",
   deleteService: "Eliminar Servicio",
   confirmDeleteService:
-    "¿Está seguro que desea eliminar este servicio? Esta acción no se puede deshacer.",
+    "¿Está seguro de que desea eliminar este servicio? Esta acción no se puede deshacer.",
+  serviceDeleteErrorWithHistory:
+    "Este servicio ha sido utilizado en transacciones anteriores. Eliminarlo afectaría los registros históricos y los datos financieros.",
   noServices: "No hay servicios disponibles",
   noServiceHistory: "No hay historial disponible",
   client: "Cliente",
@@ -258,6 +260,12 @@ export const es = {
     "Gestionar configuración del sistema y acceso de usuarios",
   processPayments:
     "Procesar y dar seguimiento a pagos de empleados y contratistas",
+  employeeNotFound: "Empleado no encontrado",
+  editEmployee: "Editar Empleado",
+  cannotDeactivateWithPendingPayments:
+    "No se puede desactivar el empleado con pagos pendientes",
+  cannotDeactivateWithUpcomingAppointments:
+    "No se puede desactivar el empleado con citas próximas",
 
   // Contractor Management
   manageContractors: "Gestionar contratistas y sus tarifas de ubicación",
@@ -279,6 +287,12 @@ export const es = {
   noContractors: "No hay contratistas disponibles",
   creating: "Creando...",
   price: "Precio",
+  contractorDeleteErrorWithServiceHistory:
+    "Este contratista ha realizado servicios en el pasado. Eliminarlo afectaría los registros históricos y los datos financieros.",
+  contractorDeleteErrorWithSalesHistory:
+    "Este contratista tiene historial de ventas. Eliminarlo afectaría los registros históricos y los datos financieros.",
+  contractorDeleteErrorWithUnpaidEarnings:
+    "Este contratista tiene ganancias no pagadas. Por favor, procese sus pagos pendientes antes de eliminarlo.",
 
   // Employee Management
   manageEmployees: "Gestionar empleados y sus detalles",

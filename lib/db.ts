@@ -39,6 +39,7 @@ try {
       salary REAL,
       hire_date TEXT DEFAULT CURRENT_TIMESTAMP,
       contractor_id INTEGER,
+      is_active INTEGER NOT NULL DEFAULT 1,
       FOREIGN KEY(contractor_id) REFERENCES contractors(id)
     );
 

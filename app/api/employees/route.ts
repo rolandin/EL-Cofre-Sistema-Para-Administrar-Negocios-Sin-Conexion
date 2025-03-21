@@ -18,7 +18,7 @@ export async function GET() {
           c.location_fee_percentage
         FROM employees e
         LEFT JOIN contractors c ON e.contractor_id = c.id
-        ORDER BY e.name`
+        ORDER BY e.is_active DESC, e.name`
       )
       .all() as any[];
 

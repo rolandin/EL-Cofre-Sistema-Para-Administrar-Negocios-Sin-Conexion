@@ -173,7 +173,7 @@ export function UserManagement() {
                       <div>
                         <div>{user.employee_name}</div>
                         <div className="text-sm text-gray-500">
-                          {user.employee_position}
+                          {t(user.employee_position?.toLowerCase() as any)}
                         </div>
                       </div>
                     ) : (

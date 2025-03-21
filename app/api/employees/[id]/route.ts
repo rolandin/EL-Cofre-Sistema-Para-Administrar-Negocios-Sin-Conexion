@@ -2,11 +2,25 @@ import { NextResponse } from "next/server";
 import db from "@/lib/db";
 import { z } from "zod";
 
-const employeeUpdateSchema = z.object({
-  name: z.string().min(1),
-  position: z.string().min(1),
-  salary: z.number().nullable(),
-});
+const employeeUpdateSchema = z
+  .object({
+    name: z.string().min(1).optional(),
+    position: z.string().min(1).optional(),
+    salary: z.number().nullable().optional(),
+    is_active: z.boolean().optional(),
+  })
+  .refine(
+    (data) => {
+      // If is_active is present, other fields are optional
+      if ("is_active" in data) return true;
+      // Otherwise, at least one other field must be present
+      return "name" in data || "position" in data || "salary" in data;
+    },
+    {
+      message: "At least one field must be provided for update",
+      path: ["name", "position", "salary", "is_active"],
+    }
+  );
 
 export async function PATCH(
   request: Request,
@@ -16,31 +30,92 @@ export async function PATCH(
     const body = await request.json();
     const validatedData = employeeUpdateSchema.parse(body);
 
-    console.log("Validated Data:", validatedData);
-
     const employee = db
       .prepare("SELECT id FROM employees WHERE id = ?")
       .get(params.id);
 
     if (!employee) {
       return NextResponse.json(
-        { error: "Employee not found" },
+        {
+          error: "Employee not found",
+          details: "employeeNotFound",
+        },
         { status: 404 }
       );
     }
 
-    db.prepare(
-      `UPDATE employees SET
-        name = ?,
-        position = ?,
-        salary = ?
-      WHERE id = ?`
-    ).run(
-      validatedData.name,
-      validatedData.position,
-      validatedData.salary ?? null,
-      params.id
-    );
+    // If updating active status
+    if ("is_active" in validatedData) {
+      // Check if employee has any pending payments
+      const pendingPayments = db
+        .prepare(
+          `SELECT COUNT(*) as count 
+           FROM employee_payments 
+           WHERE employee_id = ? 
+           AND payment_date >= date('now', '-30 days')`
+        )
+        .get(params.id) as { count: number };
+
+      if (pendingPayments.count > 0 && !validatedData.is_active) {
+        return NextResponse.json(
+          {
+            error: "Cannot deactivate employee with pending payments",
+            details: "pendingPayments",
+          },
+          { status: 400 }
+        );
+      }
+
+      // Check if employee has any upcoming appointments
+      const upcomingAppointments = db
+        .prepare(
+          `SELECT COUNT(*) as count 
+           FROM appointments 
+           WHERE employee_id = ? 
+           AND start_time >= datetime('now')`
+        )
+        .get(params.id) as { count: number };
+
+      if (upcomingAppointments.count > 0 && !validatedData.is_active) {
+        return NextResponse.json(
+          {
+            error: "Cannot deactivate employee with upcoming appointments",
+            details: "upcomingAppointments",
+          },
+          { status: 400 }
+        );
+      }
+
+      db.prepare("UPDATE employees SET is_active = ? WHERE id = ?").run(
+        validatedData.is_active ? 1 : 0,
+        params.id
+      );
+      return NextResponse.json({ success: true });
+    }
+
+    // Regular employee update
+    const updateFields: string[] = [];
+    const updateValues: any[] = [];
+
+    if ("name" in validatedData) {
+      updateFields.push("name = ?");
+      updateValues.push(validatedData.name);
+    }
+    if ("position" in validatedData) {
+      updateFields.push("position = ?");
+      updateValues.push(validatedData.position);
+    }
+    if ("salary" in validatedData) {
+      updateFields.push("salary = ?");
+      updateValues.push(validatedData.salary ?? null);
+    }
+
+    if (updateFields.length > 0) {
+      updateValues.push(params.id);
+      db.prepare(
+        `UPDATE employees SET ${updateFields.join(", ")} WHERE id = ?`
+      ).run(...updateValues);
+    }
 
     const updatedEmployee = db
       .prepare("SELECT * FROM employees WHERE id = ?")

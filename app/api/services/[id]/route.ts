@@ -15,6 +15,23 @@ export async function DELETE(
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
+    // Check if service has any history
+    const serviceHistory = db
+      .prepare(
+        "SELECT COUNT(*) as count FROM services_history WHERE service_id = ?"
+      )
+      .get(params.id) as { count: number };
+
+    if (serviceHistory.count > 0) {
+      return NextResponse.json(
+        {
+          error: "Cannot delete service with history",
+          details: "serviceDeleteErrorWithHistory",
+        },
+        { status: 400 }
+      );
+    }
+
     // Delete the service
     db.prepare("DELETE FROM services WHERE id = ?").run(params.id);
 

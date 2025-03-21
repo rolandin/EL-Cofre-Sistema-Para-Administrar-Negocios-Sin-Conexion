@@ -65,7 +65,9 @@ export function ServicesTable({
       });
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || t("error"));
+        throw new Error(
+          error.details ? t(error.details) : error.error || t("error")
+        );
       }
       return response.json();
     },
@@ -75,6 +77,7 @@ export function ServicesTable({
       setServiceToDelete(null);
     },
     onError: (error: Error) => {
+      console.log({ error });
       toast.error(error.message);
     },
   });

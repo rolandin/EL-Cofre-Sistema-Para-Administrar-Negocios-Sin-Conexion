@@ -157,6 +157,8 @@ export const hi = {
   deleteService: "सेवा हटाएं",
   confirmDeleteService:
     "क्या आप वाकई इस सेवा को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
+  serviceDeleteErrorWithHistory:
+    "यह सेवा पिछले लेन-देन में उपयोग की गई है। इसे हटाने से ऐतिहासिक रिकॉर्ड और वित्तीय डेटा प्रभावित होंगे।",
   noServices: "कोई सेवा उपलब्ध नहीं",
   noServiceHistory: "कोई इतिहास उपलब्ध नहीं",
   client: "ग्राहक",
@@ -239,7 +241,13 @@ export const hi = {
   employeesDescription: "कर्मचारियों और उनके विवरणों का प्रबंधन करें",
   settingsDescription: "सिस्टम सेटिंग्स और उपयोगकर्ता पहुंच का प्रबंधन करें",
   processPayments:
-    "कर्मचारियों और ठेकेदारों के भुगतान प्रक्रिया करें और ट्रैक करें",
+    "कर्मचारियों और ठेकेदारों के भुगतान को संसाधित और ट्रैक करें",
+  employeeNotFound: "कर्मचारी नहीं मिला",
+  editEmployee: "कर्मचारी संपादित करें",
+  cannotDeactivateWithPendingPayments:
+    "लंबित भुगतान वाले कर्मचारी को निष्क्रिय नहीं किया जा सकता",
+  cannotDeactivateWithUpcomingAppointments:
+    "आगामी नियुक्तियों वाले कर्मचारी को निष्क्रिय नहीं किया जा सकता",
   // Contractor Management
   manageContractors: "ठेकेदारों और उनकी स्थान फीस का प्रबंधन करें",
   newContractor: "नया ठेकेदार",
@@ -295,4 +303,10 @@ export const hi = {
     "क्या आप वाकई इस कर्मचारी को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
   inactiveUserError:
     "आपका खाता वर्तमान में निष्क्रिय है। कृपया प्रशासक से संपर्क करें।",
+  contractorDeleteErrorWithServiceHistory:
+    "इस ठेकेदार ने पहले सेवाएं प्रदान की हैं। उन्हें हटाने से ऐतिहासिक रिकॉर्ड और वित्तीय डेटा प्रभावित होगा।",
+  contractorDeleteErrorWithSalesHistory:
+    "इस ठेकेदार का बिक्री इतिहास है। उन्हें हटाने से ऐतिहासिक रिकॉर्ड और वित्तीय डेटा प्रभावित होगा।",
+  contractorDeleteErrorWithUnpaidEarnings:
+    "इस ठेकेदार के पास अनभुगतान आय है। कृपया हटाने से पहले उनके लंबित भुगतानों को संसाधित करें।",
 };

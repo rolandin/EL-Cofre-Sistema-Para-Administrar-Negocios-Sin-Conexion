@@ -156,6 +156,8 @@ export const ar = {
   deleteService: "حذف الخدمة",
   confirmDeleteService:
     "هل أنت متأكد أنك تريد حذف هذه الخدمة؟ لا يمكن التراجع عن هذا الإجراء.",
+  serviceDeleteErrorWithHistory:
+    "تم استخدام هذه الخدمة في المعاملات السابقة. حذفها سيؤثر على السجلات التاريخية والبيانات المالية.",
   noServices: "لا توجد خدمات متاحة",
   noServiceHistory: "لا يوجد سجل متاح",
   client: "العميل",
@@ -238,6 +240,12 @@ export const ar = {
   employeesDescription: "إدارة الموظفين وتفاصيلهم",
   settingsDescription: "إدارة إعدادات النظام ووصول المستخدمين",
   processPayments: "معالجة وتتبع مدفوعات الموظفين والمقاولين",
+  employeeNotFound: "لم يتم العثور على الموظف",
+  editEmployee: "تعديل الموظف",
+  cannotDeactivateWithPendingPayments:
+    "لا يمكن تعطيل الموظف مع وجود مدفوعات معلقة",
+  cannotDeactivateWithUpcomingAppointments:
+    "لا يمكن تعطيل الموظف مع وجود مواعيد قادمة",
   // Contractor Management
   manageContractors: "إدارة المقاولين ورسوم مواقعهم",
   newContractor: "مقاول جديد",
@@ -292,4 +300,10 @@ export const ar = {
   deleteEmployee: "حذف الموظف",
   deleteEmployeeConfirm:
     "هل أنت متأكد أنك تريد حذف هذا الموظف؟ لا يمكن التراجع عن هذا الإجراء.",
+  contractorDeleteErrorWithServiceHistory:
+    "قام هذا المقاول بتقديم خدمات في الماضي. حذفه سيؤثر على السجلات التاريخية والبيانات المالية.",
+  contractorDeleteErrorWithSalesHistory:
+    "هذا المقاول لديه سجل مبيعات. حذفه سيؤثر على السجلات التاريخية والبيانات المالية.",
+  contractorDeleteErrorWithUnpaidEarnings:
+    "هذا المقاول لديه أرباح غير مدفوعة. يرجى معالجة مدفوعاته المعلقة قبل الحذف.",
 };

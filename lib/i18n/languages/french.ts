@@ -159,6 +159,8 @@ export const fr = {
   deleteService: "Supprimer le Service",
   confirmDeleteService:
     "Êtes-vous sûr de vouloir supprimer ce service ? Cette action ne peut pas être annulée.",
+  serviceDeleteErrorWithHistory:
+    "Ce service a été utilisé dans des transactions passées. Sa suppression affecterait les registres historiques et les données financières.",
   noServices: "Aucun service disponible",
   noServiceHistory: "Aucun historique disponible",
   client: "Client",
@@ -244,6 +246,12 @@ export const fr = {
     "Gérer les paramètres du système et l'accès des utilisateurs",
   processPayments:
     "Traiter et suivre les paiements des employés et des contractants",
+  employeeNotFound: "Employé non trouvé",
+  editEmployee: "Modifier l'employé",
+  cannotDeactivateWithPendingPayments:
+    "Impossible de désactiver un employé avec des paiements en attente",
+  cannotDeactivateWithUpcomingAppointments:
+    "Impossible de désactiver un employé avec des rendez-vous à venir",
   // Contractor Management
   manageContractors: "Gérer les contractants et leurs tarifs d'emplacement",
   newContractor: "Nouveau contractant",
@@ -264,6 +272,12 @@ export const fr = {
   noContractors: "Aucun contractant disponible",
   creating: "Création en cours...",
   price: "Prix",
+  contractorDeleteErrorWithServiceHistory:
+    "Ce contractant a effectué des services dans le passé. Le supprimer affecterait les registres historiques et les données financières.",
+  contractorDeleteErrorWithSalesHistory:
+    "Ce contractant a un historique de ventes. Le supprimer affecterait les registres historiques et les données financières.",
+  contractorDeleteErrorWithUnpaidEarnings:
+    "Ce contractant a des gains non payés. Veuillez traiter ses paiements en attente avant la suppression.",
   // Employee Management
   manageEmployees: "Gérer les employés et leurs détails",
   newEmployee: "Nouvel employé",

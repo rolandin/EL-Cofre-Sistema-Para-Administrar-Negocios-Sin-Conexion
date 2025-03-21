@@ -22,6 +22,7 @@ interface Employee {
   name: string;
   position: string;
   salary: number | null;
+  is_active: boolean;
 }
 
 interface EmployeePaymentFormProps {
@@ -48,7 +49,8 @@ export function EmployeePaymentForm({ onSuccess }: EmployeePaymentFormProps) {
     queryFn: async () => {
       const response = await fetch("/api/employees");
       if (!response.ok) throw new Error(t("error"));
-      return response.json();
+      const data = await response.json();
+      return data.filter((employee: Employee) => employee.is_active);
     },
   });
 
