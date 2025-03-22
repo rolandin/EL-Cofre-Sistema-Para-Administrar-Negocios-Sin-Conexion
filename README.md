@@ -60,13 +60,13 @@ Este proyecto está especialmente pensado para regiones geográficas del plaenta
 - Español (por defecto)
 - English
 - Français (Prochainement)
-- Русский
-- 中文 (即将推出)
-- Deutsch (Demnächst verfügbar)
-- Italiano (Prossimamente)
-- Português (Em breve)
-- 日本語 (近日公開)
-- 한국어 (곧 출시 예정)
+- Русский (coming)
+- 中文 (coming)
+- Deutsch (coming)
+- Italiano (coming)
+- Português (coming)
+- 日本語 (coming)
+- 한국어 (coming)
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -97,6 +97,8 @@ Para correr este proyecto localmente se necesitan los siguientes requisitos:
 - macOS 10.15 (Catalina) o superior
 
 ## 🚀 Guía de Instalación Detallada para Windows
+
+> **Nota Importante**: Solo necesitarás conexión a internet durante la instalación inicial del sistema (para descargar Node.js, Git, clonar el repositorio e instalar las dependencias). Una vez instalado, el sistema funcionará completamente offline sin necesidad de conexión a internet.
 
 ### 1. Instalar Node.js
 
