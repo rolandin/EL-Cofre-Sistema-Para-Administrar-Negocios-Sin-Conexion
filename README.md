@@ -196,7 +196,15 @@ Para correr este proyecto localmente se necesitan los siguientes requisitos:
    ```
    - Espera a que termine la instalación (puede tardar varios minutos)
 
-### 5. Configurar el Proyecto
+### 5. Compilar el Proyecto
+
+1. En la misma Terminal de Windows:
+   ```bash
+   npm run build
+   ```
+   - Espera a que termine la compilación (puede tardar varios minutos)
+
+### 6. Configurar el Proyecto
 
 1. Crea el archivo de configuración:
    - En el Explorador de Windows, ve a C:\Proyectos\elcofre
@@ -209,14 +217,6 @@ Para correr este proyecto localmente se necesitan los siguientes requisitos:
      DB_ENCRYPTION_KEY=tu_clave_encriptacion_aqui
      ```
    - Guarda el archivo
-
-### 6. Compilar el Proyecto
-
-1. En la Terminal de Windows (que ya debería estar abierta):
-   ```bash
-   npm run build
-   ```
-   - Espera a que termine la compilación
 
 ### 7. Configurar el Inicio Automático
 
