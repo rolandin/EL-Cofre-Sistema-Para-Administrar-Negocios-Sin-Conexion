@@ -96,57 +96,195 @@ Para correr este proyecto localmente se necesitan los siguientes requisitos:
 - 1GB espacio en disco
 - macOS 10.15 (Catalina) o superior
 
-## 🚀 Instalación y Despliegue
+## 🚀 Guía de Instalación Detallada para Windows
 
-### Windows
+### 1. Instalar Node.js
 
-1. **Preparación del Sistema**
+1. Abre tu navegador web (Chrome, Firefox, etc.)
+2. Ve a https://nodejs.org/
+3. Descarga la versión LTS (Long Term Support) - es el botón verde grande
+4. Ejecuta el archivo descargado (node-vXX.XX.X-x64.msi)
+5. Sigue el asistente de instalación:
+   - Haz clic en "Next"
+   - Acepta los términos y condiciones
+   - Haz clic en "Next"
+   - Mantén la ubicación de instalación predeterminada
+   - Haz clic en "Next"
+   - Haz clic en "Install"
+   - Espera a que termine la instalación
+   - Haz clic en "Finish"
+
+### 2. Instalar Git
+
+1. Abre tu navegador web
+2. Ve a https://git-scm.com/download/win
+3. Descarga el instalador de Git para Windows
+4. Ejecuta el archivo descargado (Git-2.XX.X-64-bit.exe)
+5. Sigue el asistente de instalación:
+   - Haz clic en "Next"
+   - Acepta los términos y condiciones
+   - Haz clic en "Next"
+   - Mantén la ubicación de instalación predeterminada
+   - Haz clic en "Next"
+   - Selecciona "Use Git from Git Bash only"
+   - Haz clic en "Next"
+   - Selecciona "Use bundled OpenSSH"
+   - Haz clic en "Next"
+   - Selecciona "Use the OpenSSL library"
+   - Haz clic en "Next"
+   - Selecciona "Checkout as-is, commit Unix-style line endings"
+   - Haz clic en "Next"
+   - Selecciona "Use MinTTY"
+   - Haz clic en "Next"
+   - Selecciona "Default"
+   - Haz clic en "Next"
+   - Haz clic en "Install"
+   - Espera a que termine la instalación
+   - Haz clic en "Finish"
+
+### 3. Clonar el Proyecto
+
+1. Crea una carpeta para el proyecto:
+
+   - Abre el Explorador de Windows
+   - Ve a la unidad C:
+   - Crea una nueva carpeta llamada "Proyectos"
+   - Abre la carpeta "Proyectos"
+
+2. Abre Git Bash:
+
+   - Presiona la tecla Windows
+   - Escribe "Git Bash"
+   - Haz clic en la aplicación Git Bash
+
+3. Navega a la carpeta de proyectos:
 
    ```bash
-   # Instalar Node.js desde https://nodejs.org/
-   # Verificar instalación
-   node --version
-   npm --version
+   cd /c/Proyectos
    ```
 
-2. **Clonar el Repositorio**
+4. Clona el repositorio:
 
    ```bash
    git clone https://github.com/tu-usuario/elcofre.git
+   ```
+
+5. Entra en la carpeta del proyecto:
+   ```bash
    cd elcofre
    ```
 
-3. **Instalar Dependencias**
+### 4. Instalar Dependencias
 
+1. Abre la Terminal de Windows:
+
+   - Presiona la tecla Windows
+   - Escribe "Terminal" o "Command Prompt"
+   - Haz clic en la aplicación Terminal
+
+2. Navega a la carpeta del proyecto:
+
+   ```bash
+   cd C:\Proyectos\elcofre
+   ```
+
+3. Instala las dependencias:
    ```bash
    npm install
    ```
+   - Espera a que termine la instalación (puede tardar varios minutos)
 
-4. **Configurar Variables de Entorno**
+### 5. Configurar el Proyecto
 
-   - Crear archivo `.env` en la raíz del proyecto:
+1. Crea el archivo de configuración:
+   - En el Explorador de Windows, ve a C:\Proyectos\elcofre
+   - Crea un nuevo archivo de texto
+   - Nómbralo exactamente como ".env" (con el punto)
+   - Abre el archivo con el Bloc de notas
+   - Agrega estas líneas:
+     ```
+     JWT_SECRET=tu_clave_secreta_aqui
+     DB_ENCRYPTION_KEY=tu_clave_encriptacion_aqui
+     ```
+   - Guarda el archivo
 
-   ```env
-   JWT_SECRET=tu_clave_secreta_aqui
-   DB_ENCRYPTION_KEY=tu_clave_encriptacion_aqui
-   ```
+### 6. Compilar el Proyecto
 
-5. **Iniciar en Modo Desarrollo**
-
-   ```bash
-   npm run dev
-   ```
-
-6. **Compilar para Producción**
-
+1. En la Terminal de Windows (que ya debería estar abierta):
    ```bash
    npm run build
    ```
+   - Espera a que termine la compilación
 
-7. **Iniciar en Modo Producción**
-   ```bash
-   npm start
-   ```
+### 7. Configurar el Inicio Automático
+
+1. Crea un archivo batch para iniciar el proyecto:
+
+   - En el Explorador de Windows, ve a C:\Proyectos\elcofre
+   - Crea un nuevo archivo de texto
+   - Nómbralo como "start-elcofre.bat"
+   - Abre el archivo con el Bloc de notas
+   - Agrega estas líneas:
+     ```batch
+     @echo off
+     cd /d C:\Proyectos\elcofre
+     npm start
+     ```
+   - Guarda el archivo
+
+2. Crea un acceso directo:
+   - Haz clic derecho en el archivo "start-elcofre.bat"
+   - Selecciona "Crear acceso directo"
+   - Mueve el acceso directo a:
+     C:\Users\[TuUsuario]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+### 8. Iniciar el Proyecto
+
+1. Para iniciar por primera vez:
+
+   - Haz doble clic en el archivo "start-elcofre.bat"
+   - El proyecto se iniciará y estará disponible en:
+     http://localhost:3000
+
+2. Para acceder al sistema:
+   - Abre tu navegador web
+   - Escribe: http://localhost:3000
+   - Presiona Enter
+
+### 9. Verificar que Todo Funciona
+
+1. El sistema debería iniciar automáticamente cuando enciendas la computadora
+2. Para verificar que está funcionando:
+   - Abre tu navegador web
+   - Escribe: http://localhost:3000
+   - Deberías ver la página de inicio del sistema
+
+### 10. Solución de Problemas Comunes
+
+1. Si el sistema no inicia:
+
+   - Verifica que Node.js está instalado:
+     - Abre la Terminal
+     - Escribe: `node --version`
+     - Deberías ver un número de versión
+
+2. Si la página no carga:
+
+   - Verifica que el archivo "start-elcofre.bat" está en la carpeta correcta
+   - Intenta ejecutar el archivo "start-elcofre.bat" manualmente
+
+3. Si hay errores de dependencias:
+   - Abre la Terminal
+   - Navega a la carpeta del proyecto:
+     ```bash
+     cd C:\Proyectos\elcofre
+     ```
+   - Ejecuta:
+     ```bash
+     npm install
+     ```
+
+## 🚀 Instalación y Despliegue
 
 ### macOS
 
