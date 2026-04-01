@@ -1,10 +1,28 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import path from 'path';
+
+// Import route modules (will be added incrementally)
+import authRoutes from './routes/auth';
 
 const app = express();
 
-app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok' });
-});
+app.use(cors({ origin: true, credentials: true }));
+app.use(express.json());
+app.use(cookieParser());
+
+// API routes
+app.use('/api', authRoutes);
+
+// In production, serve the built frontend
+if (process.env.NODE_ENV !== 'development') {
+  const distPath = path.join(__dirname, '../dist');
+  app.use(express.static(distPath));
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
 
 export function startServer(port: number = 3847): Promise<number> {
   return new Promise((resolve) => {
