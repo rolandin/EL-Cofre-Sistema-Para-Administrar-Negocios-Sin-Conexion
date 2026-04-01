@@ -174,6 +174,21 @@ try {
       FOREIGN KEY(service_id) REFERENCES services(id)
     );
 
+    CREATE TABLE IF NOT EXISTS license_info (
+      id INTEGER PRIMARY KEY DEFAULT 1,
+      machineId TEXT NOT NULL,
+      keyPayload TEXT NOT NULL,
+      keyType TEXT NOT NULL CHECK(keyType IN ('6month', 'lifetime')),
+      activatedAt TEXT NOT NULL,
+      expiresAt TEXT,
+      lastSeen TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS used_keys (
+      keyId TEXT PRIMARY KEY,
+      activatedAt TEXT NOT NULL
+    );
+
     INSERT OR IGNORE INTO system_settings (id) VALUES (1);
   `);
 } catch (error) {

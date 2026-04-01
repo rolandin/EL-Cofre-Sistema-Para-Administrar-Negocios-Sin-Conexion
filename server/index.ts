@@ -18,6 +18,7 @@ import userRoutes from './routes/users';
 import inventoryRoutes from './routes/inventory';
 import receiveRoutes from './routes/receive';
 import returnsRoutes from './routes/returns';
+import licenseRoutes from './routes/license';
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/receive', receiveRoutes);
 app.use('/api/returns', returnsRoutes);
+app.use('/api/license', licenseRoutes);
 
 // In production, serve the built frontend
 if (process.env.NODE_ENV !== 'development') {
