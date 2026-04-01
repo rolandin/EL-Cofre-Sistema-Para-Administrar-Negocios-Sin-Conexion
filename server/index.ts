@@ -3,8 +3,21 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
 
-// Import route modules (will be added incrementally)
 import authRoutes from './routes/auth';
+import productRoutes from './routes/products';
+import serviceRoutes from './routes/services';
+import salesRoutes from './routes/sales';
+import employeeRoutes from './routes/employees';
+import contractorRoutes from './routes/contractors';
+import paymentRoutes from './routes/payments';
+import appointmentRoutes from './routes/appointments';
+import settingsRoutes from './routes/settings';
+import backupRoutes from './routes/backup';
+import metricsRoutes from './routes/metrics';
+import userRoutes from './routes/users';
+import inventoryRoutes from './routes/inventory';
+import receiveRoutes from './routes/receive';
+import returnsRoutes from './routes/returns';
 
 const app = express();
 
@@ -14,6 +27,20 @@ app.use(cookieParser());
 
 // API routes
 app.use('/api', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/services', serviceRoutes);
+app.use('/api/sales', salesRoutes);
+app.use('/api/employees', employeeRoutes);
+app.use('/api/contractors', contractorRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/backup', backupRoutes);
+app.use('/api/metrics', metricsRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/inventory', inventoryRoutes);
+app.use('/api/receive', receiveRoutes);
+app.use('/api/returns', returnsRoutes);
 
 // In production, serve the built frontend
 if (process.env.NODE_ENV !== 'development') {
