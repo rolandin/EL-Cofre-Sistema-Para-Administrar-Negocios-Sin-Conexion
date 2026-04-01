@@ -12,5 +12,5 @@
     "rootDir": ".",
     "baseUrl": "."
   },
-  "include": ["electron/**/*.ts", "server/**/*.ts"]
+  "include": ["electron/**/*.ts", "server/**/*.ts", "shared/**/*.ts"]
 }
