@@ -6,6 +6,7 @@ files:
   - dist/**/*
   - dist-electron/**/*
   - "!node_modules/.cache"
+  - "!keygen/**/*"
 extraResources:
   - from: "warehouse.db"
     to: "warehouse.db"
