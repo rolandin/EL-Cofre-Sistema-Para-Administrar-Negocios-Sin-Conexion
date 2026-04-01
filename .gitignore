@@ -42,3 +42,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# keygen
+keygen/keys/
+keygen/dist/
+keygen/node_modules/
