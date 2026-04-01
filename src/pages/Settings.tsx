@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "@/lib/i18n/use-translations";
+import { LicenseSettings } from "@/components/settings/license-settings";
 
 export default function SettingsPage() {
   const { t } = useTranslations();
@@ -33,6 +34,7 @@ export default function SettingsPage() {
           <TabsTrigger value="users">{t("userManagement")}</TabsTrigger>
           <TabsTrigger value="reports">{t("salesReport")}</TabsTrigger>
           <TabsTrigger value="system">{t("systemSettings")}</TabsTrigger>
+          <TabsTrigger value="license">License</TabsTrigger>
         </TabsList>
 
         <TabsContent value="users">
@@ -45,6 +47,10 @@ export default function SettingsPage() {
 
         <TabsContent value="system">
           <SystemSettings />
+        </TabsContent>
+
+        <TabsContent value="license">
+          <LicenseSettings />
         </TabsContent>
       </Tabs>
     </div>

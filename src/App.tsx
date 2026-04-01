@@ -16,6 +16,7 @@ import Contractors from './pages/Contractors';
 import Employees from './pages/Employees';
 import Payments from './pages/Payments';
 import Settings from './pages/Settings';
+import Activation from './pages/Activation';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/setup" element={<Setup />} />
+          <Route path="/activation" element={<Activation />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="inventory" element={<Inventory />} />
