@@ -47,3 +47,4 @@ next-env.d.ts
 keygen/keys/
 keygen/dist/
 keygen/node_modules/
+keygen/*.tgz
