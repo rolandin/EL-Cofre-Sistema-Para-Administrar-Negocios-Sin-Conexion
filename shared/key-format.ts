@@ -2,7 +2,7 @@ import crypto from 'crypto';
 
 export interface KeyPayload {
   machineId: string;
-  type: '6month' | 'lifetime';
+  type: '6month' | '1year' | 'lifetime';
   expiresAt: string | null;  // ISO date string, null for lifetime
   issuedAt: string;          // ISO date string
   keyId: string;             // unique ID for single-use enforcement

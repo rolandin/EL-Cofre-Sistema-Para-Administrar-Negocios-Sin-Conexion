@@ -2,13 +2,17 @@ import crypto from 'crypto';
 import { encodeKey, KeyPayload } from '../../shared/key-format';
 import { getPrivateKey } from './init';
 
-export function generateKey(machineId: string, type: '6month' | 'lifetime'): { key: string; payload: KeyPayload } {
+export function generateKey(machineId: string, type: '6month' | '1year' | 'lifetime'): { key: string; payload: KeyPayload } {
   const now = new Date();
   let expiresAt: string | null = null;
 
   if (type === '6month') {
     const expiry = new Date(now);
     expiry.setMonth(expiry.getMonth() + 6);
+    expiresAt = expiry.toISOString().split('T')[0];
+  } else if (type === '1year') {
+    const expiry = new Date(now);
+    expiry.setFullYear(expiry.getFullYear() + 1);
     expiresAt = expiry.toISOString().split('T')[0];
   }
 

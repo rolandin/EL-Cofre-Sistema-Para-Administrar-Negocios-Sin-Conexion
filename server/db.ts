@@ -178,7 +178,7 @@ try {
       id INTEGER PRIMARY KEY DEFAULT 1,
       machineId TEXT NOT NULL,
       keyPayload TEXT NOT NULL,
-      keyType TEXT NOT NULL CHECK(keyType IN ('6month', 'lifetime')),
+      keyType TEXT NOT NULL CHECK(keyType IN ('6month', '1year', 'lifetime')),
       activatedAt TEXT NOT NULL,
       expiresAt TEXT,
       lastSeen TEXT NOT NULL
