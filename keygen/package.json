@@ -1,13 +1,13 @@
 {
-  "name": "cofre-keygen",
+  "name": "cofre",
   "version": "1.0.0",
   "private": true,
   "bin": {
-    "cofre-keygen": "./dist/src/index.js"
+    "cofre": "./dist/keygen/src/index.js"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/src/index.js"
+    "start": "node dist/keygen/src/index.js"
   },
   "dependencies": {
     "commander": "^12.0.0"

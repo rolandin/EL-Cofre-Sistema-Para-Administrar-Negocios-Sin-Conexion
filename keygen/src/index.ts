@@ -6,7 +6,7 @@ import { generateKey } from './generate';
 const program = new Command();
 
 program
-  .name('cofre-keygen')
+  .name('cofre')
   .description('License key generator for El Cofre')
   .version('1.0.0');
 
