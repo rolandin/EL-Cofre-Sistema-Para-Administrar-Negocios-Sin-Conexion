@@ -33,10 +33,17 @@ export default function Activation() {
       if (!res.ok) throw new Error(data.error || 'Activation failed');
       return data;
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success('License activated successfully!');
       queryClient.invalidateQueries({ queryKey: ['licenseStatus'] });
-      navigate('/');
+      // Check if this is first run (no users yet) -> setup, otherwise -> login
+      try {
+        const res = await fetch('/api/check-setup');
+        const data = await res.json();
+        navigate(data.isFirstRun ? '/setup' : '/login');
+      } catch {
+        navigate('/');
+      }
     },
     onError: (err: Error) => {
       toast.error(err.message);
