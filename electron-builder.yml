@@ -1,0 +1,37 @@
+appId: com.elcofre.app
+productName: El Cofre
+directories:
+  output: release
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - "!node_modules/.cache"
+  - "!keygen/**/*"
+extraResources:
+  - from: "warehouse.db"
+    to: "warehouse.db"
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  icon: build/icon.icns
+  category: public.app-category.business
+dmg:
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications

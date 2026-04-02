@@ -14,6 +14,15 @@
 
 # production
 /build
+/dist
+/dist-electron
+/release
+/temp
+
+# electron
+*.dmg
+*.exe
+*.AppImage
 
 # misc
 .DS_Store
@@ -33,3 +42,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# keygen
+keygen/keys/
+keygen/dist/
+keygen/node_modules/
+keygen/*.tgz
