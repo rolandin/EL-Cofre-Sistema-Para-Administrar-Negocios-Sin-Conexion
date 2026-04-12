@@ -311,4 +311,14 @@ export const pt = {
     "Este prestador de serviços tem histórico de vendas. Excluí-lo afetaria os registros históricos e dados financeiros.",
   contractorDeleteErrorWithUnpaidEarnings:
     "Este prestador de serviços tem ganhos não pagos. Por favor, processe seus pagamentos pendentes antes de excluir.",
+
+  // Auth layout branding
+  brandTagline1: "Gestão empresarial",
+  brandTagline2: "sem fronteiras.",
+  brandDescription:
+    "Um sistema completo para inventário, vendas, serviços, funcionários e agendamentos — projetado para regiões com conectividade limitada.",
+  brandFeature1: "Funciona 100% offline — sem necessidade de internet",
+  brandFeature2: "Seus dados ficam locais, sempre sob seu controle",
+  brandFeature3: "Multiusuário com acesso baseado em funções",
+  brandFeature4: "Banco de dados criptografado com backups seguros",
 };

@@ -313,4 +313,14 @@ export const fr = {
     "Êtes-vous sûr de vouloir supprimer cet employé ? Cette action ne peut pas être annulée.",
   inactiveUserError:
     "Votre compte est actuellement inactif. Veuillez contacter un administrateur.",
+
+  // Auth layout branding
+  brandTagline1: "Gestion d'entreprise",
+  brandTagline2: "sans frontières.",
+  brandDescription:
+    "Un système complet pour l'inventaire, les ventes, les services, les employés et la planification — conçu pour les régions à connectivité limitée.",
+  brandFeature1: "Fonctionne à 100% hors ligne — sans connexion internet",
+  brandFeature2: "Vos données restent locales, toujours sous votre contrôle",
+  brandFeature3: "Multi-utilisateurs avec accès basé sur les rôles",
+  brandFeature4: "Base de données chiffrée avec sauvegardes sécurisées",
 };
