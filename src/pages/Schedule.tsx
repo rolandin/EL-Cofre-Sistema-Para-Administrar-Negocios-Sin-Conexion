@@ -13,6 +13,8 @@ import {
   setHours,
   setMinutes,
   addHours,
+  addDays,
+  subDays,
 } from "date-fns";
 import { es } from "date-fns/locale";
 import { Calendar } from "@/components/ui/calendar";
@@ -48,6 +50,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useLocation } from "react-router-dom";
+import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 // Define a set of distinct colors using Tailwind's color palette
 // These are carefully selected for good contrast and visibility
@@ -154,6 +162,7 @@ export default function SchedulePage() {
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
   const [formData, setFormData] = useState({
     title: "",
+    date: new Date(),
     startTime: "09:00",
     duration: "60",
     notes: "",
@@ -250,12 +259,11 @@ export default function SchedulePage() {
     },
     onSuccess: () => {
       toast.success(t("appointmentCreated"));
-      queryClient.invalidateQueries({
-        queryKey: ["appointments", format(selectedDate, "yyyy-MM-dd")],
-      });
+      queryClient.invalidateQueries({ queryKey: ["appointments"] });
       setIsDialogOpen(false);
       setFormData({
         title: "",
+        date: selectedDate,
         startTime: "09:00",
         duration: "60",
         notes: "",
@@ -293,9 +301,7 @@ export default function SchedulePage() {
     },
     onSuccess: () => {
       toast.success(t("appointmentUpdated"));
-      queryClient.invalidateQueries({
-        queryKey: ["appointments", format(selectedDate, "yyyy-MM-dd")],
-      });
+      queryClient.invalidateQueries({ queryKey: ["appointments"] });
       setSelectedAppointment(null);
     },
     onError: (error: Error) => {
@@ -318,9 +324,7 @@ export default function SchedulePage() {
     },
     onSuccess: () => {
       toast.success(t("appointmentDeleted"));
-      queryClient.invalidateQueries({
-        queryKey: ["appointments", format(selectedDate, "yyyy-MM-dd")],
-      });
+      queryClient.invalidateQueries({ queryKey: ["appointments"] });
       setSelectedAppointment(null);
     },
     onError: (error: Error) => {
@@ -329,10 +333,11 @@ export default function SchedulePage() {
   });
 
   const handleCreateAppointment = () => {
+    const appointmentDate = formData.date;
     const startDateTime = new Date(
-      selectedDate.getFullYear(),
-      selectedDate.getMonth(),
-      selectedDate.getDate(),
+      appointmentDate.getFullYear(),
+      appointmentDate.getMonth(),
+      appointmentDate.getDate(),
       ...formData.startTime.split(":").map(Number)
     );
 
@@ -357,10 +362,11 @@ export default function SchedulePage() {
   const handleUpdateAppointment = () => {
     if (!selectedAppointment) return;
 
+    const appointmentDate = formData.date;
     const startDateTime = new Date(
-      selectedDate.getFullYear(),
-      selectedDate.getMonth(),
-      selectedDate.getDate(),
+      appointmentDate.getFullYear(),
+      appointmentDate.getMonth(),
+      appointmentDate.getDate(),
       ...formData.startTime.split(":").map(Number)
     );
 
@@ -385,6 +391,7 @@ export default function SchedulePage() {
 
     setFormData({
       title: appointment.title,
+      date: parseISO(appointment.start_time),
       startTime: format(start, "HH:mm"),
       duration: duration.toString(),
       notes: appointment.notes,
@@ -540,15 +547,37 @@ export default function SchedulePage() {
       </div>
 
       <div className="space-y-4">
-        {/* Header with calendar dropdown and buttons */}
-        <div className="flex items-center gap-4">
-          <div className="relative" ref={calendarRef}>
+        {/* Header with navigation bar */}
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setSelectedDate((d) => subDays(d, 1))}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setSelectedDate(new Date())}
+          >
+            {t("today") || "Today"}
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setSelectedDate((d) => addDays(d, 1))}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+
+          <div className="relative ml-2" ref={calendarRef}>
             <Button
               variant="outline"
-              className="w-[200px] justify-start text-left font-normal"
+              className="gap-2"
               onClick={() => setIsCalendarOpen(!isCalendarOpen)}
             >
-              {format(selectedDate, "PPP", {
+              <CalendarDays className="h-4 w-4" />
+              {format(selectedDate, "EEEE, MMMM d, yyyy", {
                 locale: language === "es" ? es : undefined,
               })}
             </Button>
@@ -569,27 +598,30 @@ export default function SchedulePage() {
               </div>
             )}
           </div>
-          <Button
-            variant="outline"
-            onClick={scrollToCurrentTime}
-            disabled={selectedDate.toDateString() !== new Date().toDateString()}
-          >
-            {t("now")}
-          </Button>
-          <Button onClick={() => setIsDialogOpen(true)}>
-            {t("newAppointment")}
-          </Button>
+
+          <div className="ml-auto flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={scrollToCurrentTime}
+              disabled={
+                selectedDate.toDateString() !== new Date().toDateString()
+              }
+            >
+              {t("now")}
+            </Button>
+            <Button
+              onClick={() => {
+                setFormData((prev) => ({ ...prev, date: selectedDate }));
+                setIsDialogOpen(true);
+              }}
+            >
+              {t("newAppointment")}
+            </Button>
+          </div>
         </div>
 
         {/* Timeline container */}
         <div className="border rounded-lg bg-white dark:bg-gray-800">
-          <div className="p-4 border-b">
-            <h2 className="text-xl font-semibold">
-              {format(selectedDate, "PPP", {
-                locale: language === "es" ? es : undefined,
-              })}
-            </h2>
-          </div>
 
           <div className="relative overflow-hidden">
             <div
@@ -700,6 +732,7 @@ export default function SchedulePage() {
             setSelectedAppointment(null);
             setFormData({
               title: "",
+              date: selectedDate,
               startTime: "09:00",
               duration: "60",
               notes: "",
@@ -729,6 +762,35 @@ export default function SchedulePage() {
                   setFormData({ ...formData, title: e.target.value })
                 }
               />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">
+                {t("date")} <span className="text-red-500">*</span>
+              </label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal"
+                  >
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    {format(formData.date, "PPP", {
+                      locale: language === "es" ? es : undefined,
+                    })}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={formData.date}
+                    onSelect={(date) => {
+                      if (date) setFormData({ ...formData, date });
+                    }}
+                    locale={language === "es" ? es : undefined}
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
