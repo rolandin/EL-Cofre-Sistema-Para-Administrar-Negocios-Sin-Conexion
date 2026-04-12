@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
 import {
   Table,
@@ -55,7 +54,7 @@ export function PaymentHistory() {
   const [totalPages, setTotalPages] = useState(1);
   const [activeTab, setActiveTab] = useState("employee");
   const itemsPerPage = 10;
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -116,10 +115,10 @@ export function PaymentHistory() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t("date")}</TableHead>
-                    <TableHead>{t("name")}</TableHead>
-                    <TableHead>{t("paymentPeriod")}</TableHead>
-                    <TableHead className="text-right">
+                    <TableHead className="text-xs">{t("date")}</TableHead>
+                    <TableHead className="text-xs">{t("name")}</TableHead>
+                    <TableHead className="text-xs">{t("paymentPeriod")}</TableHead>
+                    <TableHead className="text-xs text-right">
                       {t("paymentAmount")}
                     </TableHead>
                   </TableRow>
@@ -127,22 +126,16 @@ export function PaymentHistory() {
                 <TableBody>
                   {employeePayments.map((payment) => (
                     <TableRow key={payment.id}>
-                      <TableCell>
-                        {format(new Date(payment.payment_date), "PPP", {
-                          locale: language === "es" ? es : undefined,
-                        })}
+                      <TableCell className="text-xs">
+                        {format(new Date(payment.payment_date), "dd/MM/yyyy")}
                       </TableCell>
-                      <TableCell>{payment.employee_name}</TableCell>
-                      <TableCell>
-                        {format(new Date(payment.payment_period_start), "PPP", {
-                          locale: language === "es" ? es : undefined,
-                        })}{" "}
+                      <TableCell className="text-xs">{payment.employee_name}</TableCell>
+                      <TableCell className="text-xs">
+                        {format(new Date(payment.payment_period_start), "dd/MM/yyyy")}{" "}
                         -{" "}
-                        {format(new Date(payment.payment_period_end), "PPP", {
-                          locale: language === "es" ? es : undefined,
-                        })}
+                        {format(new Date(payment.payment_period_end), "dd/MM/yyyy")}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-xs text-right">
                         {formatCurrency(payment.payment_amount)}
                       </TableCell>
                     </TableRow>
@@ -167,13 +160,13 @@ export function PaymentHistory() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t("date")}</TableHead>
-                    <TableHead>{t("name")}</TableHead>
-                    <TableHead>{t("service")}</TableHead>
-                    <TableHead className="text-right">
+                    <TableHead className="text-xs">{t("date")}</TableHead>
+                    <TableHead className="text-xs">{t("name")}</TableHead>
+                    <TableHead className="text-xs">{t("service")}</TableHead>
+                    <TableHead className="text-xs text-right">
                       {t("earnings")}
                     </TableHead>
-                    <TableHead className="text-right">
+                    <TableHead className="text-xs text-right">
                       {t("business")}
                     </TableHead>
                   </TableRow>
@@ -181,17 +174,15 @@ export function PaymentHistory() {
                 <TableBody>
                   {contractorPayments.map((payment) => (
                     <TableRow key={payment.id}>
-                      <TableCell>
-                        {format(new Date(payment.payment_date), "PPP", {
-                          locale: language === "es" ? es : undefined,
-                        })}
+                      <TableCell className="text-xs">
+                        {format(new Date(payment.payment_date), "dd/MM/yyyy")}
                       </TableCell>
-                      <TableCell>{payment.contractor_name}</TableCell>
-                      <TableCell>{payment.service_name}</TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-xs">{payment.contractor_name}</TableCell>
+                      <TableCell className="text-xs">{payment.service_name}</TableCell>
+                      <TableCell className="text-xs text-right">
                         {formatCurrency(payment.contractor_earnings)}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-xs text-right">
                         {formatCurrency(payment.business_earnings)}
                       </TableCell>
                     </TableRow>

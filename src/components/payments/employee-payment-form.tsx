@@ -158,9 +158,7 @@ export function EmployeePaymentForm({ onSuccess }: EmployeePaymentFormProps) {
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline">
-                {format(formData.periodStart, "PPP", {
-                  locale: language === "es" ? es : undefined,
-                })}
+                {format(formData.periodStart, "dd/MM/yyyy")}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -182,9 +180,7 @@ export function EmployeePaymentForm({ onSuccess }: EmployeePaymentFormProps) {
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline">
-                {format(formData.periodEnd, "PPP", {
-                  locale: language === "es" ? es : undefined,
-                })}
+                {format(formData.periodEnd, "dd/MM/yyyy")}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">

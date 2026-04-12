@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
 import {
   Table,
@@ -35,7 +34,7 @@ interface ReturnRecord {
 export function ReturnHistory() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
 
   const { data, isLoading } = useQuery({
     queryKey: ["returns", currentPage],
@@ -75,10 +74,10 @@ export function ReturnHistory() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("date")}</TableHead>
-                <TableHead>{t("name")}</TableHead>
-                <TableHead className="text-right">{t("quantity")}</TableHead>
-                <TableHead className="text-right">
+                <TableHead className="text-xs">{t("date")}</TableHead>
+                <TableHead className="text-xs">{t("name")}</TableHead>
+                <TableHead className="text-xs text-right">{t("quantity")}</TableHead>
+                <TableHead className="text-xs text-right">
                   {t("returnAmount")}
                 </TableHead>
               </TableRow>
@@ -86,16 +85,14 @@ export function ReturnHistory() {
             <TableBody>
               {records.map((record: ReturnRecord) => (
                 <TableRow key={record.id}>
-                  <TableCell>
-                    {format(new Date(record.date_returned), "PPP", {
-                      locale: language === "es" ? es : undefined,
-                    })}
+                  <TableCell className="text-xs">
+                    {format(new Date(record.date_returned), "dd/MM/yyyy")}
                   </TableCell>
-                  <TableCell>{record.product_name}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs">{record.product_name}</TableCell>
+                  <TableCell className="text-xs text-right">
                     {record.quantity}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs text-right">
                     {formatCurrency(record.return_amount)}
                   </TableCell>
                 </TableRow>

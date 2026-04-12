@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Loader2, X, Edit2, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,7 +33,7 @@ export function ProductDetails({ productId, onClose }: ProductDetailsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState<Product | null>(null);
   const { isAdmin } = useAuth();
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", productId],
@@ -315,9 +314,7 @@ export function ProductDetails({ productId, onClose }: ProductDetailsProps) {
           <div className="flex justify-between">
             <span className="text-sm text-gray-500">{t("lastUpdated")}</span>
             <span>
-              {format(new Date(product.lastUpdated), "PPP", {
-                locale: language === "es" ? es : undefined,
-              })}
+              {format(new Date(product.lastUpdated), "dd/MM/yyyy")}
             </span>
           </div>
         </div>

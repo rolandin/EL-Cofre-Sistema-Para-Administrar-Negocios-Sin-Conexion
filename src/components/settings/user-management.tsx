@@ -154,26 +154,26 @@ export function UserManagement() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("username")}</TableHead>
-                <TableHead>{t("role")}</TableHead>
-                <TableHead>{t("employee")}</TableHead>
-                <TableHead>{t("lastLogin")}</TableHead>
-                <TableHead>{t("status")}</TableHead>
-                <TableHead className="text-right">{t("actions")}</TableHead>
+                <TableHead className="text-xs">{t("username")}</TableHead>
+                <TableHead className="text-xs">{t("role")}</TableHead>
+                <TableHead className="text-xs">{t("employee")}</TableHead>
+                <TableHead className="text-xs">{t("lastLogin")}</TableHead>
+                <TableHead className="text-xs">{t("status")}</TableHead>
+                <TableHead className="text-xs text-right">{t("actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {users.map((user: User) => (
                 <TableRow key={user.id}>
-                  <TableCell className="font-medium">{user.username}</TableCell>
-                  <TableCell className="capitalize">
+                  <TableCell className="text-xs font-medium">{user.username}</TableCell>
+                  <TableCell className="text-xs capitalize">
                     {user.role === "admin" ? t("admin") : t("controller")}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-xs">
                     {user.employee_name ? (
                       <div>
                         <div>{user.employee_name}</div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-xs text-gray-500">
                           {t(user.employee_position?.toLowerCase() as any)}
                         </div>
                       </div>
@@ -181,12 +181,12 @@ export function UserManagement() {
                       "N/A"
                     )}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-xs">
                     {user.lastLogin
-                      ? format(new Date(user.lastLogin), "MMM d, yyyy HH:mm")
+                      ? format(new Date(user.lastLogin), "dd/MM/yyyy HH:mm")
                       : "Never"}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-xs">
                     <span
                       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
                         user.isActive
@@ -197,7 +197,7 @@ export function UserManagement() {
                       {user.isActive ? t("active") : t("inactive")}
                     </span>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs text-right">
                     <div className="flex justify-end gap-2">
                       <TooltipProvider>
                         <Tooltip>

@@ -94,7 +94,7 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
           </label>
           <Input
             required
-            placeholder="Ej: Shampoo Profesional 500ml"
+            placeholder="Nombre de Producto"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
@@ -157,7 +157,7 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">{t("supplier")}</label>
+          <label className="text-sm font-medium">{t("supplier")} (Opcional)</label>
           <Input
             placeholder="Ej: Distribuidora ABC"
             value={formData.supplier}
@@ -180,7 +180,7 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
               setFormData({ ...formData, commissionPercentage: e.target.value })
             }
           />
-          <p className="text-xs text-gray-500">Porcentaje de comisión que se paga al contratista por cada venta de este producto. Ej: 10 = 10% del precio de venta.</p>
+          <p className="text-xs text-gray-500">Porcentaje de comisión que se paga al contratista por cada venta de este producto. Requiere entrar Contratista en el Sistema.</p>
         </div>
       </div>
 
