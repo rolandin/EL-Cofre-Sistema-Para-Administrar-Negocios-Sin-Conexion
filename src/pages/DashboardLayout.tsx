@@ -16,7 +16,7 @@ import {
   CalendarDays,
   AlertTriangle,
 } from "lucide-react";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -61,9 +61,10 @@ function NavItem({ href, icon, label, isCollapsed }: NavItemProps) {
 export default function DashboardLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
-  const { isAdmin } = useAuth();
+  const { user, isAdmin } = useAuth();
   const { t } = useTranslations();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: licenseStatus } = useQuery({
     queryKey: ['licenseStatus'],
@@ -131,6 +132,7 @@ export default function DashboardLayout() {
   const handleLogout = async () => {
     try {
       await fetch("/api/logout", { method: "POST" });
+      queryClient.clear(); // Wipe all cached data so next login gets fresh state
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
@@ -176,7 +178,20 @@ export default function DashboardLayout() {
             />
           ))}
         </nav>
-        <div className="border-t border-slate-700 p-2">
+        <div className="border-t border-slate-700 p-2 space-y-2">
+          {user && !isCollapsed && (
+            <div className="px-3 py-2">
+              <p className="text-sm font-medium text-white truncate">{user.username}</p>
+              <p className="text-xs text-slate-400 capitalize">{user.role}</p>
+            </div>
+          )}
+          {user && isCollapsed && (
+            <div className="flex justify-center py-2" title={`${user.username} (${user.role})`}>
+              <div className="h-8 w-8 rounded-full bg-slate-600 flex items-center justify-center text-xs font-bold text-white">
+                {user.username.charAt(0).toUpperCase()}
+              </div>
+            </div>
+          )}
           <Button
             variant="ghost"
             className={cn(
