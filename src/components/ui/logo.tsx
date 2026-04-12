@@ -4,112 +4,116 @@ interface LogoProps {
 }
 
 export function Logo({ height = 48, className = "" }: LogoProps) {
-  const w = height * 2.4;
-  const iconSize = height * 0.7;
-  const iconY = (height - iconSize) / 2;
-  const textX = iconSize + height * 0.25;
-  const fontSize1 = height * 0.32;
-  const fontSize2 = height * 0.28;
+  // Fixed aspect ratio: 5.2:1
+  const w = Math.round(height * 5.2);
 
   return (
     <svg
       width={w}
       height={height}
-      viewBox={`0 0 ${w} ${height}`}
+      viewBox="0 0 260 50"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Safe/Vault Icon */}
-      <g transform={`translate(${height * 0.1}, ${iconY})`}>
-        {/* Vault body */}
-        <rect
-          x="0"
-          y="0"
-          width={iconSize}
-          height={iconSize}
-          rx={iconSize * 0.12}
-          className="fill-slate-800 dark:fill-slate-200"
-        />
-        {/* Inner panel */}
-        <rect
-          x={iconSize * 0.1}
-          y={iconSize * 0.1}
-          width={iconSize * 0.8}
-          height={iconSize * 0.8}
-          rx={iconSize * 0.06}
-          className="fill-slate-700 dark:fill-slate-300"
-        />
-        {/* Dial circle */}
-        <circle
-          cx={iconSize * 0.5}
-          cy={iconSize * 0.48}
-          r={iconSize * 0.22}
-          className="fill-slate-800 dark:fill-slate-200 stroke-sky-500"
-          strokeWidth={iconSize * 0.03}
-        />
-        {/* Dial center dot */}
-        <circle
-          cx={iconSize * 0.5}
-          cy={iconSize * 0.48}
-          r={iconSize * 0.06}
-          className="fill-sky-500"
-        />
-        {/* Dial hand up */}
-        <line
-          x1={iconSize * 0.5}
-          y1={iconSize * 0.48}
-          x2={iconSize * 0.5}
-          y2={iconSize * 0.3}
-          className="stroke-sky-500"
-          strokeWidth={iconSize * 0.025}
-          strokeLinecap="round"
-        />
-        {/* Dial hand right */}
-        <line
-          x1={iconSize * 0.5}
-          y1={iconSize * 0.48}
-          x2={iconSize * 0.66}
-          y2={iconSize * 0.48}
-          className="stroke-sky-500"
-          strokeWidth={iconSize * 0.025}
-          strokeLinecap="round"
-        />
-        {/* Handle bar */}
-        <rect
-          x={iconSize * 0.7}
-          y={iconSize * 0.35}
-          width={iconSize * 0.06}
-          height={iconSize * 0.26}
-          rx={iconSize * 0.03}
-          className="fill-sky-500"
-        />
-        {/* Hinges */}
-        <circle cx={iconSize * 0.12} cy={iconSize * 0.2} r={iconSize * 0.03} className="fill-sky-500" />
-        <circle cx={iconSize * 0.12} cy={iconSize * 0.8} r={iconSize * 0.03} className="fill-sky-500" />
-      </g>
-
-      {/* Text */}
+      {/* "EL" text */}
       <text
-        x={textX}
-        y={height * 0.45}
-        className="fill-slate-800 dark:fill-slate-100"
-        fontSize={fontSize1}
+        x="0"
+        y="37"
+        className="fill-slate-700 dark:fill-slate-200"
+        fontSize="38"
         fontFamily="system-ui, -apple-system, sans-serif"
         fontWeight="800"
+        letterSpacing="-1"
       >
-        El
+        EL
       </text>
+
+      {/* "C" */}
       <text
-        x={textX}
-        y={height * 0.78}
+        x="55"
+        y="37"
         className="fill-sky-500"
-        fontSize={fontSize2}
+        fontSize="38"
         fontFamily="system-ui, -apple-system, sans-serif"
-        fontWeight="700"
-        letterSpacing="1"
+        fontWeight="800"
+        letterSpacing="-1"
       >
-        COFRE
+        C
       </text>
+
+      {/* Vault door replacing "O" */}
+      <g transform="translate(80, 5)">
+        {/* Outer ring */}
+        <circle
+          cx="18"
+          cy="18"
+          r="17"
+          className="fill-slate-700 dark:fill-slate-200"
+          strokeWidth="2"
+        />
+        {/* Inner ring */}
+        <circle
+          cx="18"
+          cy="18"
+          r="13"
+          fill="none"
+          className="stroke-sky-500"
+          strokeWidth="2.5"
+        />
+        {/* Tick marks around dial */}
+        <line x1="18" y1="5" x2="18" y2="8" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="18" y1="28" x2="18" y2="31" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="5" y1="18" x2="8" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+        <line x1="28" y1="18" x2="31" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+        {/* Center dot */}
+        <circle cx="18" cy="18" r="3" className="fill-sky-500" />
+        {/* Dial hand — pointing to ~2 o'clock */}
+        <line
+          x1="18"
+          y1="18"
+          x2="27"
+          y2="11"
+          className="stroke-sky-500"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        {/* Dial hand — pointing to ~8 o'clock */}
+        <line
+          x1="18"
+          y1="18"
+          x2="10"
+          y2="25"
+          className="stroke-sky-400"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </g>
+
+      {/* "FRE" */}
+      <text
+        x="118"
+        y="37"
+        className="fill-sky-500"
+        fontSize="38"
+        fontFamily="system-ui, -apple-system, sans-serif"
+        fontWeight="800"
+        letterSpacing="-1"
+      >
+        FRE
+      </text>
+
+      {/* Subtle lock icon accent after text */}
+      <g transform="translate(195, 10)" className="fill-slate-400 dark:fill-slate-500">
+        <rect x="4" y="12" width="14" height="12" rx="2" className="fill-sky-500" opacity="0.3" />
+        <path
+          d="M7 12V8a4 4 0 0 1 8 0v4"
+          fill="none"
+          className="stroke-sky-500"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.3"
+        />
+      </g>
     </svg>
   );
 }
@@ -119,61 +123,37 @@ export function LogoIcon({ size = 36, className = "" }: { size?: number; classNa
     <svg
       width={size}
       height={size}
-      viewBox={`0 0 ${size} ${size}`}
+      viewBox="0 0 36 36"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Vault body */}
-      <rect
-        x="0"
-        y="0"
-        width={size}
-        height={size}
-        rx={size * 0.12}
-        className="fill-slate-800 dark:fill-slate-200"
-      />
-      {/* Inner panel */}
-      <rect
-        x={size * 0.1}
-        y={size * 0.1}
-        width={size * 0.8}
-        height={size * 0.8}
-        rx={size * 0.06}
-        className="fill-slate-700 dark:fill-slate-300"
-      />
-      {/* Dial circle */}
+      {/* Outer circle */}
       <circle
-        cx={size * 0.5}
-        cy={size * 0.48}
-        r={size * 0.22}
+        cx="18"
+        cy="18"
+        r="17"
+        className="fill-slate-700 dark:fill-slate-200"
+        strokeWidth="1"
+      />
+      {/* Inner ring */}
+      <circle
+        cx="18"
+        cy="18"
+        r="12"
         fill="none"
         className="stroke-sky-500"
-        strokeWidth={size * 0.03}
+        strokeWidth="2"
       />
-      <circle
-        cx={size * 0.5}
-        cy={size * 0.48}
-        r={size * 0.22}
-        className="fill-slate-800 dark:fill-slate-200"
-      />
-      <circle
-        cx={size * 0.5}
-        cy={size * 0.48}
-        r={size * 0.22}
-        fill="none"
-        className="stroke-sky-500"
-        strokeWidth={size * 0.03}
-      />
-      {/* Dial center */}
-      <circle cx={size * 0.5} cy={size * 0.48} r={size * 0.06} className="fill-sky-500" />
+      {/* Tick marks */}
+      <line x1="18" y1="6" x2="18" y2="9" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="18" y1="27" x2="18" y2="30" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="6" y1="18" x2="9" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="27" y1="18" x2="30" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Center */}
+      <circle cx="18" cy="18" r="3" className="fill-sky-500" />
       {/* Dial hands */}
-      <line x1={size * 0.5} y1={size * 0.48} x2={size * 0.5} y2={size * 0.3} className="stroke-sky-500" strokeWidth={size * 0.025} strokeLinecap="round" />
-      <line x1={size * 0.5} y1={size * 0.48} x2={size * 0.66} y2={size * 0.48} className="stroke-sky-500" strokeWidth={size * 0.025} strokeLinecap="round" />
-      {/* Handle */}
-      <rect x={size * 0.7} y={size * 0.35} width={size * 0.06} height={size * 0.26} rx={size * 0.03} className="fill-sky-500" />
-      {/* Hinges */}
-      <circle cx={size * 0.12} cy={size * 0.2} r={size * 0.03} className="fill-sky-500" />
-      <circle cx={size * 0.12} cy={size * 0.8} r={size * 0.03} className="fill-sky-500" />
+      <line x1="18" y1="18" x2="26" y2="12" className="stroke-sky-500" strokeWidth="2" strokeLinecap="round" />
+      <line x1="18" y1="18" x2="11" y2="24" className="stroke-sky-400" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
