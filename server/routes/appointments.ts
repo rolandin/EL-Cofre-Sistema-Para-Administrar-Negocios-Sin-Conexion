@@ -1,8 +1,38 @@
 import { Router } from 'express';
+import { z } from 'zod';
 import db from '../db';
 import { verifyTokenFromCookie } from '../middleware/auth';
 
 const router = Router();
+
+const appointmentSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  // Accept both camelCase (frontend) and snake_case field names
+  startTime: z.string().optional(),
+  endTime: z.string().optional(),
+  start_time: z.string().optional(),
+  end_time: z.string().optional(),
+  notes: z.string().optional().default(''),
+  contractorId: z.number().optional(),
+  contractor_id: z.number().optional(),
+  employeeId: z.number().optional(),
+  employee_id: z.number().optional(),
+  clientName: z.string().optional(),
+  client_name: z.string().optional(),
+  serviceId: z.number().optional(),
+  service_id: z.number().optional(),
+}).transform((data) => ({
+  // Normalize to snake_case for the database
+  title: data.title,
+  start_time: data.startTime || data.start_time || '',
+  end_time: data.endTime || data.end_time || '',
+  notes: data.notes || '',
+  contractor_id: data.contractorId || data.contractor_id || null,
+  employee_id: data.employeeId || data.employee_id || null,
+  client_name: data.clientName || data.client_name || '',
+  service_id: data.serviceId || data.service_id || null,
+})).refine((data) => data.start_time !== '', { message: 'Start time is required', path: ['start_time'] })
+  .refine((data) => data.end_time !== '', { message: 'End time is required', path: ['end_time'] });
 
 router.get('/', (req, res) => {
   try {
@@ -30,7 +60,14 @@ router.post('/', async (req, res) => {
     const token = req.cookies?.token;
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
     const payload = await verifyTokenFromCookie(token);
-    const { title, start_time, end_time, notes, contractor_id, employee_id, client_name, service_id } = req.body;
+
+    const parsed = appointmentSchema.safeParse(req.body);
+    if (!parsed.success) {
+      const firstError = parsed.error.errors[0]?.message || 'Invalid appointment data';
+      return res.status(400).json({ error: firstError });
+    }
+
+    const { title, start_time, end_time, notes, contractor_id, employee_id, client_name, service_id } = parsed.data;
 
     const overlap = db.prepare(
       `SELECT COUNT(*) as count FROM appointments
@@ -42,7 +79,7 @@ router.post('/', async (req, res) => {
     db.prepare(
       `INSERT INTO appointments (title, start_time, end_time, notes, created_by, contractor_id, employee_id, client_name, service_id)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    ).run(title, start_time, end_time, notes || '', payload.userId, contractor_id || null, employee_id || null, client_name || '', service_id || null);
+    ).run(title, start_time, end_time, notes, payload.userId, contractor_id, employee_id, client_name, service_id);
     return res.json({ success: true });
   } catch (error) {
     console.error('Failed to create appointment:', error);
@@ -52,11 +89,17 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', (req, res) => {
   try {
-    const { title, start_time, end_time, notes, contractor_id, employee_id, client_name, service_id } = req.body;
+    const parsed = appointmentSchema.safeParse(req.body);
+    if (!parsed.success) {
+      const firstError = parsed.error.errors[0]?.message || 'Invalid appointment data';
+      return res.status(400).json({ error: firstError });
+    }
+
+    const { title, start_time, end_time, notes, contractor_id, employee_id, client_name, service_id } = parsed.data;
     db.prepare(
       `UPDATE appointments SET title = ?, start_time = ?, end_time = ?, notes = ?,
        contractor_id = ?, employee_id = ?, client_name = ?, service_id = ? WHERE id = ?`
-    ).run(title, start_time, end_time, notes || '', contractor_id || null, employee_id || null, client_name || '', service_id || null, req.params.id);
+    ).run(title, start_time, end_time, notes, contractor_id, employee_id, client_name, service_id, req.params.id);
     return res.json({ success: true });
   } catch (error) {
     console.error('Failed to update appointment:', error);
