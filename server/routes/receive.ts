@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
        JOIN products p ON rh.product_id = p.id ORDER BY rh.date_received DESC LIMIT ? OFFSET ?`
     ).all(limit, offset);
     const total = db.prepare('SELECT COUNT(*) as count FROM receiving_history').get() as { count: number };
-    return res.json({ history, total: total.count });
+    return res.json({ records: history, total: total.count });
   } catch (error) {
     console.error('Failed to fetch receive history:', error);
     return res.status(500).json({ error: 'Failed to fetch history' });
@@ -24,7 +24,10 @@ router.get('/', (req, res) => {
 // POST /api/receive
 router.post('/', (req, res) => {
   try {
-    const { product_id, quantity, price_per_unit } = req.body;
+    // Accept both camelCase (frontend) and snake_case
+    const product_id = req.body.productId || req.body.product_id;
+    const quantity = req.body.quantity;
+    const price_per_unit = req.body.pricePerUnit || req.body.price_per_unit;
     db.transaction(() => {
       db.prepare('INSERT INTO receiving_history (product_id, quantity, price_per_unit) VALUES (?, ?, ?)').run(product_id, quantity, price_per_unit);
       db.prepare('UPDATE products SET quantity = quantity + ?, inboundPrice = ?, lastUpdated = CURRENT_TIMESTAMP WHERE id = ?').run(quantity, price_per_unit, product_id);
