@@ -321,4 +321,15 @@ export const pt = {
   brandFeature2: "Seus dados ficam locais, sempre sob seu controle",
   brandFeature3: "Multiusuário com acesso baseado em funções",
   brandFeature4: "Banco de dados criptografado com backups seguros",
+
+  // Activation page
+  licenseActivation: "Ativação de Licença",
+  yourMachineCode: "Seu Código de Máquina",
+  machineCodeHelp: "Compartilhe este código com seu fornecedor de software para receber uma chave de licença.",
+  enterLicenseKey: "Inserir Chave de Licença",
+  activateLicense: "Ativar Licença",
+  activating: "Ativando...",
+  contactProvider: "Não tem uma chave de licença? Entre em contato com seu fornecedor de software para ativar este sistema.",
+  clockTamperedError: "Erro de data do sistema detectado. Por favor, corrija o relógio do sistema e entre em contato com o suporte.",
+  licenseExpiredError: "Sua licença expirou. Por favor, insira uma nova chave de licença para continuar.",
 };

@@ -316,4 +316,15 @@ export const ar = {
   brandFeature2: "بياناتك تبقى محلية، دائمًا تحت سيطرتك",
   brandFeature3: "متعدد المستخدمين مع وصول قائم على الأدوار",
   brandFeature4: "قاعدة بيانات مشفرة مع نسخ احتياطية آمنة",
+
+  // Activation page
+  licenseActivation: "تفعيل الرخصة",
+  yourMachineCode: "رمز جهازك",
+  machineCodeHelp: "شارك هذا الرمز مع مزود البرنامج للحصول على مفتاح الترخيص.",
+  enterLicenseKey: "أدخل مفتاح الترخيص",
+  activateLicense: "تفعيل الرخصة",
+  activating: "جارٍ التفعيل...",
+  contactProvider: "لا تملك مفتاح ترخيص؟ تواصل مع مزود البرنامج لتفعيل هذا النظام.",
+  clockTamperedError: "تم اكتشاف خطأ في تاريخ النظام. يرجى تصحيح ساعة النظام والتواصل مع الدعم.",
+  licenseExpiredError: "انتهت صلاحية ترخيصك. يرجى إدخال مفتاح ترخيص جديد للمتابعة.",
 };

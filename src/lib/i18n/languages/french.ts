@@ -323,4 +323,15 @@ export const fr = {
   brandFeature2: "Vos données restent locales, toujours sous votre contrôle",
   brandFeature3: "Multi-utilisateurs avec accès basé sur les rôles",
   brandFeature4: "Base de données chiffrée avec sauvegardes sécurisées",
+
+  // Activation page
+  licenseActivation: "Activation de la licence",
+  yourMachineCode: "Votre code machine",
+  machineCodeHelp: "Partagez ce code avec votre fournisseur de logiciel pour recevoir une clé de licence.",
+  enterLicenseKey: "Entrer la clé de licence",
+  activateLicense: "Activer la licence",
+  activating: "Activation en cours...",
+  contactProvider: "Vous n'avez pas de clé de licence ? Contactez votre fournisseur de logiciel pour activer ce système.",
+  clockTamperedError: "Erreur de date système détectée. Veuillez corriger l'horloge système et contacter le support.",
+  licenseExpiredError: "Votre licence a expiré. Veuillez entrer une nouvelle clé de licence pour continuer.",
 };

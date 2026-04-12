@@ -337,4 +337,15 @@ export const en = {
   brandFeature2: "Your data stays local, always under your control",
   brandFeature3: "Multi-user with role-based access",
   brandFeature4: "Encrypted database with secure backups",
+
+  // Activation page
+  licenseActivation: "License Activation",
+  yourMachineCode: "Your Machine Code",
+  machineCodeHelp: "Share this code with your software provider to receive a license key.",
+  enterLicenseKey: "Enter License Key",
+  activateLicense: "Activate License",
+  activating: "Activating...",
+  contactProvider: "Don't have a license key? Contact your software provider to activate this system.",
+  clockTamperedError: "System date error detected. Please correct your system clock and contact support.",
+  licenseExpiredError: "Your license has expired. Please enter a new license key to continue.",
 };

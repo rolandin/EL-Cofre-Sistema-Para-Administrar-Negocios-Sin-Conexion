@@ -308,4 +308,15 @@ export const zh = {
   brandFeature2: "您的数据保存在本地，始终由您掌控",
   brandFeature3: "多用户，支持基于角色的访问控制",
   brandFeature4: "加密数据库，支持安全备份",
+
+  // Activation page
+  licenseActivation: "许可证激活",
+  yourMachineCode: "您的机器码",
+  machineCodeHelp: "将此代码分享给软件提供商以获取许可证密钥。",
+  enterLicenseKey: "输入许可证密钥",
+  activateLicense: "激活许可证",
+  activating: "正在激活...",
+  contactProvider: "没有许可证密钥？请联系您的软件提供商以激活此系统。",
+  clockTamperedError: "检测到系统日期错误。请更正系统时钟并联系支持。",
+  licenseExpiredError: "您的许可证已过期。请输入新的许可证密钥以继续。",
 };
