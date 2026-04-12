@@ -76,7 +76,7 @@ export const dictionaries = {
       plans: [
         {
           name: "6 Meses",
-          price: "$49",
+          price: "$20",
           period: "/ 6 meses",
           description: "Perfecto para comenzar",
           features: [
@@ -87,7 +87,7 @@ export const dictionaries = {
         },
         {
           name: "1 Año",
-          price: "$79",
+          price: "$40",
           period: "/ año",
           description: "Mejor valor",
           popular: true,
@@ -100,7 +100,7 @@ export const dictionaries = {
         },
         {
           name: "De Por Vida",
-          price: "$149",
+          price: "$900",
           period: "pago único",
           description: "Paga una vez, usa para siempre",
           features: [
@@ -213,7 +213,7 @@ export const dictionaries = {
       plans: [
         {
           name: "6 Months",
-          price: "$49",
+          price: "$20",
           period: "/ 6 months",
           description: "Perfect for getting started",
           features: [
@@ -224,7 +224,7 @@ export const dictionaries = {
         },
         {
           name: "1 Year",
-          price: "$79",
+          price: "$40",
           period: "/ year",
           description: "Best value",
           popular: true,
@@ -237,7 +237,7 @@ export const dictionaries = {
         },
         {
           name: "Lifetime",
-          price: "$149",
+          price: "$900",
           period: "one time",
           description: "Pay once, use forever",
           features: [
