@@ -151,7 +151,7 @@ export default function DashboardLayout() {
       >
         <div className="flex h-14 items-center border-b border-slate-700 px-3 justify-between">
           {!isCollapsed && (
-            <img src={logo} alt="El Cofre" className="h-9 w-9 rounded" />
+            <img src={logo} alt="El Cofre" className="h-10 w-10 rounded" />
           )}
           <Button
             variant="ghost"

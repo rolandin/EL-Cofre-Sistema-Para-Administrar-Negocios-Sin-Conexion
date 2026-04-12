@@ -49,7 +49,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <img src={logo} alt="El Cofre" className="h-20 w-20 rounded-lg" />
+          <img src={logo} alt="El Cofre" className="h-40 w-40 rounded-xl" />
         </div>
         <h2 className="mt-4 text-center text-2xl font-extrabold text-gray-900 dark:text-white">
           {t("signIn")}
