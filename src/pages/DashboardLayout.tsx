@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useTranslations } from "@/lib/i18n/use-translations";
+import ElCofreLogo from "@/components/ui/el-cofre-logo";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -149,10 +150,7 @@ export default function DashboardLayout() {
       >
         <div className="flex h-14 items-center border-b border-slate-700 px-3 justify-between">
           {!isCollapsed && (
-            <div className="flex items-center">
-              <h2 className="text-lg font-bold text-pink-500">EL</h2>
-              <h2 className="text-lg font-bold text-blue-300">COFRE</h2>
-            </div>
+            <ElCofreLogo size={36} />
           )}
           <Button
             variant="ghost"

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { InputWithEye } from "@/components/ui/input-with-eye";
 import { Button } from "@/components/ui/button";
-import { Warehouse } from "lucide-react";
+import ElCofreLogo from "@/components/ui/el-cofre-logo";
 import { useTranslations } from "@/lib/i18n/use-translations";
 
 interface SetupData {
@@ -84,15 +84,7 @@ export default function SetupPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <Warehouse className="h-12 w-12 text-blue-600" />
-        </div>
-        <div className="flex items-center justify-center mt-6">
-          <h2 className="text-center text-3xl font-extrabold text-pink-500">
-            EL
-          </h2>
-          <h2 className="text-center text-3xl font-extrabold text-blue-500">
-            COFRE
-          </h2>
+          <ElCofreLogo size={80} />
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputWithEye } from "@/components/ui/input-with-eye";
 import { Button } from "@/components/ui/button";
-import { Package } from "lucide-react";
+import ElCofreLogo from "@/components/ui/el-cofre-logo";
 import { useTranslations } from "@/lib/i18n/use-translations";
 
 export default function LoginPage() {
@@ -48,10 +48,10 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <Package className="h-12 w-12 text-blue-600" />
+          <ElCofreLogo size={80} />
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-          {t("signIn")} El Cofre
+        <h2 className="mt-4 text-center text-2xl font-extrabold text-gray-900 dark:text-white">
+          {t("signIn")}
         </h2>
       </div>
 

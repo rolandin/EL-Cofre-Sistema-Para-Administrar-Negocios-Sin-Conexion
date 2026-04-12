@@ -4,7 +4,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Shield, Copy, Check } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
+import ElCofreLogo from '@/components/ui/el-cofre-logo';
 import { toast } from 'sonner';
 
 export default function Activation() {
@@ -76,10 +77,8 @@ export default function Activation() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
-          <Shield className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-          <div className="flex items-center justify-center">
-            <h1 className="text-3xl font-extrabold text-pink-500">EL</h1>
-            <h1 className="text-3xl font-extrabold text-blue-500">COFRE</h1>
+          <div className="flex justify-center mb-4">
+            <ElCofreLogo size={80} />
           </div>
           <p className="mt-2 text-gray-500 dark:text-gray-400">License Activation</p>
         </div>
