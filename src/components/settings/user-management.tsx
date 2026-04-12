@@ -201,6 +201,7 @@ export function UserManagement() {
                       <Button
                         variant="ghost"
                         size="icon"
+                        title={user.isActive ? t("deactivateUser") : t("activateUser")}
                         onClick={() =>
                           toggleStatus.mutate({
                             userId: user.id,

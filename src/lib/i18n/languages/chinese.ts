@@ -322,4 +322,11 @@ export const zh = {
   contactProvider: "没有许可证密钥？请访问 elcofreapp.com 或联系您的软件提供商获取。",
   clockTamperedError: "检测到系统日期错误。请更正系统时钟并联系支持。",
   licenseExpiredError: "您的许可证已过期。请输入新的许可证密钥以继续。",
+
+  // User management
+  deactivateUser: "停用用户 — 阻止他们登录",
+  activateUser: "激活用户 — 允许他们再次登录",
+
+  // Setup page
+  setupDescription: "创建管理员账户以开始使用。",
 };

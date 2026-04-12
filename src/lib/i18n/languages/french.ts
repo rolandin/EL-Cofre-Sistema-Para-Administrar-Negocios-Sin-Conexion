@@ -324,6 +324,10 @@ export const fr = {
   brandFeature3: "Multi-utilisateurs avec accès basé sur les rôles",
   brandFeature4: "Base de données chiffrée avec sauvegardes sécurisées",
 
+  // User management
+  deactivateUser: "Désactiver l'utilisateur — l'empêche de se connecter",
+  activateUser: "Activer l'utilisateur — lui permet de se connecter à nouveau",
+
   // Setup page
   setupDescription: "Créez le compte administrateur pour commencer.",
 

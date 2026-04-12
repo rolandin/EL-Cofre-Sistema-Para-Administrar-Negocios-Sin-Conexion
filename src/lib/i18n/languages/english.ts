@@ -338,6 +338,10 @@ export const en = {
   brandFeature3: "Multi-user with role-based access",
   brandFeature4: "Encrypted database with secure backups",
 
+  // User management
+  deactivateUser: "Deactivate user — blocks them from logging in",
+  activateUser: "Activate user — allows them to log in again",
+
   // Setup page
   setupDescription: "Create the administrator account to get started.",
 
