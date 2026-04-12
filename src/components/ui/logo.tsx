@@ -4,116 +4,61 @@ interface LogoProps {
 }
 
 export function Logo({ height = 48, className = "" }: LogoProps) {
-  // Fixed aspect ratio: 5.2:1
-  const w = Math.round(height * 5.2);
+  const scale = height / 50;
+  const w = Math.round(220 * scale);
 
   return (
     <svg
       width={w}
       height={height}
-      viewBox="0 0 260 50"
+      viewBox="0 0 220 50"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* "EL" text */}
-      <text
-        x="0"
-        y="37"
-        className="fill-slate-700 dark:fill-slate-200"
-        fontSize="38"
-        fontFamily="system-ui, -apple-system, sans-serif"
-        fontWeight="800"
-        letterSpacing="-1"
-      >
-        EL
-      </text>
+      <defs>
+        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#0ea5e9" />
+          <stop offset="100%" stopColor="#6366f1" />
+        </linearGradient>
+      </defs>
 
-      {/* "C" */}
-      <text
-        x="55"
-        y="37"
-        className="fill-sky-500"
-        fontSize="38"
-        fontFamily="system-ui, -apple-system, sans-serif"
-        fontWeight="800"
-        letterSpacing="-1"
-      >
-        C
-      </text>
-
-      {/* Vault door replacing "O" */}
-      <g transform="translate(80, 5)">
-        {/* Outer ring */}
-        <circle
-          cx="18"
-          cy="18"
-          r="17"
-          className="fill-slate-700 dark:fill-slate-200"
-          strokeWidth="2"
-        />
-        {/* Inner ring */}
-        <circle
-          cx="18"
-          cy="18"
-          r="13"
-          fill="none"
-          className="stroke-sky-500"
-          strokeWidth="2.5"
-        />
-        {/* Tick marks around dial */}
-        <line x1="18" y1="5" x2="18" y2="8" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="18" y1="28" x2="18" y2="31" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="5" y1="18" x2="8" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="28" y1="18" x2="31" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-        {/* Center dot */}
-        <circle cx="18" cy="18" r="3" className="fill-sky-500" />
-        {/* Dial hand — pointing to ~2 o'clock */}
-        <line
-          x1="18"
-          y1="18"
-          x2="27"
-          y2="11"
-          className="stroke-sky-500"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        {/* Dial hand — pointing to ~8 o'clock */}
-        <line
-          x1="18"
-          y1="18"
-          x2="10"
-          y2="25"
-          className="stroke-sky-400"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </g>
-
-      {/* "FRE" */}
-      <text
-        x="118"
-        y="37"
-        className="fill-sky-500"
-        fontSize="38"
-        fontFamily="system-ui, -apple-system, sans-serif"
-        fontWeight="800"
-        letterSpacing="-1"
-      >
-        FRE
-      </text>
-
-      {/* Subtle lock icon accent after text */}
-      <g transform="translate(195, 10)" className="fill-slate-400 dark:fill-slate-500">
-        <rect x="4" y="12" width="14" height="12" rx="2" className="fill-sky-500" opacity="0.3" />
+      {/* Shield/vault mark */}
+      <g transform="translate(0, 3)">
+        {/* Shield shape */}
         <path
-          d="M7 12V8a4 4 0 0 1 8 0v4"
-          fill="none"
-          className="stroke-sky-500"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          opacity="0.3"
+          d="M22 2 L40 8 L40 22 C40 34 32 40 22 44 C12 40 4 34 4 22 L4 8 Z"
+          fill="url(#logo-gradient)"
         />
+        {/* Keyhole */}
+        <circle cx="22" cy="18" r="5" className="fill-white dark:fill-slate-900" />
+        <rect x="20" y="21" width="4" height="8" rx="1" className="fill-white dark:fill-slate-900" />
       </g>
+
+      {/* "el" — lowercase, light weight */}
+      <text
+        x="52"
+        y="24"
+        className="fill-slate-400 dark:fill-slate-500"
+        fontSize="16"
+        fontFamily="system-ui, -apple-system, sans-serif"
+        fontWeight="500"
+        letterSpacing="2"
+      >
+        el
+      </text>
+
+      {/* "cofre" — uppercase, bold */}
+      <text
+        x="52"
+        y="43"
+        fill="url(#logo-gradient)"
+        fontSize="24"
+        fontFamily="system-ui, -apple-system, sans-serif"
+        fontWeight="800"
+        letterSpacing="4"
+      >
+        COFRE
+      </text>
     </svg>
   );
 }
@@ -123,37 +68,22 @@ export function LogoIcon({ size = 36, className = "" }: { size?: number; classNa
     <svg
       width={size}
       height={size}
-      viewBox="0 0 36 36"
+      viewBox="0 0 44 44"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Outer circle */}
-      <circle
-        cx="18"
-        cy="18"
-        r="17"
-        className="fill-slate-700 dark:fill-slate-200"
-        strokeWidth="1"
+      <defs>
+        <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#0ea5e9" />
+          <stop offset="100%" stopColor="#6366f1" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M22 2 L40 8 L40 22 C40 34 32 40 22 44 C12 40 4 34 4 22 L4 8 Z"
+        fill="url(#icon-gradient)"
       />
-      {/* Inner ring */}
-      <circle
-        cx="18"
-        cy="18"
-        r="12"
-        fill="none"
-        className="stroke-sky-500"
-        strokeWidth="2"
-      />
-      {/* Tick marks */}
-      <line x1="18" y1="6" x2="18" y2="9" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="18" y1="27" x2="18" y2="30" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="6" y1="18" x2="9" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="27" y1="18" x2="30" y2="18" className="stroke-sky-500" strokeWidth="1.5" strokeLinecap="round" />
-      {/* Center */}
-      <circle cx="18" cy="18" r="3" className="fill-sky-500" />
-      {/* Dial hands */}
-      <line x1="18" y1="18" x2="26" y2="12" className="stroke-sky-500" strokeWidth="2" strokeLinecap="round" />
-      <line x1="18" y1="18" x2="11" y2="24" className="stroke-sky-400" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="22" cy="18" r="5" className="fill-white dark:fill-slate-900" />
+      <rect x="20" y="21" width="4" height="8" rx="1" className="fill-white dark:fill-slate-900" />
     </svg>
   );
 }
