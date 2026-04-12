@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { InputWithEye } from "@/components/ui/input-with-eye";
 import { Button } from "@/components/ui/button";
-import elCofreLogo from "@/assets/el-cofre-logo.png";
+import { useLogo } from "@/hooks/use-logo";
 import { useTranslations } from "@/lib/i18n/use-translations";
 
 interface SetupData {
@@ -14,6 +14,7 @@ interface SetupData {
 export default function SetupPage() {
   const navigate = useNavigate();
   const { t } = useTranslations();
+  const logo = useLogo();
   const [error, setError] = useState("");
 
   // Check if we should be on this page
@@ -84,7 +85,7 @@ export default function SetupPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <img src={elCofreLogo} alt="El Cofre" className="h-20 w-20 rounded-lg" />
+          <img src={logo} alt="El Cofre" className="h-20 w-20 rounded-lg" />
         </div>
       </div>
 

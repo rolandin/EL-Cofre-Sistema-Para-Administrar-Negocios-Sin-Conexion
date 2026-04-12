@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useTranslations } from "@/lib/i18n/use-translations";
-import elCofreLogo from "@/assets/el-cofre-logo.png";
+import { useLogo } from "@/hooks/use-logo";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -64,6 +64,7 @@ export default function DashboardLayout() {
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const { user, isAdmin } = useAuth();
   const { t } = useTranslations();
+  const logo = useLogo();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -150,7 +151,7 @@ export default function DashboardLayout() {
       >
         <div className="flex h-14 items-center border-b border-slate-700 px-3 justify-between">
           {!isCollapsed && (
-            <img src={elCofreLogo} alt="El Cofre" className="h-9 w-9 rounded" />
+            <img src={logo} alt="El Cofre" className="h-9 w-9 rounded" />
           )}
           <Button
             variant="ghost"

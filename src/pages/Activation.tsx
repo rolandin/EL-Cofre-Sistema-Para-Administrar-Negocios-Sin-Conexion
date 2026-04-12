@@ -5,12 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Copy, Check } from 'lucide-react';
-import elCofreLogo from '@/assets/el-cofre-logo.png';
+import { useLogo } from '@/hooks/use-logo';
 import { toast } from 'sonner';
 
 export default function Activation() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const logo = useLogo();
   const [key, setKey] = useState('');
   const [copied, setCopied] = useState(false);
 
@@ -78,7 +79,7 @@ export default function Activation() {
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
           <div className="flex justify-center mb-4">
-            <img src={elCofreLogo} alt="El Cofre" className="h-20 w-20 rounded-lg" />
+            <img src={logo} alt="El Cofre" className="h-20 w-20 rounded-lg" />
           </div>
           <p className="mt-2 text-gray-500 dark:text-gray-400">License Activation</p>
         </div>
