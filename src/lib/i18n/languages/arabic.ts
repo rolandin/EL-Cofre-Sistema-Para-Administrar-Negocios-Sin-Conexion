@@ -331,7 +331,7 @@ export const ar = {
   enterLicenseKey: "أدخل مفتاح الترخيص",
   activateLicense: "تفعيل الرخصة",
   activating: "جارٍ التفعيل...",
-  contactProvider: "لا تملك مفتاح ترخيص؟ قم بزيارة elcofreapp.com أو تواصل مع مزود البرنامج للحصول عليه.",
+  contactProvider: "لا تملك مفتاح ترخيص؟ قم بزيارة elcofreapp.com أو أرسل رمز جهازك عبر WhatsApp إلى +1 (857) 312-4946 للحصول عليه.",
   clockTamperedError: "تم اكتشاف خطأ في تاريخ النظام. يرجى تصحيح ساعة النظام والتواصل مع الدعم.",
   licenseExpiredError: "انتهت صلاحية ترخيصك. يرجى إدخال مفتاح ترخيص جديد للمتابعة.",
 };

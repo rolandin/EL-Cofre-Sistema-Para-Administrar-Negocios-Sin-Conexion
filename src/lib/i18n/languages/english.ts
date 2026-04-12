@@ -352,7 +352,7 @@ export const en = {
   enterLicenseKey: "Enter License Key",
   activateLicense: "Activate License",
   activating: "Activating...",
-  contactProvider: "Don't have a license key? Visit elcofreapp.com or contact your software provider to get one.",
+  contactProvider: "Don't have a license key? Visit elcofreapp.com or send your machine code via WhatsApp to +1 (857) 312-4946 to get one.",
   clockTamperedError: "System date error detected. Please correct your system clock and contact support.",
   licenseExpiredError: "Your license has expired. Please enter a new license key to continue.",
 };

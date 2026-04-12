@@ -319,7 +319,7 @@ export const zh = {
   enterLicenseKey: "输入许可证密钥",
   activateLicense: "激活许可证",
   activating: "正在激活...",
-  contactProvider: "没有许可证密钥？请访问 elcofreapp.com 或联系您的软件提供商获取。",
+  contactProvider: "没有许可证密钥？请访问 elcofreapp.com 或通过 WhatsApp 将您的机器码发送至 +1 (857) 312-4946 来获取。",
   clockTamperedError: "检测到系统日期错误。请更正系统时钟并联系支持。",
   licenseExpiredError: "您的许可证已过期。请输入新的许可证密钥以继续。",
 

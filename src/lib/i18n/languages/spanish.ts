@@ -359,7 +359,7 @@ export const es = {
   enterLicenseKey: "Ingresa la Llave de Licencia",
   activateLicense: "Activar Licencia",
   activating: "Activando...",
-  contactProvider: "¿No tienes una llave de licencia? Visita elcofreapp.com o contacta a tu proveedor de software para obtener una.",
+  contactProvider: "¿No tienes una llave de licencia? Visita elcofreapp.com o envía tu código de máquina por WhatsApp al +1 (857) 312-4946 para obtener una.",
   clockTamperedError: "Error de fecha del sistema detectado. Por favor corrige el reloj del sistema y contacta a soporte.",
   licenseExpiredError: "Tu licencia ha expirado. Por favor ingresa una nueva llave de licencia para continuar.",
 };

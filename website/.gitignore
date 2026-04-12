@@ -3,7 +3,12 @@
 # dependencies
 /node_modules
 /.pnp
-.pnp.js
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
 # testing
 /coverage
@@ -14,18 +19,6 @@
 
 # production
 /build
-/dist
-/dist-electron
-/release
-/temp
-
-# electron
-*.dmg
-*.exe
-*.AppImage
-
-# database
-warehouse.db
 
 # misc
 .DS_Store
@@ -35,9 +28,10 @@ warehouse.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# local env files
-.env*.local
+# env files (can opt-in for committing if needed)
+.env*
 
 # vercel
 .vercel
@@ -45,13 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# website
-website/.next/
-website/node_modules/
-
-# keygen
-keygen/keys/
-keygen/dist/
-keygen/node_modules/
-keygen/*.tgz
