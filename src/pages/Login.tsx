@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputWithEye } from "@/components/ui/input-with-eye";
 import { Button } from "@/components/ui/button";
-import { useLogo } from "@/hooks/use-logo";
+import { Logo } from "@/components/ui/logo";
 import { useTranslations } from "@/lib/i18n/use-translations";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const { t } = useTranslations();
-  const logo = useLogo();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -49,7 +48,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <img src={logo} alt="El Cofre" className="h-40 w-40 rounded-xl" />
+          <Logo height={60} />
         </div>
         <h2 className="mt-4 text-center text-2xl font-extrabold text-gray-900 dark:text-white">
           {t("signIn")}
