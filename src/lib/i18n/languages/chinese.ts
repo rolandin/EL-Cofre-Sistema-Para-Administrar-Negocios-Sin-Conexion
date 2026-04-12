@@ -303,7 +303,7 @@ export const zh = {
   brandTagline1: "业务管理",
   brandTagline2: "无边界。",
   brandDescription:
-    "一套完整的库存、销售、服务、员工和日程管理系统 — 专为网络连接受限地区设计。",
+    "一套完整的库存、销售、服务、预约排程和员工管理系统 — 专为网络连接受限地区设计。",
   brandFeature1: "100% 离线运行 — 无需互联网",
   brandFeature2: "您的数据保存在本地，始终由您掌控",
   brandFeature3: "多用户，支持基于角色的访问控制",

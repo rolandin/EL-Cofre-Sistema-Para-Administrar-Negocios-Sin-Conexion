@@ -339,7 +339,7 @@ export const es = {
   // Auth layout branding
   brandTagline1: "Gestión de negocios",
   brandTagline2: "sin límites.",
-  brandDescription: "Un sistema completo para inventario, ventas, servicios, empleados y agenda — diseñado para regiones con conectividad limitada.",
+  brandDescription: "Un sistema completo para inventario, ventas, servicios, programación de citas y empleados — diseñado para regiones con conectividad limitada.",
   brandFeature1: "Funciona 100% sin conexión — no requiere internet",
   brandFeature2: "Tus datos se quedan locales, siempre bajo tu control",
   brandFeature3: "Multi-usuario con acceso basado en roles",

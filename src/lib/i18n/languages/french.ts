@@ -318,7 +318,7 @@ export const fr = {
   brandTagline1: "Gestion d'entreprise",
   brandTagline2: "sans frontières.",
   brandDescription:
-    "Un système complet pour l'inventaire, les ventes, les services, les employés et la planification — conçu pour les régions à connectivité limitée.",
+    "Un système complet pour l'inventaire, les ventes, les services, la prise de rendez-vous et les employés — conçu pour les régions à connectivité limitée.",
   brandFeature1: "Fonctionne à 100% hors ligne — sans connexion internet",
   brandFeature2: "Vos données restent locales, toujours sous votre contrôle",
   brandFeature3: "Multi-utilisateurs avec accès basé sur les rôles",
