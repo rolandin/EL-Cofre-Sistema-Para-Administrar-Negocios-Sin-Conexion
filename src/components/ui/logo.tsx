@@ -32,7 +32,7 @@ export function Logo({ height = 48, className = "" }: LogoProps) {
         <rect x="17.2" y="18.5" width="3.6" height="7" rx="1" className="fill-white dark:fill-slate-900" />
       </g>
 
-      {/* EL COFRE — single line, all caps, bold, tight */}
+      {/* EL — slightly lighter */}
       <text
         x="44"
         y="29"
@@ -41,8 +41,21 @@ export function Logo({ height = 48, className = "" }: LogoProps) {
         fontFamily="system-ui, -apple-system, sans-serif"
         fontWeight="900"
         letterSpacing="-0.5"
+        opacity="0.6"
       >
-        EL COFRE
+        EL
+      </text>
+      {/* COFRE — full intensity */}
+      <text
+        x="76"
+        y="29"
+        fill="url(#logo-gradient)"
+        fontSize="28"
+        fontFamily="system-ui, -apple-system, sans-serif"
+        fontWeight="900"
+        letterSpacing="-0.5"
+      >
+        COFRE
       </text>
     </svg>
   );
