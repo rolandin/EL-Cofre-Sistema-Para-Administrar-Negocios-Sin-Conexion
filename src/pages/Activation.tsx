@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Copy, Check } from 'lucide-react';
-import ElCofreLogo from '@/components/ui/el-cofre-logo';
+import elCofreLogo from '@/assets/el-cofre-logo.png';
 import { toast } from 'sonner';
 
 export default function Activation() {
@@ -78,7 +78,7 @@ export default function Activation() {
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
           <div className="flex justify-center mb-4">
-            <ElCofreLogo size={80} />
+            <img src={elCofreLogo} alt="El Cofre" className="h-20 w-20 rounded-lg" />
           </div>
           <p className="mt-2 text-gray-500 dark:text-gray-400">License Activation</p>
         </div>
