@@ -48,4 +48,17 @@ router.put('/system', (req, res) => {
   }
 });
 
+// POST /api/settings/system/language — initial language selection (first run only)
+router.post('/system/language', (req, res) => {
+  try {
+    const { language } = req.body;
+    if (!language) return res.status(400).json({ error: 'Language is required' });
+    db.prepare('UPDATE system_settings SET language = ?, languageSelected = 1 WHERE id = 1').run(language);
+    return res.json({ success: true });
+  } catch (error) {
+    console.error('Failed to set language:', error);
+    return res.status(500).json({ error: 'Failed to set language' });
+  }
+});
+
 export default router;

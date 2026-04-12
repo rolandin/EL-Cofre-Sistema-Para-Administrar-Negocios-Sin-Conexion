@@ -17,6 +17,7 @@ import Employees from './pages/Employees';
 import Payments from './pages/Payments';
 import Settings from './pages/Settings';
 import Activation from './pages/Activation';
+import LanguageSelect from './pages/LanguageSelect';
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/setup" element={<Setup />} />
           <Route path="/activation" element={<Activation />} />
+          <Route path="/language" element={<LanguageSelect />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="inventory" element={<Inventory />} />
