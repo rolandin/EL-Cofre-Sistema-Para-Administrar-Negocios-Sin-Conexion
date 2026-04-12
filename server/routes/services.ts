@@ -69,7 +69,7 @@ router.get('/:id/history', (req, res) => {
        WHERE sh.service_id = ? ORDER BY sh.date_performed DESC LIMIT ? OFFSET ?`
     ).all(req.params.id, limit, offset);
     const total = db.prepare('SELECT COUNT(*) as count FROM services_history WHERE service_id = ?').get(req.params.id) as { count: number };
-    return res.json({ history, total: total.count });
+    return res.json({ records: history, total: total.count });
   } catch (error) {
     console.error('Failed to fetch service history:', error);
     return res.status(500).json({ error: 'Failed to fetch service history' });
