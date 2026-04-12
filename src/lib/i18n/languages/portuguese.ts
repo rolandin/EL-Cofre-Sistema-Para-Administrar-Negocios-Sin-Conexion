@@ -322,6 +322,9 @@ export const pt = {
   brandFeature3: "Multiusuário com acesso baseado em funções",
   brandFeature4: "Banco de dados criptografado com backups seguros",
 
+  // Setup page
+  setupDescription: "Crie a conta de administrador para começar.",
+
   // Activation page
   licenseActivation: "Ativação de Licença",
   yourMachineCode: "Seu Código de Máquina",

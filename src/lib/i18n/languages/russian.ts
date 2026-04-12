@@ -321,6 +321,9 @@ export const ru = {
   brandFeature3: "Многопользовательский режим с доступом на основе ролей",
   brandFeature4: "Зашифрованная база данных с защищёнными резервными копиями",
 
+  // Setup page
+  setupDescription: "Создайте учётную запись администратора, чтобы начать.",
+
   // Activation page
   licenseActivation: "Активация лицензии",
   yourMachineCode: "Код вашей машины",

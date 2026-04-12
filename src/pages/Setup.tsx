@@ -83,7 +83,7 @@ export default function SetupPage() {
     <AuthLayout subtitle={t("createAccount")}>
       <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-          Create the administrator account to get started.
+          {t("setupDescription")}
         </p>
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-1.5">

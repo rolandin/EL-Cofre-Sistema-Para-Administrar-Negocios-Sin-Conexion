@@ -317,6 +317,9 @@ export const ar = {
   brandFeature3: "متعدد المستخدمين مع وصول قائم على الأدوار",
   brandFeature4: "قاعدة بيانات مشفرة مع نسخ احتياطية آمنة",
 
+  // Setup page
+  setupDescription: "أنشئ حساب المسؤول للبدء.",
+
   // Activation page
   licenseActivation: "تفعيل الرخصة",
   yourMachineCode: "رمز جهازك",

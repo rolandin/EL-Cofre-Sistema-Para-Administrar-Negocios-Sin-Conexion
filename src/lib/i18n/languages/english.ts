@@ -338,6 +338,9 @@ export const en = {
   brandFeature3: "Multi-user with role-based access",
   brandFeature4: "Encrypted database with secure backups",
 
+  // Setup page
+  setupDescription: "Create the administrator account to get started.",
+
   // Activation page
   licenseActivation: "License Activation",
   yourMachineCode: "Your Machine Code",

@@ -345,6 +345,9 @@ export const es = {
   brandFeature3: "Multi-usuario con acceso basado en roles",
   brandFeature4: "Base de datos encriptada con respaldos seguros",
 
+  // Setup page
+  setupDescription: "Crea la cuenta de administrador para comenzar.",
+
   // Activation page
   licenseActivation: "Activación de Licencia",
   yourMachineCode: "Código de Máquina",

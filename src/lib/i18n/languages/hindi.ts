@@ -320,6 +320,9 @@ export const hi = {
   brandFeature3: "भूमिका-आधारित पहुंच के साथ बहु-उपयोगकर्ता",
   brandFeature4: "सुरक्षित बैकअप के साथ एन्क्रिप्टेड डेटाबेस",
 
+  // Setup page
+  setupDescription: "शुरू करने के लिए व्यवस्थापक खाता बनाएं।",
+
   // Activation page
   licenseActivation: "लाइसेंस सक्रियण",
   yourMachineCode: "आपका मशीन कोड",

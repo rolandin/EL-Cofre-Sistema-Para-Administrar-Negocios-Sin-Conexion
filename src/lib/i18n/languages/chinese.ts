@@ -309,6 +309,9 @@ export const zh = {
   brandFeature3: "多用户，支持基于角色的访问控制",
   brandFeature4: "加密数据库，支持安全备份",
 
+  // Setup page
+  setupDescription: "创建管理员账户以开始使用。",
+
   // Activation page
   licenseActivation: "许可证激活",
   yourMachineCode: "您的机器码",

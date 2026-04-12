@@ -319,6 +319,9 @@ export const bn = {
   brandFeature3: "ভূমিকা-ভিত্তিক অ্যাক্সেস সহ বহু-ব্যবহারকারী",
   brandFeature4: "নিরাপদ ব্যাকআপ সহ এনক্রিপ্টেড ডেটাবেস",
 
+  // Setup page
+  setupDescription: "শুরু করতে প্রশাসক অ্যাকাউন্ট তৈরি করুন।",
+
   // Activation page
   licenseActivation: "লাইসেন্স সক্রিয়করণ",
   yourMachineCode: "আপনার মেশিন কোড",
