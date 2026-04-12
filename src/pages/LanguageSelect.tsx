@@ -11,7 +11,7 @@ const languages = [
   { code: 'es', name: 'Español', native: 'Español', flag: '🇪🇸' },
   { code: 'en', name: 'English', native: 'English', flag: '🇺🇸' },
   { code: 'fr', name: 'French', native: 'Français', flag: '🇫🇷' },
-  { code: 'pt', name: 'Portuguese', native: 'Português', flag: '🇧🇷' },
+  { code: 'pt', name: 'Portuguese', native: 'Português', flag: '🇵🇹' },
   { code: 'ru', name: 'Russian', native: 'Русский', flag: '🇷🇺' },
   { code: 'zh', name: 'Chinese', native: '中文', flag: '🇨🇳' },
   { code: 'hi', name: 'Hindi', native: 'हिन्दी', flag: '🇮🇳' },
