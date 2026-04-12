@@ -20,13 +20,14 @@ router.get('/', (_req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { username, password, role, employee_name, employee_position, employee_salary } = req.body;
+    const name = employee_name || username;
     const existing = db.prepare('SELECT id FROM users WHERE username = ?').get(username);
     if (existing) return res.status(400).json({ error: 'Username already exists' });
     const hashedPassword = await hashPassword(password);
     db.transaction(() => {
-      const contractorResult = db.prepare('INSERT INTO contractors (name, location_fee_percentage, isActive) VALUES (?, 100, 1)').run(employee_name);
+      const contractorResult = db.prepare('INSERT INTO contractors (name, location_fee_percentage, isActive) VALUES (?, 100, 1)').run(name);
       const employeeResult = db.prepare('INSERT INTO employees (name, position, salary, contractor_id, is_active) VALUES (?, ?, ?, ?, 1)')
-        .run(employee_name, employee_position || 'General', employee_salary || 0, contractorResult.lastInsertRowid);
+        .run(name, employee_position || 'General', employee_salary || 0, contractorResult.lastInsertRowid);
       db.prepare('INSERT INTO users (username, password, role, isActive, employee_id) VALUES (?, ?, ?, 1, ?)')
         .run(username, hashedPassword, role, employeeResult.lastInsertRowid);
     })();
