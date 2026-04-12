@@ -4,14 +4,14 @@ interface LogoProps {
 }
 
 export function Logo({ height = 48, className = "" }: LogoProps) {
-  const scale = height / 50;
-  const w = Math.round(220 * scale);
+  const scale = height / 40;
+  const w = Math.round(200 * scale);
 
   return (
     <svg
       width={w}
       height={height}
-      viewBox="0 0 220 50"
+      viewBox="0 0 200 40"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
@@ -22,42 +22,27 @@ export function Logo({ height = 48, className = "" }: LogoProps) {
         </linearGradient>
       </defs>
 
-      {/* Shield/vault mark */}
-      <g transform="translate(0, 3)">
-        {/* Shield shape */}
+      {/* Shield mark */}
+      <g transform="translate(0, 1)">
         <path
-          d="M22 2 L40 8 L40 22 C40 34 32 40 22 44 C12 40 4 34 4 22 L4 8 Z"
+          d="M19 1 L36 7 L36 19 C36 30 28 35 19 38 C10 35 2 30 2 19 L2 7 Z"
           fill="url(#logo-gradient)"
         />
-        {/* Keyhole */}
-        <circle cx="22" cy="18" r="5" className="fill-white dark:fill-slate-900" />
-        <rect x="20" y="21" width="4" height="8" rx="1" className="fill-white dark:fill-slate-900" />
+        <circle cx="19" cy="15.5" r="4.5" className="fill-white dark:fill-slate-900" />
+        <rect x="17.2" y="18.5" width="3.6" height="7" rx="1" className="fill-white dark:fill-slate-900" />
       </g>
 
-      {/* "el" — lowercase, light weight */}
+      {/* EL COFRE — single line, all caps, bold, tight */}
       <text
-        x="52"
-        y="24"
-        className="fill-slate-400 dark:fill-slate-500"
-        fontSize="16"
-        fontFamily="system-ui, -apple-system, sans-serif"
-        fontWeight="500"
-        letterSpacing="2"
-      >
-        el
-      </text>
-
-      {/* "cofre" — uppercase, bold */}
-      <text
-        x="52"
-        y="43"
+        x="44"
+        y="29"
         fill="url(#logo-gradient)"
-        fontSize="24"
+        fontSize="28"
         fontFamily="system-ui, -apple-system, sans-serif"
-        fontWeight="800"
-        letterSpacing="4"
+        fontWeight="900"
+        letterSpacing="-0.5"
       >
-        COFRE
+        EL COFRE
       </text>
     </svg>
   );
