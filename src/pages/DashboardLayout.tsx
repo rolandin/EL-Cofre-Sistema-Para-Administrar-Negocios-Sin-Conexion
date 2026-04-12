@@ -83,7 +83,7 @@ export default function DashboardLayout() {
       icon: <LayoutDashboard className="h-5 w-5" />,
       label: t("dashboard"),
     },
-    isAdmin && {
+    {
       href: "/dashboard/receive",
       icon: <PackagePlus className="h-5 w-5" />,
       label: t("receive"),
