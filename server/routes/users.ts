@@ -57,7 +57,7 @@ router.patch('/:id/status', (req, res) => {
     if (!user) return res.status(404).json({ error: 'User not found' });
     if (user.role === 'superadmin') return res.status(403).json({ error: 'Cannot modify superadmin' });
     const { isActive } = req.body;
-    db.prepare('UPDATE users SET isActive = ? WHERE id = ?').run(isActive, req.params.id);
+    db.prepare('UPDATE users SET isActive = ? WHERE id = ?').run(isActive ? 1 : 0, req.params.id);
     return res.json({ success: true });
   } catch (error) {
     console.error('Failed to update user status:', error);
