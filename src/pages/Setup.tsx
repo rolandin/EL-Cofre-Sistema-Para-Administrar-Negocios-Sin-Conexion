@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { InputWithEye } from "@/components/ui/input-with-eye";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/ui/logo";
+import { AuthLayout } from "@/components/ui/auth-layout";
 import { useTranslations } from "@/lib/i18n/use-translations";
 
 interface SetupData {
@@ -16,7 +16,6 @@ export default function SetupPage() {
   const { t } = useTranslations();
   const [error, setError] = useState("");
 
-  // Check if we should be on this page
   const { data: setupCheck, isLoading: checkingSetup } = useQuery({
     queryKey: ["checkSetup"],
     queryFn: async () => {
@@ -81,58 +80,53 @@ export default function SetupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <Logo height={60} />
-        </div>
-      </div>
+    <AuthLayout subtitle={t("createAccount")}>
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+          Create the administrator account to get started.
+        </p>
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          <div className="space-y-1.5">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+            >
+              {t("username")}
+            </label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              className="appearance-none block w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+            />
+          </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-200"
-              >
-                {t("username")}
-              </label>
-              <div className="mt-1">
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
+          <InputWithEye
+            id="password"
+            name="password"
+            required
+            label={t("password")}
+          />
+
+          <InputWithEye
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+            label={t("confirmPassword")}
+          />
+
+          {error && (
+            <div className="text-red-600 text-sm text-center bg-red-50 dark:bg-red-900/20 rounded-lg p-2.5">
+              {error}
             </div>
+          )}
 
-            <InputWithEye
-              id="password"
-              name="password"
-              required
-              label={t("password")}
-            />
-
-            <InputWithEye
-              id="confirmPassword"
-              name="confirmPassword"
-              required
-              label={t("confirmPassword")}
-            />
-
-            {error && (
-              <div className="text-red-600 text-sm text-center">{error}</div>
-            )}
-
-            <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? t("creating") : t("createAccount")}
-            </Button>
-          </form>
-        </div>
+          <Button type="submit" className="w-full h-11" disabled={isPending}>
+            {isPending ? t("creating") : t("createAccount")}
+          </Button>
+        </form>
       </div>
-    </div>
+    </AuthLayout>
   );
 }

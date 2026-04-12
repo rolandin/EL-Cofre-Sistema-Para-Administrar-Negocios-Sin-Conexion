@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
 import { Copy, Check } from 'lucide-react';
-import { Logo } from '@/components/ui/logo';
+import { AuthLayout } from '@/components/ui/auth-layout';
 import { toast } from 'sonner';
 
 export default function Activation() {
@@ -37,7 +36,6 @@ export default function Activation() {
     onSuccess: async () => {
       toast.success('License activated successfully!');
       queryClient.invalidateQueries({ queryKey: ['licenseStatus'] });
-      // Check if this is first run (no users yet) -> setup, otherwise -> login
       try {
         const res = await fetch('/api/check-setup');
         const data = await res.json();
@@ -74,62 +72,56 @@ export default function Activation() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <Logo height={60} />
+    <AuthLayout subtitle="License Activation">
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 space-y-6">
+        {/* Machine Code */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+            Your Machine Code
+          </label>
+          <div className="flex items-center gap-2">
+            <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-lg px-4 py-3 font-mono text-base text-center tracking-wider text-gray-900 dark:text-white">
+              {licenseStatus?.machineId || '...'}
+            </div>
+            <Button variant="outline" size="icon" className="h-11 w-11" onClick={handleCopy} title="Copy machine code">
+              {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+            </Button>
           </div>
-          <p className="mt-2 text-gray-500 dark:text-gray-400">License Activation</p>
+          <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+            Share this code with your provider to receive a license key.
+          </p>
         </div>
 
-        <Card className="p-6 space-y-6">
+        {/* Key Input */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-              Your Machine Code
+              Enter License Key
             </label>
-            <div className="flex items-center gap-2">
-              <div className="flex-1 bg-gray-100 dark:bg-gray-800 rounded-md px-4 py-3 font-mono text-lg text-center tracking-wider">
-                {licenseStatus?.machineId || '...'}
-              </div>
-              <Button variant="outline" size="icon" onClick={handleCopy} title="Copy machine code">
-                {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
-              </Button>
-            </div>
-            <p className="mt-1 text-xs text-gray-500">
-              Share this code with your provider to receive a license key.
-            </p>
+            <Input
+              value={key}
+              onChange={(e) => setKey(e.target.value)}
+              placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX"
+              className="font-mono text-center tracking-wider h-11"
+            />
           </div>
+          <Button type="submit" className="w-full h-11" disabled={isPending || !key.trim()}>
+            {isPending ? 'Activating...' : 'Activate License'}
+          </Button>
+        </form>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                Enter License Key
-              </label>
-              <Input
-                value={key}
-                onChange={(e) => setKey(e.target.value)}
-                placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX"
-                className="font-mono text-center tracking-wider"
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={isPending || !key.trim()}>
-              {isPending ? 'Activating...' : 'Activate License'}
-            </Button>
-          </form>
-
-          {licenseStatus?.status === 'clock_tampered' && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-3 text-sm text-red-700 dark:text-red-300">
-              System date error detected. Please correct your system clock and contact support.
-            </div>
-          )}
-          {licenseStatus?.status === 'expired' && (
-            <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-md p-3 text-sm text-orange-700 dark:text-orange-300">
-              Your license has expired. Please enter a new license key to continue.
-            </div>
-          )}
-        </Card>
+        {/* Status Messages */}
+        {licenseStatus?.status === 'clock_tampered' && (
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 text-sm text-red-700 dark:text-red-300">
+            System date error detected. Please correct your system clock and contact support.
+          </div>
+        )}
+        {licenseStatus?.status === 'expired' && (
+          <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-3 text-sm text-orange-700 dark:text-orange-300">
+            Your license has expired. Please enter a new license key to continue.
+          </div>
+        )}
       </div>
-    </div>
+    </AuthLayout>
   );
 }
