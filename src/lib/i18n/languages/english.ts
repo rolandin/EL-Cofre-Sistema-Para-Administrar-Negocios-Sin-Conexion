@@ -345,7 +345,7 @@ export const en = {
   enterLicenseKey: "Enter License Key",
   activateLicense: "Activate License",
   activating: "Activating...",
-  contactProvider: "Don't have a license key? Contact your software provider to activate this system.",
+  contactProvider: "Don't have a license key? Visit elcofreapp.com or contact your software provider to get one.",
   clockTamperedError: "System date error detected. Please correct your system clock and contact support.",
   licenseExpiredError: "Your license has expired. Please enter a new license key to continue.",
 };

@@ -329,7 +329,7 @@ export const pt = {
   enterLicenseKey: "Inserir Chave de Licença",
   activateLicense: "Ativar Licença",
   activating: "Ativando...",
-  contactProvider: "Não tem uma chave de licença? Entre em contato com seu fornecedor de software para ativar este sistema.",
+  contactProvider: "Não tem uma chave de licença? Visite elcofreapp.com ou entre em contato com seu fornecedor de software para obter uma.",
   clockTamperedError: "Erro de data do sistema detectado. Por favor, corrija o relógio do sistema e entre em contato com o suporte.",
   licenseExpiredError: "Sua licença expirou. Por favor, insira uma nova chave de licença para continuar.",
 };
