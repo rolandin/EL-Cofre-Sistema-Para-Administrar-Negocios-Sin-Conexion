@@ -1,15 +1,18 @@
 import { ReactNode } from "react";
-import { Logo, LogoIcon } from "@/components/ui/logo";
-import { Shield, Wifi, WifiOff, Database, Users } from "lucide-react";
-
-const features = [
-  { icon: WifiOff, text: "Works 100% offline — no internet required" },
-  { icon: Database, text: "Your data stays local, always under your control" },
-  { icon: Users, text: "Multi-user with role-based access" },
-  { icon: Shield, text: "Encrypted database with secure backups" },
-];
+import { Logo } from "@/components/ui/logo";
+import { Shield, WifiOff, Database, Users } from "lucide-react";
+import { useTranslations } from "@/lib/i18n/use-translations";
 
 export function AuthLayout({ children, subtitle }: { children: ReactNode; subtitle?: string }) {
+  const { t } = useTranslations();
+
+  const features = [
+    { icon: WifiOff, text: t("brandFeature1") },
+    { icon: Database, text: t("brandFeature2") },
+    { icon: Users, text: t("brandFeature3") },
+    { icon: Shield, text: t("brandFeature4") },
+  ];
+
   return (
     <div className="min-h-screen flex">
       {/* Left panel — brand */}
@@ -28,18 +31,18 @@ export function AuthLayout({ children, subtitle }: { children: ReactNode; subtit
         <div className="relative z-10 space-y-8">
           <div>
             <h1 className="text-3xl font-bold leading-tight">
-              Business management
+              {t("brandTagline1")}
               <br />
-              <span className="text-sky-400">without boundaries.</span>
+              <span className="text-sky-400">{t("brandTagline2")}</span>
             </h1>
             <p className="mt-3 text-slate-400 text-sm leading-relaxed max-w-sm">
-              A complete system for inventory, sales, services, employees, and scheduling — designed for regions with limited connectivity.
+              {t("brandDescription")}
             </p>
           </div>
 
           <div className="space-y-4">
-            {features.map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-3">
+            {features.map(({ icon: Icon, text }, i) => (
+              <div key={i} className="flex items-center gap-3">
                 <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
                   <Icon className="h-4 w-4 text-sky-400" />
                 </div>

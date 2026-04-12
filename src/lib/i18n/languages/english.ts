@@ -328,4 +328,13 @@ export const en = {
   deleteEmployee: "Delete Employee",
   deleteEmployeeConfirm:
     "Are you sure you want to delete this employee? This action cannot be undone.",
+
+  // Auth layout branding
+  brandTagline1: "Business management",
+  brandTagline2: "without boundaries.",
+  brandDescription: "A complete system for inventory, sales, services, employees, and scheduling — designed for regions with limited connectivity.",
+  brandFeature1: "Works 100% offline — no internet required",
+  brandFeature2: "Your data stays local, always under your control",
+  brandFeature3: "Multi-user with role-based access",
+  brandFeature4: "Encrypted database with secure backups",
 };
