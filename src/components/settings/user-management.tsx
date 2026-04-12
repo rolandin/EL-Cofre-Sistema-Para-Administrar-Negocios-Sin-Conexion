@@ -4,6 +4,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { Loader2, Lock, Unlock, Trash2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Table,
   TableBody,
@@ -198,26 +199,34 @@ export function UserManagement() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        title={user.isActive ? t("deactivateUser") : t("activateUser")}
-                        onClick={() =>
-                          toggleStatus.mutate({
-                            userId: user.id,
-                            currentStatus: user.isActive,
-                          })
-                        }
-                        disabled={toggleStatus.isPending}
-                      >
-                        {toggleStatus.isPending ? (
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                        ) : user.isActive ? (
-                          <Lock className="h-4 w-4" />
-                        ) : (
-                          <Unlock className="h-4 w-4" />
-                        )}
-                      </Button>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() =>
+                                toggleStatus.mutate({
+                                  userId: user.id,
+                                  currentStatus: user.isActive,
+                                })
+                              }
+                              disabled={toggleStatus.isPending}
+                            >
+                              {toggleStatus.isPending ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : user.isActive ? (
+                                <Lock className="h-4 w-4" />
+                              ) : (
+                                <Unlock className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{user.isActive ? t("deactivateUser") : t("activateUser")}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button
