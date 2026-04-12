@@ -22,12 +22,18 @@ router.get('/', (req, res) => {
 // POST /api/services
 router.post('/', (req, res) => {
   try {
+    const raw = req.body;
     const data = z.object({
       name: z.string().min(1),
       description: z.string().optional(),
       base_price: z.number().min(0),
       commission_percentage: z.number().min(0).max(100),
-    }).parse(req.body);
+    }).parse({
+      name: raw.name,
+      description: raw.description,
+      base_price: raw.base_price ?? raw.basePrice,
+      commission_percentage: raw.commission_percentage ?? raw.commissionPercentage,
+    });
     db.prepare('INSERT INTO services (name, description, base_price, commission_percentage) VALUES (?, ?, ?, ?)')
       .run(data.name, data.description || '', data.base_price, data.commission_percentage);
     return res.json({ success: true });
