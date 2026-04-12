@@ -83,7 +83,8 @@ router.post('/', async (req, res) => {
     return res.json({ success: true });
   } catch (error) {
     console.error('Failed to create appointment:', error);
-    return res.status(500).json({ error: 'Failed to create appointment' });
+    const message = error instanceof Error ? error.message : 'Failed to create appointment';
+    return res.status(500).json({ error: message });
   }
 });
 
