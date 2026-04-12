@@ -8,11 +8,11 @@ const router = Router();
 router.get('/', (req, res) => {
   try {
     const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 50;
+    const limit = parseInt(req.query.limit as string || req.query.pageSize as string) || 50;
     const offset = (page - 1) * limit;
     const services = db.prepare('SELECT * FROM services ORDER BY name LIMIT ? OFFSET ?').all(limit, offset);
     const total = db.prepare('SELECT COUNT(*) as count FROM services').get() as { count: number };
-    return res.json({ services, total: total.count });
+    return res.json({ services, items: services, total: total.count });
   } catch (error) {
     console.error('Failed to fetch services:', error);
     return res.status(500).json({ error: 'Failed to fetch services' });
