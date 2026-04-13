@@ -2,19 +2,20 @@ import { Router } from 'express';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import Database from 'better-sqlite3';
-import db from '../db';
+import db, { DB_PATH } from '../db';
 
 const router = Router();
-const upload = multer({ dest: 'temp/' });
+const upload = multer({ dest: path.join(os.tmpdir(), 'elcofre-uploads') });
 
 router.post('/', (_req, res) => {
   try {
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupDir = path.join(process.cwd(), 'backups');
+    const backupDir = path.join(os.tmpdir(), 'elcofre-backups');
     if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir);
     const backupPath = path.join(backupDir, `backup-${timestamp}.sqlite`);
-    const dbPath = path.join(process.cwd(), 'warehouse.db');
+    const dbPath = DB_PATH;
     fs.copyFileSync(dbPath, backupPath);
     const backupData = fs.readFileSync(backupPath);
     fs.unlinkSync(backupPath);
@@ -42,7 +43,7 @@ router.post('/restore', upload.single('backup'), (req, res) => {
     if (missing.length > 0) { tempDb.close(); throw new Error(`Invalid backup: Missing tables: ${missing.join(', ')}`); }
     tempDb.close();
     db.close();
-    const dbPath = path.join(process.cwd(), 'warehouse.db');
+    const dbPath = DB_PATH;
     fs.copyFileSync(tempPath!, dbPath);
     if (tempPath && fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
     return res.json({ success: true });

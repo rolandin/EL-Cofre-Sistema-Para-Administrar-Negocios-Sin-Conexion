@@ -12,7 +12,7 @@ function getDbPath(): string {
   }
 }
 
-const DB_PATH = getDbPath();
+export const DB_PATH = getDbPath();
 console.log('Database path:', DB_PATH);
 const ENCRYPTION_KEY = process.env.DB_ENCRYPTION_KEY || 'your-secure-encryption-key';
 
