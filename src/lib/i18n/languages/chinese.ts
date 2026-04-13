@@ -326,7 +326,4 @@ export const zh = {
   // User management
   deactivateUser: "停用用户 — 阻止他们登录",
   activateUser: "激活用户 — 允许他们再次登录",
-
-  // Setup page
-  setupDescription: "创建管理员账户以开始使用。",
 };
