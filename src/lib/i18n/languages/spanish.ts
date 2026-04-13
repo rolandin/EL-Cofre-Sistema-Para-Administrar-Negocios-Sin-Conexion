@@ -335,4 +335,31 @@ export const es = {
   deleteEmployee: "Eliminar Empleado",
   deleteEmployeeConfirm:
     "¿Estás seguro que deseas eliminar este empleado? Esta acción no se puede deshacer.",
+
+  // Auth layout branding
+  brandTagline1: "Gestión de negocios",
+  brandTagline2: "sin límites.",
+  brandDescription: "Un sistema completo para inventario, ventas, servicios, programación de citas y empleados — diseñado para regiones con conectividad limitada.",
+  brandFeature1: "Funciona 100% sin conexión — no requiere internet",
+  brandFeature2: "Tus datos se quedan locales, siempre bajo tu control",
+  brandFeature3: "Multi-usuario con acceso basado en roles",
+  brandFeature4: "Base de datos encriptada con respaldos seguros",
+
+  // User management
+  deactivateUser: "Desactivar usuario — bloquea el inicio de sesión",
+  activateUser: "Activar usuario — permite iniciar sesión de nuevo",
+
+  // Setup page
+  setupDescription: "Crea la cuenta de administrador para comenzar.",
+
+  // Activation page
+  licenseActivation: "Activación de Licencia",
+  yourMachineCode: "Código de Máquina",
+  machineCodeHelp: "Comparte este código con tu proveedor de software para recibir una llave de licencia.",
+  enterLicenseKey: "Ingresa la Llave de Licencia",
+  activateLicense: "Activar Licencia",
+  activating: "Activando...",
+  contactProvider: "¿No tienes una llave de licencia? Visita elcofreapp.com o envía tu código de máquina por WhatsApp al +1 (857) 312-4946 para obtener una.",
+  clockTamperedError: "Error de fecha del sistema detectado. Por favor corrige el reloj del sistema y contacta a soporte.",
+  licenseExpiredError: "Tu licencia ha expirado. Por favor ingresa una nueva llave de licencia para continuar.",
 };

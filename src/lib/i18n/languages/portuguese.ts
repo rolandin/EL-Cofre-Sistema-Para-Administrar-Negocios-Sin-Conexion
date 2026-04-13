@@ -311,4 +311,32 @@ export const pt = {
     "Este prestador de serviços tem histórico de vendas. Excluí-lo afetaria os registros históricos e dados financeiros.",
   contractorDeleteErrorWithUnpaidEarnings:
     "Este prestador de serviços tem ganhos não pagos. Por favor, processe seus pagamentos pendentes antes de excluir.",
+
+  // Auth layout branding
+  brandTagline1: "Gestão empresarial",
+  brandTagline2: "sem fronteiras.",
+  brandDescription:
+    "Um sistema completo para inventário, vendas, serviços, agendamento de consultas e funcionários — projetado para regiões com conectividade limitada.",
+  brandFeature1: "Funciona 100% offline — sem necessidade de internet",
+  brandFeature2: "Seus dados ficam locais, sempre sob seu controle",
+  brandFeature3: "Multiusuário com acesso baseado em funções",
+  brandFeature4: "Banco de dados criptografado com backups seguros",
+
+  // User management
+  deactivateUser: "Desativar usuário — bloqueia o login",
+  activateUser: "Ativar usuário — permite o login novamente",
+
+  // Setup page
+  setupDescription: "Crie a conta de administrador para começar.",
+
+  // Activation page
+  licenseActivation: "Ativação de Licença",
+  yourMachineCode: "Seu Código de Máquina",
+  machineCodeHelp: "Compartilhe este código com seu fornecedor de software para receber uma chave de licença.",
+  enterLicenseKey: "Inserir Chave de Licença",
+  activateLicense: "Ativar Licença",
+  activating: "Ativando...",
+  contactProvider: "Não tem uma chave de licença? Visite elcofreapp.com ou envie seu código de máquina via WhatsApp para +1 (857) 312-4946 para obter uma.",
+  clockTamperedError: "Erro de data do sistema detectado. Por favor, corrija o relógio do sistema e entre em contato com o suporte.",
+  licenseExpiredError: "Sua licença expirou. Por favor, insira uma nova chave de licença para continuar.",
 };

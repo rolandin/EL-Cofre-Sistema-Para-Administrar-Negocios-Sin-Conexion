@@ -313,4 +313,32 @@ export const fr = {
     "Êtes-vous sûr de vouloir supprimer cet employé ? Cette action ne peut pas être annulée.",
   inactiveUserError:
     "Votre compte est actuellement inactif. Veuillez contacter un administrateur.",
+
+  // Auth layout branding
+  brandTagline1: "Gestion d'entreprise",
+  brandTagline2: "sans frontières.",
+  brandDescription:
+    "Un système complet pour l'inventaire, les ventes, les services, la prise de rendez-vous et les employés — conçu pour les régions à connectivité limitée.",
+  brandFeature1: "Fonctionne à 100% hors ligne — sans connexion internet",
+  brandFeature2: "Vos données restent locales, toujours sous votre contrôle",
+  brandFeature3: "Multi-utilisateurs avec accès basé sur les rôles",
+  brandFeature4: "Base de données chiffrée avec sauvegardes sécurisées",
+
+  // User management
+  deactivateUser: "Désactiver l'utilisateur — l'empêche de se connecter",
+  activateUser: "Activer l'utilisateur — lui permet de se connecter à nouveau",
+
+  // Setup page
+  setupDescription: "Créez le compte administrateur pour commencer.",
+
+  // Activation page
+  licenseActivation: "Activation de la licence",
+  yourMachineCode: "Votre code machine",
+  machineCodeHelp: "Partagez ce code avec votre fournisseur de logiciel pour recevoir une clé de licence.",
+  enterLicenseKey: "Entrer la clé de licence",
+  activateLicense: "Activer la licence",
+  activating: "Activation en cours...",
+  contactProvider: "Vous n'avez pas de clé de licence ? Visitez elcofreapp.com ou envoyez votre code machine via WhatsApp à +1 (857) 312-4946 pour en obtenir une.",
+  clockTamperedError: "Erreur de date système détectée. Veuillez corriger l'horloge système et contacter le support.",
+  licenseExpiredError: "Votre licence a expiré. Veuillez entrer une nouvelle clé de licence pour continuer.",
 };

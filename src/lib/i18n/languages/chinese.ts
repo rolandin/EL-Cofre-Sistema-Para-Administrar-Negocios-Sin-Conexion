@@ -298,4 +298,32 @@ export const zh = {
   deleteEmployee: "删除员工",
   deleteEmployeeConfirm: "您确定要删除这名员工吗？此操作无法撤消。",
   inactiveUserError: "您的账户当前处于非活动状态。请联系管理员。",
+
+  // Auth layout branding
+  brandTagline1: "业务管理",
+  brandTagline2: "无边界。",
+  brandDescription:
+    "一套完整的库存、销售、服务、预约排程和员工管理系统 — 专为网络连接受限地区设计。",
+  brandFeature1: "100% 离线运行 — 无需互联网",
+  brandFeature2: "您的数据保存在本地，始终由您掌控",
+  brandFeature3: "多用户，支持基于角色的访问控制",
+  brandFeature4: "加密数据库，支持安全备份",
+
+  // Setup page
+  setupDescription: "创建管理员账户以开始使用。",
+
+  // Activation page
+  licenseActivation: "许可证激活",
+  yourMachineCode: "您的机器码",
+  machineCodeHelp: "将此代码分享给软件提供商以获取许可证密钥。",
+  enterLicenseKey: "输入许可证密钥",
+  activateLicense: "激活许可证",
+  activating: "正在激活...",
+  contactProvider: "没有许可证密钥？请访问 elcofreapp.com 或通过 WhatsApp 将您的机器码发送至 +1 (857) 312-4946 来获取。",
+  clockTamperedError: "检测到系统日期错误。请更正系统时钟并联系支持。",
+  licenseExpiredError: "您的许可证已过期。请输入新的许可证密钥以继续。",
+
+  // User management
+  deactivateUser: "停用用户 — 阻止他们登录",
+  activateUser: "激活用户 — 允许他们再次登录",
 };

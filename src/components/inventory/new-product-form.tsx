@@ -94,9 +94,11 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
           </label>
           <Input
             required
+            placeholder="Nombre de Producto"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
+          <p className="text-xs text-gray-500">Nombre del producto tal como aparecerá en el inventario y las ventas.</p>
         </div>
 
         <div className="space-y-2">
@@ -109,6 +111,7 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
               setFormData({ ...formData, quantity: e.target.value })
             }
           />
+          <p className="text-xs text-gray-500">Cantidad inicial en stock. Puedes agregar más después desde &quot;Recibir&quot;.</p>
         </div>
 
         <div className="space-y-2">
@@ -125,6 +128,7 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
               setFormData({ ...formData, inboundPrice: e.target.value })
             }
           />
+          <p className="text-xs text-gray-500">Precio al que compras este producto (tu costo).</p>
         </div>
 
         <div className="space-y-2">
@@ -141,6 +145,7 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
               setFormData({ ...formData, outboundPrice: e.target.value })
             }
           />
+          <p className="text-xs text-gray-500">Precio al que vendes este producto al cliente. Debe ser mayor que el precio de entrada.</p>
           {formData.inboundPrice &&
             formData.outboundPrice &&
             parseFloat(formData.outboundPrice) <=
@@ -152,17 +157,19 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">{t("supplier")}</label>
+          <label className="text-sm font-medium">{t("supplier")} (Opcional)</label>
           <Input
+            placeholder="Ej: Distribuidora ABC"
             value={formData.supplier}
             onChange={(e) =>
               setFormData({ ...formData, supplier: e.target.value })
             }
           />
+          <p className="text-xs text-gray-500">Empresa o persona a quien le compras este producto. Útil para recordar a quién reordenar.</p>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">{t("commission")}</label>
+          <label className="text-sm font-medium">{t("commission")} (%)</label>
           <Input
             type="number"
             min="0"
@@ -173,6 +180,7 @@ export function NewProductForm({ onSuccess, onClose }: NewProductFormProps) {
               setFormData({ ...formData, commissionPercentage: e.target.value })
             }
           />
+          <p className="text-xs text-gray-500">Porcentaje de comisión que se paga al contratista por cada venta de este producto. Requiere entrar Contratista en el Sistema.</p>
         </div>
       </div>
 

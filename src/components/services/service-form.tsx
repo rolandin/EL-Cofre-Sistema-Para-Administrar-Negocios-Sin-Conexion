@@ -79,20 +79,24 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
         </label>
         <Input
           required
+          placeholder="Ej: Corte de cabello"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
+        <p className="text-xs text-gray-500">Nombre del servicio tal como aparecerá en el catálogo y las ventas.</p>
       </div>
 
       <div className="space-y-2">
         <label className="text-sm font-medium">{t("description")}</label>
         <Textarea
+          placeholder="Ej: Corte de cabello con lavado incluido"
           value={formData.description}
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
           rows={3}
         />
+        <p className="text-xs text-gray-500">Descripción opcional del servicio para más detalle.</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -110,10 +114,11 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
               setFormData({ ...formData, basePrice: e.target.value })
             }
           />
+          <p className="text-xs text-gray-500">Precio que se cobra al cliente por este servicio.</p>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">{t("commission")}</label>
+          <label className="text-sm font-medium">{t("commission")} (%)</label>
           <Input
             type="number"
             min="0"
@@ -124,6 +129,7 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
               setFormData({ ...formData, commissionPercentage: e.target.value })
             }
           />
+          <p className="text-xs text-gray-500">Porcentaje que se paga al contratista que realiza el servicio. Ej: 10 = 10% del precio.</p>
         </div>
       </div>
 

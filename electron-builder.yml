@@ -1,5 +1,6 @@
 appId: com.elcofre.app
 productName: El Cofre
+publish: null
 directories:
   output: release
 files:
@@ -7,9 +8,6 @@ files:
   - dist-electron/**/*
   - "!node_modules/.cache"
   - "!keygen/**/*"
-extraResources:
-  - from: "warehouse.db"
-    to: "warehouse.db"
 win:
   target:
     - target: nsis

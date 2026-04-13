@@ -2,14 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import enUS from "date-fns/locale/en-US";
-import es from "date-fns/locale/es";
-import ar from "date-fns/locale/ar";
-import hi from "date-fns/locale/hi";
-import bn from "date-fns/locale/bn";
-import zhCN from "date-fns/locale/zh-CN";
-import fa from "date-fns/locale/fa-IR";
-import type { Locale } from "date-fns";
 import { Loader2 } from "lucide-react";
 import {
   Table,
@@ -53,29 +45,6 @@ const formatCurrency = (value: number) => {
   return `$${value.toFixed(2)}`;
 };
 
-const dateLocales: { [key: string]: Locale } = {
-  en: enUS, // English
-  es, // Spanish
-  ar, // Arabic
-  hi, // Hindi
-  bn, // Bengali
-  zh: zhCN, // Chinese (Simplified)
-  fa, // Persian/Farsi
-  // Fallback to English for unsupported languages
-  ur: enUS, // Urdu
-  sw: enUS, // Swahili
-  ha: enUS, // Hausa
-  pa: enUS, // Punjabi
-  yo: enUS, // Yoruba
-  ig: enUS, // Igbo
-  am: enUS, // Amharic
-  so: enUS, // Somali
-  ku: enUS, // Kurdish
-  xh: enUS, // Xhosa
-  si: enUS, // Sinhala
-  ne: enUS, // Nepali
-  fil: enUS, // Filipino/Tagalog
-};
 
 export function InventoryTable({
   search,
@@ -86,7 +55,7 @@ export function InventoryTable({
 }: InventoryTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
 
   const { data, isLoading } = useQuery({
     queryKey: ["products", currentPage, search, sortBy],
@@ -129,11 +98,11 @@ export function InventoryTable({
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("name")}</TableHead>
-                <TableHead>{t("sku")}</TableHead>
-                <TableHead className="text-right">{t("quantity")}</TableHead>
-                <TableHead className="text-right">{t("value")}</TableHead>
-                <TableHead>{t("lastUpdated")}</TableHead>
+                <TableHead className="text-xs">{t("name")}</TableHead>
+                <TableHead className="text-xs">{t("sku")}</TableHead>
+                <TableHead className="text-xs text-right">{t("quantity")}</TableHead>
+                <TableHead className="text-xs text-right">{t("value")}</TableHead>
+                <TableHead className="text-xs">{t("lastUpdated")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -151,18 +120,16 @@ export function InventoryTable({
                   }`}
                   onClick={() => canViewDetails && onSelectProduct(product.id)}
                 >
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.sku}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs">{product.name}</TableCell>
+                  <TableCell className="text-xs">{product.sku}</TableCell>
+                  <TableCell className="text-xs text-right">
                     {product.quantity}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs text-right">
                     {formatCurrency(product.outboundPrice)}
                   </TableCell>
-                  <TableCell>
-                    {format(new Date(product.lastUpdated), "PPP", {
-                      locale: dateLocales[language] || enUS,
-                    })}
+                  <TableCell className="text-xs">
+                    {format(new Date(product.lastUpdated), "dd/MM/yyyy")}
                   </TableCell>
                 </TableRow>
               ))}

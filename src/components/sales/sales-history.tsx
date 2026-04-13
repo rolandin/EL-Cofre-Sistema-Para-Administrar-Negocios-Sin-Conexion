@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
 import {
   Table,
@@ -39,7 +38,7 @@ interface Sale {
 export function SalesHistory() {
   const { t, language } = useTranslations();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 10;
   const { isAdmin } = useAuth();
 
   const { data, isLoading } = useQuery({
@@ -73,26 +72,24 @@ export function SalesHistory() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t("date")}</TableHead>
-              <TableHead>{t("item")}</TableHead>
-              <TableHead>{t("type")}</TableHead>
-              <TableHead className="text-right">{t("quantity")}</TableHead>
-              <TableHead className="text-right">{t("totalValue")}</TableHead>
+              <TableHead className="text-xs">{t("date")}</TableHead>
+              <TableHead className="text-xs">{t("item")}</TableHead>
+              <TableHead className="text-xs">{t("type")}</TableHead>
+              <TableHead className="text-xs text-right">{t("quantity")}</TableHead>
+              <TableHead className="text-xs text-right">{t("totalValue")}</TableHead>
               {isAdmin && (
-                <TableHead className="text-right">{t("netProfit")}</TableHead>
+                <TableHead className="text-xs text-right">{t("netProfit")}</TableHead>
               )}
             </TableRow>
           </TableHeader>
           <TableBody>
             {sales.map((sale: Sale) => (
               <TableRow key={sale.id}>
-                <TableCell>
-                  {format(new Date(sale.date_sold), "PPP", {
-                    locale: language === "es" ? es : undefined,
-                  })}
+                <TableCell className="text-xs">
+                  {format(new Date(sale.date_sold), "dd/MM/yyyy")}
                 </TableCell>
-                <TableCell>{sale.item_name}</TableCell>
-                <TableCell>
+                <TableCell className="text-xs">{sale.item_name}</TableCell>
+                <TableCell className="text-xs">
                   <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
                       sale.type === "Service"
@@ -103,14 +100,14 @@ export function SalesHistory() {
                     {t(sale.type.toLowerCase())}
                   </span>
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-xs text-right">
                   {sale.type === "Product" ? sale.quantity : "-"}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-xs text-right">
                   {formatCurrency(sale.total_value, language)}
                 </TableCell>
                 {isAdmin && (
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs text-right">
                     {formatCurrency(sale.net_profit, language)}
                   </TableCell>
                 )}

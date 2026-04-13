@@ -172,9 +172,7 @@ export function SalesReport() {
                 <Button variant="outline" className="w-[200px]">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {dateRange.from
-                    ? format(dateRange.from, "PPP", {
-                        locale: language === "es" ? es : undefined,
-                      })
+                    ? format(dateRange.from, "dd/MM/yyyy")
                     : t("pickDate")}
                 </Button>
               </PopoverTrigger>
@@ -199,9 +197,7 @@ export function SalesReport() {
                 <Button variant="outline" className="w-[200px]">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {dateRange.to
-                    ? format(dateRange.to, "PPP", {
-                        locale: language === "es" ? es : undefined,
-                      })
+                    ? format(dateRange.to, "dd/MM/yyyy")
                     : t("pickDate")}
                 </Button>
               </PopoverTrigger>

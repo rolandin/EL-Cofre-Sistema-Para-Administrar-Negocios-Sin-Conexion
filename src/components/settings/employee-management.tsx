@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import {
   Loader2,
   Plus,
@@ -70,7 +69,7 @@ interface EmployeeFormData {
 
 export function EmployeeManagement() {
   const queryClient = useQueryClient();
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
   const [isNewEmployeeDialogOpen, setIsNewEmployeeDialogOpen] = useState(false);
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
@@ -345,13 +344,13 @@ export function EmployeeManagement() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t("name")}</TableHead>
-                  <TableHead>{t("position")}</TableHead>
-                  <TableHead>{t("contractor")}</TableHead>
-                  <TableHead className="text-right">{t("salary")}</TableHead>
-                  <TableHead>{t("hireDate")}</TableHead>
-                  <TableHead>{t("status")}</TableHead>
-                  <TableHead className="text-right">{t("actions")}</TableHead>
+                  <TableHead className="text-xs">{t("name")}</TableHead>
+                  <TableHead className="text-xs">{t("position")}</TableHead>
+                  <TableHead className="text-xs">{t("contractor")}</TableHead>
+                  <TableHead className="text-xs text-right">{t("salary")}</TableHead>
+                  <TableHead className="text-xs">{t("hireDate")}</TableHead>
+                  <TableHead className="text-xs">{t("status")}</TableHead>
+                  <TableHead className="text-xs text-right">{t("actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -364,22 +363,20 @@ export function EmployeeManagement() {
                         : ""
                     }
                   >
-                    <TableCell className="font-medium">
+                    <TableCell className="text-xs font-medium">
                       {employee.name}
                     </TableCell>
-                    <TableCell>{employee.position}</TableCell>
-                    <TableCell>{employee.contractor_name || t("na")}</TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-xs">{employee.position}</TableCell>
+                    <TableCell className="text-xs">{employee.contractor_name || t("na")}</TableCell>
+                    <TableCell className="text-xs text-right">
                       {employee.salary
                         ? formatCurrency(employee.salary)
                         : t("na")}
                     </TableCell>
-                    <TableCell>
-                      {format(new Date(employee.hire_date), "PPP", {
-                        locale: language === "es" ? es : undefined,
-                      })}
+                    <TableCell className="text-xs">
+                      {format(new Date(employee.hire_date), "dd/MM/yyyy")}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="text-xs">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           employee.is_active
@@ -390,7 +387,7 @@ export function EmployeeManagement() {
                         {employee.is_active ? t("active") : t("inactive")}
                       </span>
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-xs text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Button
                           variant="ghost"
@@ -558,9 +555,7 @@ export function EmployeeManagement() {
                         {t("hireDate")}
                       </h4>
                       <p className="text-lg">
-                        {format(new Date(selectedEmployee.hire_date), "PPP", {
-                          locale: language === "es" ? es : undefined,
-                        })}
+                        {format(new Date(selectedEmployee.hire_date), "dd/MM/yyyy")}
                       </p>
                     </div>
                     <div>

@@ -328,4 +328,31 @@ export const en = {
   deleteEmployee: "Delete Employee",
   deleteEmployeeConfirm:
     "Are you sure you want to delete this employee? This action cannot be undone.",
+
+  // Auth layout branding
+  brandTagline1: "Business management",
+  brandTagline2: "without boundaries.",
+  brandDescription: "A complete system for inventory, sales, services, appointment scheduling, and employees — designed for regions with limited connectivity.",
+  brandFeature1: "Works 100% offline — no internet required",
+  brandFeature2: "Your data stays local, always under your control",
+  brandFeature3: "Multi-user with role-based access",
+  brandFeature4: "Encrypted database with secure backups",
+
+  // User management
+  deactivateUser: "Deactivate user — blocks them from logging in",
+  activateUser: "Activate user — allows them to log in again",
+
+  // Setup page
+  setupDescription: "Create the administrator account to get started.",
+
+  // Activation page
+  licenseActivation: "License Activation",
+  yourMachineCode: "Your Machine Code",
+  machineCodeHelp: "Share this code with your software provider to receive a license key.",
+  enterLicenseKey: "Enter License Key",
+  activateLicense: "Activate License",
+  activating: "Activating...",
+  contactProvider: "Don't have a license key? Visit elcofreapp.com or send your machine code via WhatsApp to +1 (857) 312-4946 to get one.",
+  clockTamperedError: "System date error detected. Please correct your system clock and contact support.",
+  licenseExpiredError: "Your license has expired. Please enter a new license key to continue.",
 };

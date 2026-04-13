@@ -306,4 +306,32 @@ export const ar = {
     "هذا المقاول لديه سجل مبيعات. حذفه سيؤثر على السجلات التاريخية والبيانات المالية.",
   contractorDeleteErrorWithUnpaidEarnings:
     "هذا المقاول لديه أرباح غير مدفوعة. يرجى معالجة مدفوعاته المعلقة قبل الحذف.",
+
+  // Auth layout branding
+  brandTagline1: "إدارة الأعمال",
+  brandTagline2: "بلا حدود.",
+  brandDescription:
+    "نظام متكامل للمخزون والمبيعات والخدمات وجدولة المواعيد والموظفين — مصمم للمناطق ذات الاتصال المحدود.",
+  brandFeature1: "يعمل بنسبة 100٪ دون اتصال — لا يحتاج إلى إنترنت",
+  brandFeature2: "بياناتك تبقى محلية، دائمًا تحت سيطرتك",
+  brandFeature3: "متعدد المستخدمين مع وصول قائم على الأدوار",
+  brandFeature4: "قاعدة بيانات مشفرة مع نسخ احتياطية آمنة",
+
+  // User management
+  deactivateUser: "تعطيل المستخدم — يمنعهم من تسجيل الدخول",
+  activateUser: "تفعيل المستخدم — يسمح لهم بتسجيل الدخول مرة أخرى",
+
+  // Setup page
+  setupDescription: "أنشئ حساب المسؤول للبدء.",
+
+  // Activation page
+  licenseActivation: "تفعيل الرخصة",
+  yourMachineCode: "رمز جهازك",
+  machineCodeHelp: "شارك هذا الرمز مع مزود البرنامج للحصول على مفتاح الترخيص.",
+  enterLicenseKey: "أدخل مفتاح الترخيص",
+  activateLicense: "تفعيل الرخصة",
+  activating: "جارٍ التفعيل...",
+  contactProvider: "لا تملك مفتاح ترخيص؟ قم بزيارة elcofreapp.com أو أرسل رمز جهازك عبر WhatsApp إلى +1 (857) 312-4946 للحصول عليه.",
+  clockTamperedError: "تم اكتشاف خطأ في تاريخ النظام. يرجى تصحيح ساعة النظام والتواصل مع الدعم.",
+  licenseExpiredError: "انتهت صلاحية ترخيصك. يرجى إدخال مفتاح ترخيص جديد للمتابعة.",
 };

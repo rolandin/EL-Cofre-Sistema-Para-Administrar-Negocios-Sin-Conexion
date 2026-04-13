@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
 import {
   Table,
@@ -72,31 +71,29 @@ export function ReceiveHistory() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("date")}</TableHead>
-                <TableHead>{t("name")}</TableHead>
-                <TableHead className="text-right">{t("quantity")}</TableHead>
-                <TableHead className="text-right">
+                <TableHead className="text-xs">{t("date")}</TableHead>
+                <TableHead className="text-xs">{t("name")}</TableHead>
+                <TableHead className="text-xs text-right">{t("quantity")}</TableHead>
+                <TableHead className="text-xs text-right">
                   {t("pricePerUnit")}
                 </TableHead>
-                <TableHead className="text-right">{t("total")}</TableHead>
+                <TableHead className="text-xs text-right">{t("total")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {records.map((record: ReceiveRecord) => (
                 <TableRow key={record.id}>
-                  <TableCell>
-                    {format(new Date(record.date_received), "PPP", {
-                      locale: language === "es" ? es : undefined,
-                    })}
+                  <TableCell className="text-xs">
+                    {format(new Date(record.date_received), "dd/MM/yyyy")}
                   </TableCell>
-                  <TableCell>{record.product_name}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs">{record.product_name}</TableCell>
+                  <TableCell className="text-xs text-right">
                     {record.quantity}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs text-right">
                     {formatCurrency(record.price_per_unit, language)}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs text-right">
                     {formatCurrency(
                       record.quantity * record.price_per_unit,
                       language

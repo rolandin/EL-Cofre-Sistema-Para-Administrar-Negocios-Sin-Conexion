@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import {
   Loader2,
   Plus,
@@ -86,7 +85,7 @@ interface ServiceRecord {
 
 export function ContractorManagement() {
   const queryClient = useQueryClient();
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedContractor, setSelectedContractor] =
     useState<Contractor | null>(null);
@@ -422,15 +421,15 @@ export function ContractorManagement() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t("name")}</TableHead>
-                  <TableHead className="text-right">
+                  <TableHead className="text-xs">{t("name")}</TableHead>
+                  <TableHead className="text-xs text-right">
                     {t("locationFee")}
                   </TableHead>
-                  <TableHead className="text-right">
+                  <TableHead className="text-xs text-right">
                     {t("accumulatedEarnings")}
                   </TableHead>
-                  <TableHead>{t("startDate")}</TableHead>
-                  <TableHead className="text-right">{t("actions")}</TableHead>
+                  <TableHead className="text-xs">{t("startDate")}</TableHead>
+                  <TableHead className="text-xs text-right">{t("actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -443,21 +442,19 @@ export function ContractorManagement() {
                         : ""
                     }
                   >
-                    <TableCell className="font-medium">
+                    <TableCell className="text-xs font-medium">
                       {contractor.name}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-xs text-right">
                       {contractor.location_fee_percentage}%
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-xs text-right">
                       {formatCurrency(contractor.accumulated_commission)}
                     </TableCell>
-                    <TableCell>
-                      {format(new Date(contractor.start_date), "PPP", {
-                        locale: language === "es" ? es : undefined,
-                      })}
+                    <TableCell className="text-xs">
+                      {format(new Date(contractor.start_date), "dd/MM/yyyy")}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-xs text-right">
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="ghost"
@@ -560,9 +557,7 @@ export function ContractorManagement() {
                 </h3>
                 <p className="text-sm text-gray-500">
                   {t("started")}{" "}
-                  {format(new Date(selectedContractor.start_date), "PPP", {
-                    locale: language === "es" ? es : undefined,
-                  })}
+                  {format(new Date(selectedContractor.start_date), "dd/MM/yyyy")}
                 </p>
               </div>
 
@@ -709,15 +704,15 @@ export function ContractorManagement() {
                       <Table>
                         <TableHeader>
                           <TableRow>
-                            <TableHead>{t("date")}</TableHead>
-                            <TableHead>{t("service")}</TableHead>
-                            <TableHead className="text-right">
+                            <TableHead className="text-xs">{t("date")}</TableHead>
+                            <TableHead className="text-xs">{t("service")}</TableHead>
+                            <TableHead className="text-xs text-right">
                               {t("price")}
                             </TableHead>
-                            <TableHead className="text-right">
+                            <TableHead className="text-xs text-right">
                               {t("earnings")}
                             </TableHead>
-                            <TableHead className="text-right">
+                            <TableHead className="text-xs text-right">
                               {t("business")}
                             </TableHead>
                           </TableRow>
@@ -725,23 +720,17 @@ export function ContractorManagement() {
                         <TableBody>
                           {records.map((record: ServiceRecord) => (
                             <TableRow key={record.id}>
-                              <TableCell>
-                                {format(
-                                  new Date(record.date_performed),
-                                  "PPP",
-                                  {
-                                    locale: language === "es" ? es : undefined,
-                                  }
-                                )}
+                              <TableCell className="text-xs">
+                                {format(new Date(record.date_performed), "dd/MM/yyyy")}
                               </TableCell>
-                              <TableCell>{record.service_name}</TableCell>
-                              <TableCell className="text-right">
+                              <TableCell className="text-xs">{record.service_name}</TableCell>
+                              <TableCell className="text-xs text-right">
                                 {formatCurrency(record.price_charged)}
                               </TableCell>
-                              <TableCell className="text-right">
+                              <TableCell className="text-xs text-right">
                                 {formatCurrency(record.contractor_earnings)}
                               </TableCell>
-                              <TableCell className="text-right">
+                              <TableCell className="text-xs text-right">
                                 {formatCurrency(record.business_earnings)}
                               </TableCell>
                             </TableRow>

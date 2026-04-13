@@ -149,6 +149,7 @@ try {
     CREATE TABLE IF NOT EXISTS system_settings (
       id INTEGER PRIMARY KEY CHECK (id = 1),
       theme TEXT NOT NULL DEFAULT 'system' CHECK(theme IN ('light', 'dark', 'system')),
+      languageSelected INTEGER NOT NULL DEFAULT 0,
       language TEXT NOT NULL DEFAULT 'es' CHECK(language IN (
         'en', 'es', 'ru', 'fr', 'zh', 'hi', 'bn', 'ar', 'pt', 'ur',
         'sw', 'id', 'fa', 'ha', 'pa', 'ta', 'tr', 'yo', 'ig', 'am',
@@ -178,7 +179,7 @@ try {
       id INTEGER PRIMARY KEY DEFAULT 1,
       machineId TEXT NOT NULL,
       keyPayload TEXT NOT NULL,
-      keyType TEXT NOT NULL CHECK(keyType IN ('6month', 'lifetime')),
+      keyType TEXT NOT NULL CHECK(keyType IN ('6month', '1year', 'lifetime')),
       activatedAt TEXT NOT NULL,
       expiresAt TEXT,
       lastSeen TEXT NOT NULL

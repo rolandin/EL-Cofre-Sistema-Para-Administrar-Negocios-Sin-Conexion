@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
 import {
   Table,
@@ -40,7 +39,7 @@ interface ServiceHistoryProps {
 }
 
 export function ServiceHistory({ serviceId }: ServiceHistoryProps) {
-  const { t, language } = useTranslations();
+  const { t } = useTranslations();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
@@ -90,27 +89,25 @@ export function ServiceHistory({ serviceId }: ServiceHistoryProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("date")}</TableHead>
-                <TableHead>{t("client")}</TableHead>
-                <TableHead>{t("contractor")}</TableHead>
-                <TableHead className="text-right">{t("earnings")}</TableHead>
-                <TableHead className="text-right">{t("business")}</TableHead>
+                <TableHead className="text-xs">{t("date")}</TableHead>
+                <TableHead className="text-xs">{t("client")}</TableHead>
+                <TableHead className="text-xs">{t("contractor")}</TableHead>
+                <TableHead className="text-xs text-right">{t("earnings")}</TableHead>
+                <TableHead className="text-xs text-right">{t("business")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {records.map((record: ServiceRecord) => (
                 <TableRow key={record.id}>
-                  <TableCell>
-                    {format(new Date(record.date_performed), "PPP", {
-                      locale: language === "es" ? es : undefined,
-                    })}
+                  <TableCell className="text-xs">
+                    {format(new Date(record.date_performed), "dd/MM/yyyy")}
                   </TableCell>
-                  <TableCell>{record.client_name || t("na")}</TableCell>
-                  <TableCell>{record.contractor_name || t("na")}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs">{record.client_name || t("na")}</TableCell>
+                  <TableCell className="text-xs">{record.contractor_name || t("na")}</TableCell>
+                  <TableCell className="text-xs text-right">
                     {formatCurrency(record.contractor_earnings)}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-xs text-right">
                     {formatCurrency(record.business_earnings)}
                   </TableCell>
                 </TableRow>

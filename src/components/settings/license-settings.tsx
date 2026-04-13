@@ -97,7 +97,7 @@ export function LicenseSettings() {
           <div>
             <p className="text-sm text-gray-500 mb-1">License Type</p>
             <p className="font-medium">
-              {status?.license?.keyType === 'lifetime' ? 'Lifetime' : status?.license?.keyType === '6month' ? '6-Month' : 'N/A'}
+              {status?.license?.keyType === 'lifetime' ? 'Lifetime' : status?.license?.keyType === '1year' ? '1-Year' : status?.license?.keyType === '6month' ? '6-Month' : 'N/A'}
             </p>
           </div>
 

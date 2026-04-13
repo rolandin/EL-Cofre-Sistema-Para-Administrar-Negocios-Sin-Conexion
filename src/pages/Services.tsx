@@ -32,20 +32,18 @@ export default function ServicesPage() {
             {t("servicesDescription")}
           </p>
         </div>
-        {isAdmin && (
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <Button onClick={() => setIsDialogOpen(true)}>
-              <Plus className="mr-2 h-4 w-4" />
-              {t("newService")}
-            </Button>
-            <DialogContent className="sm:max-w-[600px]">
-              <DialogHeader>
-                <DialogTitle>{t("newService")}</DialogTitle>
-              </DialogHeader>
-              <ServiceForm onSuccess={handleServiceSuccess} />
-            </DialogContent>
-          </Dialog>
-        )}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <Button onClick={() => setIsDialogOpen(true)}>
+            <Plus className="mr-2 h-4 w-4" />
+            {t("newService")}
+          </Button>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>{t("newService")}</DialogTitle>
+            </DialogHeader>
+            <ServiceForm onSuccess={handleServiceSuccess} />
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-2">

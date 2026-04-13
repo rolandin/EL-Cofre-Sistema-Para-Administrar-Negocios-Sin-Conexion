@@ -24,6 +24,9 @@
 *.exe
 *.AppImage
 
+# database
+warehouse.db
+
 # misc
 .DS_Store
 *.pem
@@ -42,6 +45,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# website
+website/.next/
+website/node_modules/
 
 # keygen
 keygen/keys/
