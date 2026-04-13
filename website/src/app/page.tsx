@@ -258,9 +258,6 @@ export default function Home() {
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-green-600 transition-colors">
               {t.footer.whatsapp}: +1 (857) 312-4946
             </a>
-            <a href="mailto:support@elcofreapp.com" className="hover:text-gray-900 transition-colors">
-              support@elcofreapp.com
-            </a>
           </div>
         </div>
       </footer>
