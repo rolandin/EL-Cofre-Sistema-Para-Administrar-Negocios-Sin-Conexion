@@ -8,6 +8,8 @@ files:
   - dist-electron/**/*
   - "!node_modules/.cache"
   - "!keygen/**/*"
+asarUnpack:
+  - dist/**/*
 win:
   target:
     - target: nsis

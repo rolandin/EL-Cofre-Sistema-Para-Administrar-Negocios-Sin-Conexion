@@ -1,7 +1,19 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 
-const DB_PATH = path.join(process.cwd(), 'warehouse.db');
+function getDbPath(): string {
+  try {
+    // In packaged Electron app, use userData directory (writable)
+    const electron = require('electron');
+    return path.join(electron.app.getPath('userData'), 'warehouse.db');
+  } catch {
+    // In dev or standalone server mode, use cwd
+    return path.join(process.cwd(), 'warehouse.db');
+  }
+}
+
+const DB_PATH = getDbPath();
+console.log('Database path:', DB_PATH);
 const ENCRYPTION_KEY = process.env.DB_ENCRYPTION_KEY || 'your-secure-encryption-key';
 
 let db: Database.Database;
