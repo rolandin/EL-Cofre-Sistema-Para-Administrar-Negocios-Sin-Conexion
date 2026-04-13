@@ -124,10 +124,13 @@ export const dictionaries = {
       macosSub: "Descargar instalador .dmg",
       howTo: "Cómo activar",
       steps: [
-        "Descarga e instala El Cofre",
+        "Descarga El Cofre gratis",
+        "Instala la App en tu Ordenador",
         "Abre la app — te mostrará tu Código de Máquina",
         "Envía tu Código de Máquina por WhatsApp al",
+        "Sigue las instrucciones que se te proveerán por WhatsApp",
         "Te enviaremos una llave de licencia — pégala en la app",
+        "Crea tu cuenta de usuario Admin",
       ],
     },
     footer: {
@@ -261,10 +264,13 @@ export const dictionaries = {
       macosSub: "Download .dmg installer",
       howTo: "How to activate",
       steps: [
-        "Download and install El Cofre",
+        "Download El Cofre for free",
+        "Install the App on your Computer",
         "Open the app — it will show your Machine Code",
         "Send your Machine Code via WhatsApp to",
+        "Follow the instructions provided via WhatsApp",
         "We'll send you a license key — paste it in the app",
+        "Create your Admin user account",
       ],
     },
     footer: {

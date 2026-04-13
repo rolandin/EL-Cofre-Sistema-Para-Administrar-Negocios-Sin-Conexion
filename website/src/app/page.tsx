@@ -215,16 +215,28 @@ export default function Home() {
               </li>
               <li className="flex gap-2">
                 <span className="font-bold text-sky-500">3.</span>
+                {t.download.steps[2]}
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-sky-500">4.</span>
                 <span>
-                  {t.download.steps[2]}{" "}
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="text-green-600 font-medium hover:underline">
+                  {t.download.steps[3]}{" "}
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="text-green-600 font-medium hover:underline block">
                     +1 (857) 312-4946
                   </a>
                 </span>
               </li>
               <li className="flex gap-2">
-                <span className="font-bold text-sky-500">4.</span>
-                {t.download.steps[3]}
+                <span className="font-bold text-sky-500">5.</span>
+                {t.download.steps[4]}
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-sky-500">6.</span>
+                {t.download.steps[5]}
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-sky-500">7.</span>
+                {t.download.steps[6]}
               </li>
             </ol>
           </div>
