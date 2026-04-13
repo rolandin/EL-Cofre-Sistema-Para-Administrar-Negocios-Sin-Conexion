@@ -1,25 +1,11 @@
-import fs from 'fs';
-import path from 'path';
 import { decodeKey, KeyPayload } from '../../shared/key-format';
 import db from '../../server/db';
 
-function loadPublicKey(): string {
-  const paths = [
-    path.join(__dirname, 'public.key'),
-    path.join(__dirname, '../../electron/license/public.key'),
-    path.join(process.cwd(), 'electron/license/public.key'),
-  ];
-
-  for (const p of paths) {
-    if (fs.existsSync(p)) {
-      const content = fs.readFileSync(p, 'utf-8');
-      if (!content.includes('PLACEHOLDER')) return content;
-    }
-  }
-  return '';
-}
-
-const publicKeyPem = loadPublicKey();
+// Public key embedded at build time — must match the private key used by cofre-keygen
+// To update: run `cofre public-key` and paste the output here
+const publicKeyPem = `-----BEGIN PUBLIC KEY-----
+MCowBQYDK2VwAyEAvm3sK92dZ9BYa4Dhp1lKMqSAkExo3T5v8h8bqlWQZ0Q=
+-----END PUBLIC KEY-----`;
 
 export type LicenseStatus =
   | { status: 'no_license' }
