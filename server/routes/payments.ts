@@ -22,9 +22,13 @@ router.get('/employee', (req, res) => {
 
 router.post('/employee', (req, res) => {
   try {
-    const { employee_id, payment_amount, payment_period_start, payment_period_end, notes } = req.body;
+    const employee_id = req.body.employee_id ?? req.body.employeeId;
+    const payment_amount = req.body.payment_amount ?? req.body.amount;
+    const payment_period_start = req.body.payment_period_start ?? req.body.periodStart;
+    const payment_period_end = req.body.payment_period_end ?? req.body.periodEnd;
+    const notes = req.body.notes || '';
     db.prepare(`INSERT INTO employee_payments (employee_id, payment_amount, payment_period_start, payment_period_end, notes) VALUES (?, ?, ?, ?, ?)`)
-      .run(employee_id, payment_amount, payment_period_start, payment_period_end, notes || '');
+      .run(employee_id, payment_amount, payment_period_start, payment_period_end, notes);
     return res.json({ success: true });
   } catch (error) {
     console.error('Failed to create employee payment:', error);
@@ -54,11 +58,12 @@ router.get('/contractor', (req, res) => {
 
 router.post('/contractor', (req, res) => {
   try {
-    const { contractor_id, sales } = req.body;
+    const contractor_id = req.body.contractor_id ?? req.body.contractorId;
+    const sales = req.body.sales;
     db.transaction(() => {
       for (const sale of sales) {
         db.prepare(`INSERT INTO contractor_payments (contractor_id, sale_id, contractor_earnings, business_earnings, payment_date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`)
-          .run(contractor_id, sale.id, sale.contractor_earnings, sale.business_earnings);
+          .run(contractor_id, sale.id, sale.contractor_earnings ?? sale.contractorEarnings, sale.business_earnings ?? sale.businessEarnings);
       }
       db.prepare('UPDATE contractors SET accumulated_commission = 0 WHERE id = ?').run(contractor_id);
     })();

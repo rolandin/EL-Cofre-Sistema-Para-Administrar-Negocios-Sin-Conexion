@@ -63,7 +63,7 @@ export function ProductDetails({ productId, onClose }: ProductDetailsProps) {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || t("error"));
+        throw new Error(error.error || error.message || t("error"));
       }
 
       return response.json();
