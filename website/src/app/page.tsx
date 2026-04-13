@@ -238,6 +238,10 @@ export default function Home() {
                 <span className="font-bold text-sky-500">7.</span>
                 {t.download.steps[6]}
               </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-sky-500">8.</span>
+                {t.download.steps[7]}
+              </li>
             </ol>
           </div>
         </div>
