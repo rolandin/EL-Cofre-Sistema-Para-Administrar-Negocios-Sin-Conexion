@@ -48,8 +48,10 @@ function NavItem({ href, icon, label, isCollapsed }: NavItemProps) {
     <Link
       to={href}
       className={cn(
-        "flex items-center gap-2 rounded-lg px-3 py-2 text-gray-300 transition-all hover:text-white dark:text-gray-400 dark:hover:text-gray-50",
-        isActive ? "bg-slate-700 text-white" : "",
+        "flex items-center gap-2 rounded-lg px-3 py-2 text-gray-600 transition-all hover:text-gray-900 dark:text-gray-300 dark:hover:text-white",
+        isActive
+          ? "bg-sky-50 text-sky-700 dark:bg-slate-700 dark:text-white"
+          : "",
         isCollapsed ? "justify-center" : ""
       )}
     >
@@ -144,18 +146,18 @@ export default function DashboardLayout() {
     <div className="flex min-h-screen">
       <aside
         className={cn(
-          "flex flex-col border-r bg-slate-800 text-white transition-all duration-300",
+          "flex flex-col border-r bg-white dark:bg-slate-800 text-gray-700 dark:text-white transition-all duration-300",
           isCollapsed ? "w-16" : "w-64"
         )}
       >
-        <div className="flex h-14 items-center border-b border-slate-700 px-3 justify-between">
+        <div className="flex h-14 items-center border-b border-gray-200 dark:border-slate-700 px-3 justify-between">
           {!isCollapsed && (
             <Logo height={32} />
           )}
           <Button
             variant="ghost"
             size="icon"
-            className="text-white hover:bg-slate-700"
+            className="text-gray-500 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
             {isCollapsed ? (
@@ -176,16 +178,16 @@ export default function DashboardLayout() {
             />
           ))}
         </nav>
-        <div className="border-t border-slate-700 p-2 space-y-2">
+        <div className="border-t border-gray-200 dark:border-slate-700 p-2 space-y-2">
           {user && !isCollapsed && (
             <div className="px-3 py-2">
-              <p className="text-sm font-medium text-white truncate">{user.username}</p>
-              <p className="text-xs text-slate-400 capitalize">{user.role}</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user.username}</p>
+              <p className="text-xs text-gray-500 dark:text-slate-400 capitalize">{user.role}</p>
             </div>
           )}
           {user && isCollapsed && (
             <div className="flex justify-center py-2" title={`${user.username} (${user.role})`}>
-              <div className="h-8 w-8 rounded-full bg-slate-600 flex items-center justify-center text-xs font-bold text-white">
+              <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-white">
                 {user.username.charAt(0).toUpperCase()}
               </div>
             </div>
@@ -193,7 +195,7 @@ export default function DashboardLayout() {
           <Button
             variant="ghost"
             className={cn(
-              "w-full justify-start gap-2 text-white hover:bg-slate-700",
+              "w-full justify-start gap-2 text-gray-600 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700",
               isCollapsed && "justify-center"
             )}
             onClick={() => setIsLogoutDialogOpen(true)}
