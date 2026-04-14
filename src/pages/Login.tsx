@@ -60,7 +60,7 @@ export default function LoginPage() {
               name="username"
               type="text"
               required
-              className="appearance-none block w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 bg-card text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              className="appearance-none block w-full px-3 py-2.5 border border-input rounded-lg shadow-sm placeholder-gray-400 bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring sm:text-sm"
             />
           </div>
 
