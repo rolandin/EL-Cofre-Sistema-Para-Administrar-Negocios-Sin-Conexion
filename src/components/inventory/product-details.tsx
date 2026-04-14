@@ -178,22 +178,7 @@ export function ProductDetails({ productId, onClose }: ProductDetailsProps) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-sm text-gray-500">{t("quantity")}</p>
-            {isEditing ? (
-              <Input
-                type="number"
-                min="0"
-                value={editedProduct.quantity}
-                onChange={(e) =>
-                  setEditedProduct({
-                    ...editedProduct,
-                    quantity: parseInt(e.target.value) || 0,
-                  })
-                }
-                className="text-lg font-semibold"
-              />
-            ) : (
-              <p className="text-lg font-semibold">{product.quantity}</p>
-            )}
+            <p className="text-lg font-semibold">{product.quantity}</p>
           </div>
           {isAdmin && (
             <div>
