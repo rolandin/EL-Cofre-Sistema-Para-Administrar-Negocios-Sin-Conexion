@@ -18,9 +18,10 @@ interface MetricCardProps {
   accent: string;
   gradientFrom: string;
   gradientTo: string;
+  valueClassName?: string;
 }
 
-function MetricCard({ title, value, accent, gradientFrom, gradientTo }: MetricCardProps) {
+function MetricCard({ title, value, accent, gradientFrom, gradientTo, valueClassName }: MetricCardProps) {
   return (
     <div className="relative overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[hsl(220,14%,14%)] p-5">
       {/* Gradient accent bar at top */}
@@ -32,7 +33,7 @@ function MetricCard({ title, value, accent, gradientFrom, gradientTo }: MetricCa
       <p className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
         {title}
       </p>
-      <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
+      <p className={`mt-2 text-2xl font-bold ${valueClassName || "text-gray-900 dark:text-white"}`}>
         {value}
       </p>
     </div>
@@ -103,6 +104,7 @@ export default function DashboardPage() {
             accent="bg-emerald-500"
             gradientFrom="from-emerald-400"
             gradientTo="to-emerald-600"
+            valueClassName="text-emerald-600 dark:text-emerald-400"
           />
           <MetricCard
             title={t("totalReturns")}
