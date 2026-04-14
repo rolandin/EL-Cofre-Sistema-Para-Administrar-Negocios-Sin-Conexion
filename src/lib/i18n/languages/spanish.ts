@@ -26,6 +26,7 @@ export const es = {
   started: "Iniciado",
   na: "N/A",
   total: "Total",
+  done: "Listo",
 
   // Schedule
   schedule: "Agenda",
