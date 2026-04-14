@@ -1,13 +1,4 @@
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Card } from "@/components/ui/card";
-import {
-  DollarSign,
-  TrendingUp,
-  ShoppingCart,
-  RotateCcw,
-  Package,
-} from "lucide-react";
 import { SaleForm } from "@/components/sales/sale-form";
 import { SalesHistory } from "@/components/sales/sales-history";
 import { useAuth } from "@/hooks/use-auth";
@@ -21,31 +12,30 @@ interface Metrics {
   totalReturns: number;
 }
 
-function MetricCard({
-  title,
-  value,
-  icon,
-  valueClassName = "",
-}: {
+interface MetricCardProps {
   title: string;
   value: string;
-  icon: React.ReactNode;
-  valueClassName?: string;
-}) {
+  accent: string;
+  gradientFrom: string;
+  gradientTo: string;
+}
+
+function MetricCard({ title, value, accent, gradientFrom, gradientTo }: MetricCardProps) {
   return (
-    <Card className="p-4">
-      <div className="flex items-center gap-3">
-        <div className="rounded-full bg-blue-50 p-2 dark:bg-blue-900/20">
-          {icon}
-        </div>
-        <div>
-          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-            {title}
-          </p>
-          <h3 className={`text-xl font-semibold ${valueClassName}`}>{value}</h3>
-        </div>
-      </div>
-    </Card>
+    <div className="relative overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[hsl(220,14%,14%)] p-5">
+      {/* Gradient accent bar at top */}
+      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradientFrom} ${gradientTo}`} />
+
+      {/* Subtle gradient glow */}
+      <div className={`absolute -top-8 -right-8 w-24 h-24 rounded-full ${accent} opacity-[0.07] blur-2xl`} />
+
+      <p className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        {title}
+      </p>
+      <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
+        {value}
+      </p>
+    </div>
   );
 }
 
@@ -61,7 +51,6 @@ export default function DashboardPage() {
       netProfit: 0,
       totalReturns: 0,
     },
-    isLoading,
   } = useQuery({
     queryKey: ["metrics"],
     queryFn: async () => {
@@ -72,8 +61,8 @@ export default function DashboardPage() {
     enabled: isAdmin,
   });
 
-  const formatCurrency = (value: number) =>
-    `💰 ${new Intl.NumberFormat("es-ES", {
+  const fmt = (value: number) =>
+    `$${new Intl.NumberFormat("es-ES", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(value)}`;
@@ -86,33 +75,41 @@ export default function DashboardPage() {
       </div>
 
       {isAdmin && (
-        <div className="grid gap-4 grid-cols-5">
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-5">
           <MetricCard
             title={t("inventoryValue")}
-            value={formatCurrency(metrics.inventoryValue)}
-            icon={<Package className="h-5 w-5 text-blue-600" />}
+            value={fmt(metrics.inventoryValue)}
+            accent="bg-sky-500"
+            gradientFrom="from-sky-400"
+            gradientTo="to-sky-600"
           />
           <MetricCard
             title={t("potentialValue")}
-            value={formatCurrency(metrics.potentialValue)}
-            icon={<TrendingUp className="h-5 w-5 text-blue-600" />}
+            value={fmt(metrics.potentialValue)}
+            accent="bg-indigo-500"
+            gradientFrom="from-indigo-400"
+            gradientTo="to-indigo-600"
           />
           <MetricCard
             title={t("totalSales")}
-            value={formatCurrency(metrics.totalSales)}
-            icon={<ShoppingCart className="h-5 w-5 text-purple-600" />}
+            value={fmt(metrics.totalSales)}
+            accent="bg-violet-500"
+            gradientFrom="from-violet-400"
+            gradientTo="to-violet-600"
           />
           <MetricCard
             title={t("netProfit")}
-            value={formatCurrency(metrics.netProfit)}
-            icon={<DollarSign className="h-5 w-5 text-green-500" />}
-            valueClassName="text-green-500"
+            value={fmt(metrics.netProfit)}
+            accent="bg-emerald-500"
+            gradientFrom="from-emerald-400"
+            gradientTo="to-emerald-600"
           />
           <MetricCard
             title={t("totalReturns")}
-            value={formatCurrency(metrics.totalReturns)}
-            icon={<RotateCcw className="h-5 w-5 text-pink-500" />}
-            valueClassName="text-pink-500"
+            value={fmt(metrics.totalReturns)}
+            accent="bg-rose-500"
+            gradientFrom="from-rose-400"
+            gradientTo="to-rose-600"
           />
         </div>
       )}
