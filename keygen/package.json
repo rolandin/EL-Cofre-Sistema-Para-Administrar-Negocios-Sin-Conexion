@@ -1,19 +1,18 @@
 {
   "name": "cofre",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "bin": {
-    "cofre": "./dist/keygen/src/index.js"
+    "cofre": "./dist/cofre.js"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/keygen/src/index.js"
-  },
-  "dependencies": {
-    "commander": "^12.0.0"
+    "build": "tsc && esbuild dist/keygen/src/index.js --bundle --platform=node --outfile=dist/cofre.js",
+    "start": "node dist/cofre.js"
   },
   "devDependencies": {
     "@types/node": "^20.6.2",
+    "commander": "^12.0.0",
+    "esbuild": "^0.28.0",
     "typescript": "^5.2.2"
   }
 }

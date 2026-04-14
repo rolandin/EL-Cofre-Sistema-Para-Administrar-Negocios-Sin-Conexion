@@ -20,7 +20,6 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
     name: "",
     description: "",
     basePrice: "",
-    commissionPercentage: "0",
   });
 
   const createService = useMutation({
@@ -31,13 +30,13 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
         body: JSON.stringify({
           ...data,
           basePrice: parseFloat(data.basePrice),
-          commissionPercentage: parseFloat(data.commissionPercentage),
+          commissionPercentage: 0,
         }),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || t("error"));
+        throw new Error(error.error || error.message || t("error"));
       }
 
       return response.json();
@@ -45,12 +44,10 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
     onSuccess: () => {
       toast.success(t("serviceCreated"));
       queryClient.invalidateQueries({ queryKey: ["services"] });
-      // Reset form
       setFormData({
         name: "",
         description: "",
         basePrice: "",
-        commissionPercentage: "0",
       });
       onSuccess?.();
     },
@@ -99,7 +96,7 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
         <p className="text-xs text-gray-500">Descripción opcional del servicio para más detalle.</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="space-y-2">
         <div className="space-y-2">
           <label className="text-sm font-medium">
             {t("basePrice")} <span className="text-red-500">*</span>
@@ -114,22 +111,7 @@ export function ServiceForm({ onSuccess }: ServiceFormProps) {
               setFormData({ ...formData, basePrice: e.target.value })
             }
           />
-          <p className="text-xs text-gray-500">Precio que se cobra al cliente por este servicio.</p>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium">{t("commission")} (%)</label>
-          <Input
-            type="number"
-            min="0"
-            max="100"
-            step="0.1"
-            value={formData.commissionPercentage}
-            onChange={(e) =>
-              setFormData({ ...formData, commissionPercentage: e.target.value })
-            }
-          />
-          <p className="text-xs text-gray-500">Porcentaje que se paga al contratista que realiza el servicio. Ej: 10 = 10% del precio.</p>
+          <p className="text-xs text-gray-500">Precio que se cobra al cliente por este servicio. La distribución de ganancias se calcula según la tarifa de ubicación del contratista.</p>
         </div>
       </div>
 

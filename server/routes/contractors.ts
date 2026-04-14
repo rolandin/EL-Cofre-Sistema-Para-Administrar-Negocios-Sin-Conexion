@@ -15,7 +15,8 @@ router.get('/', (_req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    const { name, location_fee_percentage } = req.body;
+    const { name } = req.body;
+    const location_fee_percentage = req.body.location_fee_percentage ?? req.body.locationFeePercentage;
     const existing = db.prepare('SELECT id FROM contractors WHERE name = ?').get(name);
     if (existing) return res.status(400).json({ error: 'Contractor name already exists' });
     db.prepare('INSERT INTO contractors (name, location_fee_percentage, isActive) VALUES (?, ?, 1)').run(name, location_fee_percentage);
@@ -39,7 +40,7 @@ router.get('/:id', (req, res) => {
 
 router.patch('/:id', (req, res) => {
   try {
-    const { location_fee_percentage } = req.body;
+    const location_fee_percentage = req.body.location_fee_percentage ?? req.body.locationFeePercentage;
     db.prepare('UPDATE contractors SET location_fee_percentage = ? WHERE id = ?').run(location_fee_percentage, req.params.id);
     return res.json({ success: true });
   } catch (error) {
@@ -93,13 +94,13 @@ router.get('/:id/services', (req, res) => {
 router.get('/:id/unpaid-sales', (req, res) => {
   try {
     const unpaidServices = db.prepare(
-      `SELECT sh.id, s.name, sh.contractor_earnings, sh.business_earnings, sh.date_performed, 'service' as type
+      `SELECT sh.id, s.name as service_name, sh.price_charged, sh.contractor_earnings, sh.business_earnings, sh.date_performed, 'service' as type
        FROM services_history sh JOIN services s ON sh.service_id = s.id
        WHERE sh.contractor_id = ? AND sh.id NOT IN (SELECT sale_id FROM contractor_payments WHERE contractor_id = ?)
        ORDER BY sh.date_performed DESC`
     ).all(req.params.id, req.params.id);
     const unpaidProducts = db.prepare(
-      `SELECT sh.id, p.name, sh.contractor_earnings, sh.total_value as business_earnings, sh.date_sold as date_performed, 'product' as type
+      `SELECT sh.id, p.name as service_name, sh.total_value as price_charged, sh.contractor_earnings, sh.total_value as business_earnings, sh.date_sold as date_performed, 'product' as type
        FROM sales_history sh JOIN products p ON sh.product_id = p.id
        WHERE sh.contractor_id = ? AND sh.contractor_earnings > 0
        AND sh.id NOT IN (SELECT sale_id FROM contractor_payments WHERE contractor_id = ?)

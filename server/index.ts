@@ -46,7 +46,20 @@ app.use('/api/license', licenseRoutes);
 
 // In production, serve the built frontend
 if (process.env.NODE_ENV !== 'development') {
-  const distPath = path.join(__dirname, '../../dist');
+  // In packaged Electron app, dist/ is unpacked outside app.asar
+  // __dirname = resources/app.asar/dist-electron/server
+  // unpacked dist = resources/app.asar.unpacked/dist
+  const asarPath = path.join(__dirname, '../../dist');
+  const unpackedPath = asarPath.replace('app.asar', 'app.asar.unpacked');
+
+  // Try unpacked first (packaged app), then asar path (dev/local build)
+  const fs = require('fs');
+  const distPath = fs.existsSync(path.join(unpackedPath, 'index.html'))
+    ? unpackedPath
+    : asarPath;
+
+  console.log('Serving frontend from:', distPath);
+
   app.use(express.static(distPath));
   app.get('*', (_req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));

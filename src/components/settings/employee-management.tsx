@@ -346,7 +346,6 @@ export function EmployeeManagement() {
                 <TableRow>
                   <TableHead className="text-xs">{t("name")}</TableHead>
                   <TableHead className="text-xs">{t("position")}</TableHead>
-                  <TableHead className="text-xs">{t("contractor")}</TableHead>
                   <TableHead className="text-xs text-right">{t("salary")}</TableHead>
                   <TableHead className="text-xs">{t("hireDate")}</TableHead>
                   <TableHead className="text-xs">{t("status")}</TableHead>
@@ -367,7 +366,6 @@ export function EmployeeManagement() {
                       {employee.name}
                     </TableCell>
                     <TableCell className="text-xs">{employee.position}</TableCell>
-                    <TableCell className="text-xs">{employee.contractor_name || t("na")}</TableCell>
                     <TableCell className="text-xs text-right">
                       {employee.salary
                         ? formatCurrency(employee.salary)
@@ -569,17 +567,6 @@ export function EmployeeManagement() {
                       </p>
                     </div>
                   </div>
-
-                  {selectedEmployee.contractor_name && (
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-500">
-                        {t("associatedContractor")}
-                      </h4>
-                      <p className="text-lg">
-                        {selectedEmployee.contractor_name}
-                      </p>
-                    </div>
-                  )}
 
                   <div>
                     <h4 className="text-sm font-medium text-gray-500">

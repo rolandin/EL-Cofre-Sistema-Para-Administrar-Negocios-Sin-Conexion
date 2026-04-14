@@ -48,7 +48,7 @@ interface SaleItem {
 
 interface ServiceItem {
   serviceId: string;
-  contractorId: string;
+  performedBy: string; // "employee-{id}" or "contractor-{id}"
 }
 
 export function SaleForm() {
@@ -81,6 +81,15 @@ export function SaleForm() {
     queryFn: async () => {
       const response = await fetch("/api/contractors");
       if (!response.ok) throw new Error("Failed to fetch contractors");
+      return response.json();
+    },
+  });
+
+  const { data: employees = [] } = useQuery({
+    queryKey: ["employees"],
+    queryFn: async () => {
+      const response = await fetch("/api/employees");
+      if (!response.ok) throw new Error("Failed to fetch employees");
       return response.json();
     },
   });
@@ -121,7 +130,7 @@ export function SaleForm() {
   };
 
   const handleAddService = () => {
-    setServiceItems([...serviceItems, { serviceId: "", contractorId: "" }]);
+    setServiceItems([...serviceItems, { serviceId: "", performedBy: "" }]);
   };
 
   const handleRemoveProduct = (index: number) => {
@@ -164,7 +173,16 @@ export function SaleForm() {
       return;
     }
 
-    createSale.mutate({ products: saleItems, services: serviceItems });
+    // Transform performedBy into contractorId/employeeId for the backend
+    const transformedServices = serviceItems.map((item) => {
+      const [type, id] = item.performedBy.split("-");
+      return {
+        serviceId: item.serviceId,
+        contractorId: type === "contractor" ? id : undefined,
+        employeeId: type === "employee" ? id : undefined,
+      };
+    });
+    createSale.mutate({ products: saleItems, services: transformedServices });
   };
 
   // Calculate total price
@@ -314,25 +332,33 @@ export function SaleForm() {
                 </SelectContent>
               </Select>
               <Select
-                value={item.contractorId}
+                value={item.performedBy}
                 onValueChange={(value) =>
                   setServiceItems(
                     serviceItems.map((i, idx) =>
-                      idx === index ? { ...i, contractorId: value } : i
+                      idx === index ? { ...i, performedBy: value } : i
                     )
                   )
                 }
               >
                 <SelectTrigger className="flex-1">
-                  <SelectValue placeholder={t("selectContractor")} />
+                  <SelectValue placeholder={t("selectPerformedBy") || "Realizado por..."} />
                 </SelectTrigger>
                 <SelectContent>
-                  {contractors.map((contractor: Contractor) => (
+                  {employees.filter((e: any) => e.is_active).map((employee: any) => (
                     <SelectItem
-                      key={contractor.id}
-                      value={contractor.id.toString()}
+                      key={`employee-${employee.id}`}
+                      value={`employee-${employee.id}`}
                     >
-                      {contractor.name}
+                      {employee.name} ({t("employee")})
+                    </SelectItem>
+                  ))}
+                  {contractors.filter((c: any) => c.isActive).map((contractor: Contractor) => (
+                    <SelectItem
+                      key={`contractor-${contractor.id}`}
+                      value={`contractor-${contractor.id}`}
+                    >
+                      {contractor.name} ({t("contractor")})
                     </SelectItem>
                   ))}
                 </SelectContent>

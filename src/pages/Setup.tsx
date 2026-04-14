@@ -73,7 +73,7 @@ export default function SetupPage() {
 
   if (checkingSetup) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center">
+      <div className="min-h-screen bg-background flex flex-col justify-center">
         <div className="text-center">{t("loading")}</div>
       </div>
     );
@@ -81,7 +81,7 @@ export default function SetupPage() {
 
   return (
     <AuthLayout subtitle={t("createAccount")}>
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="bg-card p-8 rounded-xl shadow-sm border border-border">
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
           {t("setupDescription")}
         </p>
@@ -98,7 +98,7 @@ export default function SetupPage() {
               name="username"
               type="text"
               required
-              className="appearance-none block w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+              className="appearance-none block w-full px-3 py-2.5 border border-input rounded-lg shadow-sm placeholder-gray-400 bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring sm:text-sm"
             />
           </div>
 

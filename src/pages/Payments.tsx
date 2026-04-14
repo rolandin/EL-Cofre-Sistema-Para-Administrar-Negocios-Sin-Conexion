@@ -9,13 +9,13 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "@/lib/i18n/use-translations";
 
 export default function PaymentsPage() {
   const [historyKey, setHistoryKey] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslations();
 
   const handlePaymentSuccess = () => {
@@ -31,36 +31,40 @@ export default function PaymentsPage() {
             {t("processPayments")}
           </p>
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              {t("newPayment")}
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
-            <DialogHeader>
-              <DialogTitle>{t("processPayment")}</DialogTitle>
-            </DialogHeader>
-            <Tabs defaultValue="employee">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="employee">
-                  {t("employeePayments")}
-                </TabsTrigger>
-                <TabsTrigger value="contractor">
-                  {t("contractorPayments")}
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="employee">
-                <EmployeePaymentForm onSuccess={handlePaymentSuccess} />
-              </TabsContent>
-              <TabsContent value="contractor">
-                <ContractorPaymentForm onSuccess={handlePaymentSuccess} />
-              </TabsContent>
-            </Tabs>
-          </DialogContent>
-        </Dialog>
+        <Button onClick={() => setIsOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" />
+          {t("newPayment")}
+        </Button>
       </div>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>{t("processPayment")}</DialogTitle>
+          </DialogHeader>
+          <Tabs defaultValue="employee">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="employee">
+                {t("employeePayments")}
+              </TabsTrigger>
+              <TabsTrigger value="contractor">
+                {t("contractorPayments")}
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="employee">
+              <EmployeePaymentForm onSuccess={handlePaymentSuccess} />
+            </TabsContent>
+            <TabsContent value="contractor">
+              <ContractorPaymentForm onSuccess={handlePaymentSuccess} />
+            </TabsContent>
+          </Tabs>
+          <div className="flex justify-end pt-2 border-t">
+            <Button variant="outline" onClick={() => setIsOpen(false)}>
+              {t("done") || "Done"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <PaymentHistory key={historyKey} />
     </div>

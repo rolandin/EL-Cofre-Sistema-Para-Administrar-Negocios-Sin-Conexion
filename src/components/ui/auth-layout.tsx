@@ -59,7 +59,7 @@ export function AuthLayout({ children, subtitle }: { children: ReactNode; subtit
       </div>
 
       {/* Right panel — form */}
-      <div className="flex-1 flex flex-col justify-center bg-gray-50 dark:bg-gray-900">
+      <div className="flex-1 flex flex-col justify-center bg-background">
         <div className="mx-auto w-full max-w-md px-6">
           {/* Mobile logo — only shows on small screens */}
           <div className="flex justify-center mb-8 lg:hidden">

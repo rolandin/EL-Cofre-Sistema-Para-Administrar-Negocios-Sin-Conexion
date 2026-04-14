@@ -582,7 +582,7 @@ export default function SchedulePage() {
               })}
             </Button>
             {isCalendarOpen && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-gray-800 rounded-md border shadow-lg">
+              <div className="absolute top-full left-0 mt-1 z-50 bg-card rounded-md border shadow-lg">
                 <Calendar
                   mode="single"
                   selected={selectedDate}
@@ -621,7 +621,7 @@ export default function SchedulePage() {
         </div>
 
         {/* Timeline container */}
-        <div className="border rounded-lg bg-white dark:bg-gray-800">
+        <div className="border rounded-lg bg-card">
 
           <div className="relative overflow-hidden">
             <div
@@ -630,7 +630,7 @@ export default function SchedulePage() {
             >
               <div className="relative min-h-[1440px]">
                 {/* Time slots - fixed position */}
-                <div className="absolute left-0 top-0 w-16 border-r bg-gray-50 dark:bg-gray-900 z-10">
+                <div className="absolute left-0 top-0 w-16 border-r bg-background z-10">
                   {timeSlots.map((slot) => (
                     <div
                       key={slot.time}
@@ -669,7 +669,7 @@ export default function SchedulePage() {
                             {timeSlots.map((slot) => (
                               <div
                                 key={slot.time}
-                                className="h-[30px] border-b border-gray-100 dark:border-gray-700"
+                                className="h-[30px] border-b border-border"
                               />
                             ))}
 
