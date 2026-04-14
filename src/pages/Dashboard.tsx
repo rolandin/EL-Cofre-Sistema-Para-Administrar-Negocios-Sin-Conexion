@@ -23,7 +23,7 @@ interface MetricCardProps {
 
 function MetricCard({ title, value, accent, gradientFrom, gradientTo, valueClassName }: MetricCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[hsl(220,14%,14%)] p-5">
+    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
       {/* Gradient accent bar at top */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradientFrom} ${gradientTo}`} />
 
