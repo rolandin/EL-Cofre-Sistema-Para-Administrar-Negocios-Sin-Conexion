@@ -206,7 +206,7 @@ export default function DashboardLayout() {
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto bg-background">
+      <main className="flex-1 overflow-y-auto bg-background dark:bg-gradient-to-br dark:from-slate-900 dark:to-slate-800">
         {licenseStatus?.status === 'grace_period' && (
           <div className="bg-orange-500 text-white px-4 py-2 text-sm flex items-center gap-2">
             <AlertTriangle className="h-4 w-4" />
