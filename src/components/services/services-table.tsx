@@ -126,12 +126,7 @@ export function ServicesTable({
                 <TableHead>{t("description")}</TableHead>
                 <TableHead className="text-right">{t("basePrice")}</TableHead>
                 {isAdmin && (
-                  <>
-                    <TableHead className="text-right">
-                      {t("commission")}
-                    </TableHead>
-                    <TableHead className="w-[50px]"></TableHead>
-                  </>
+                  <TableHead className="w-[50px]"></TableHead>
                 )}
               </TableRow>
             </TableHeader>
@@ -152,10 +147,6 @@ export function ServicesTable({
                     {formatCurrency(service.base_price)}
                   </TableCell>
                   {isAdmin && (
-                    <>
-                      <TableCell className="text-right">
-                        {service.commission_percentage}%
-                      </TableCell>
                       <TableCell>
                         <Button
                           variant="ghost"
@@ -170,14 +161,13 @@ export function ServicesTable({
                           )}
                         </Button>
                       </TableCell>
-                    </>
                   )}
                 </TableRow>
               ))}
               {services.length === 0 && (
                 <TableRow>
                   <TableCell
-                    colSpan={isAdmin ? 5 : 3}
+                    colSpan={isAdmin ? 4 : 3}
                     className="text-center py-8 text-gray-500"
                   >
                     {t("noServices")}
