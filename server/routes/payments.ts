@@ -59,11 +59,27 @@ router.get('/contractor', (req, res) => {
 router.post('/contractor', (req, res) => {
   try {
     const contractor_id = req.body.contractor_id ?? req.body.contractorId;
-    const sales = req.body.sales;
+    // Accept both formats: { sales: [{id, contractor_earnings, business_earnings}] } or { saleIds: [1,2,3] }
+    const saleIds = req.body.saleIds || (req.body.sales && req.body.sales.map((s: any) => s.id));
+    if (!saleIds || !Array.isArray(saleIds)) {
+      return res.status(400).json({ error: 'Sale IDs are required' });
+    }
+
     db.transaction(() => {
-      for (const sale of sales) {
-        db.prepare(`INSERT INTO contractor_payments (contractor_id, sale_id, contractor_earnings, business_earnings, payment_date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`)
-          .run(contractor_id, sale.id, sale.contractor_earnings ?? sale.contractorEarnings, sale.business_earnings ?? sale.businessEarnings);
+      for (const saleId of saleIds) {
+        // Look up earnings from services_history or sales_history
+        const serviceRecord = db.prepare(
+          'SELECT contractor_earnings, business_earnings FROM services_history WHERE id = ? AND contractor_id = ?'
+        ).get(saleId, contractor_id) as any;
+
+        const saleRecord = serviceRecord || db.prepare(
+          'SELECT contractor_earnings, total_value as business_earnings FROM sales_history WHERE id = ? AND contractor_id = ?'
+        ).get(saleId, contractor_id) as any;
+
+        if (saleRecord) {
+          db.prepare(`INSERT INTO contractor_payments (contractor_id, sale_id, contractor_earnings, business_earnings, payment_date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`)
+            .run(contractor_id, saleId, saleRecord.contractor_earnings, saleRecord.business_earnings);
+        }
       }
       db.prepare('UPDATE contractors SET accumulated_commission = 0 WHERE id = ?').run(contractor_id);
     })();
