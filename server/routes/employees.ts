@@ -21,11 +21,8 @@ router.get('/', (_req, res) => {
 router.post('/', (req, res) => {
   try {
     const { name, position, salary } = req.body;
-    db.transaction(() => {
-      const contractorResult = db.prepare('INSERT INTO contractors (name, location_fee_percentage, isActive) VALUES (?, 100, 1)').run(name);
-      db.prepare('INSERT INTO employees (name, position, salary, contractor_id, is_active) VALUES (?, ?, ?, ?, 1)')
-        .run(name, position, salary || 0, contractorResult.lastInsertRowid);
-    })();
+    db.prepare('INSERT INTO employees (name, position, salary, is_active) VALUES (?, ?, ?, 1)')
+      .run(name, position, salary || 0);
     return res.json({ success: true });
   } catch (error) {
     console.error('Failed to create employee:', error);

@@ -55,15 +55,20 @@ router.post('/', (req, res) => {
       }
 
       for (const item of services) {
-        const service = db.prepare('SELECT * FROM services WHERE id = ?').get(item.serviceId) as any;
-        if (!service) throw new Error(`Service not found: ${item.serviceId}`);
+        const serviceId = item.serviceId;
+        const contractorId = item.contractorId || null;
+        const employeeId = item.employeeId || null;
+
+        const service = db.prepare('SELECT * FROM services WHERE id = ?').get(serviceId) as any;
+        if (!service) throw new Error(`Service not found: ${serviceId}`);
 
         const totalValue = service.base_price;
         let businessEarnings = totalValue;
         let contractorEarnings = 0;
 
-        if (item.contractorId) {
-          const contractor = db.prepare('SELECT location_fee_percentage FROM contractors WHERE id = ?').get(item.contractorId) as any;
+        // Only contractors get a commission split. Employees = business keeps 100%.
+        if (contractorId) {
+          const contractor = db.prepare('SELECT location_fee_percentage FROM contractors WHERE id = ?').get(contractorId) as any;
           if (contractor) {
             const locationFee = totalValue * (contractor.location_fee_percentage / 100);
             contractorEarnings = totalValue - locationFee;
@@ -75,12 +80,12 @@ router.post('/', (req, res) => {
         db.prepare(
           `INSERT INTO sales_history (service_id, contractor_id, total_value, net_profit, contractor_earnings, date_sold)
            VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`
-        ).run(item.serviceId, item.contractorId || null, totalValue, businessEarnings, contractorEarnings);
+        ).run(serviceId, contractorId, totalValue, businessEarnings, contractorEarnings);
 
         db.prepare(
           `INSERT INTO services_history (service_id, contractor_id, price_charged, business_earnings, contractor_earnings, date_performed)
            VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`
-        ).run(item.serviceId, item.contractorId || null, totalValue, businessEarnings, contractorEarnings);
+        ).run(serviceId, contractorId, totalValue, businessEarnings, contractorEarnings);
       }
 
       if (contractorId && totalContractorEarnings > 0) {
