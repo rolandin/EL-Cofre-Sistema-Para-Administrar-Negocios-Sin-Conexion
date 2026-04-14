@@ -80,7 +80,7 @@ export function LicenseSettings() {
           <div>
             <p className="text-sm text-gray-500 mb-1">Machine Code</p>
             <div className="flex items-center gap-2">
-              <code className="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded font-mono text-sm">
+              <code className="bg-muted px-3 py-1 rounded font-mono text-sm">
                 {status?.machineId || '...'}
               </code>
               <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleCopy}>

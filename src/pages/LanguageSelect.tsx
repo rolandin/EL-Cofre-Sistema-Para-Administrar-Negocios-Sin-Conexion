@@ -72,7 +72,7 @@ export default function LanguageSelect() {
                 'hover:border-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20',
                 selected === lang.code
                   ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20 shadow-sm'
-                  : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
+                  : 'border-border bg-card'
               )}
             >
               {selected === lang.code && (

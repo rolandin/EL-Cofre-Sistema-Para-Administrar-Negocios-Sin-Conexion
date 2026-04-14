@@ -67,7 +67,7 @@ export default function Activation() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <p>Loading...</p>
       </div>
     );
@@ -75,7 +75,7 @@ export default function Activation() {
 
   return (
     <AuthLayout subtitle={t("licenseActivation")}>
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 space-y-6">
+      <div className="bg-card p-8 rounded-xl shadow-sm border border-border space-y-6">
         {/* Contact provider message */}
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 text-sm text-blue-700 dark:text-blue-300">
           {t("contactProvider")}
@@ -87,7 +87,7 @@ export default function Activation() {
             {t("yourMachineCode")}
           </label>
           <div className="flex items-center gap-2">
-            <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-lg px-4 py-3 font-mono text-base text-center tracking-wider text-gray-900 dark:text-white">
+            <div className="flex-1 bg-muted rounded-lg px-4 py-3 font-mono text-base text-center tracking-wider text-gray-900 dark:text-white">
               {licenseStatus?.machineId || '...'}
             </div>
             <Button variant="outline" size="icon" className="h-11 w-11" onClick={handleCopy} title={t("yourMachineCode")}>
